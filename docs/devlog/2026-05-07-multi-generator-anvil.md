@@ -123,4 +123,49 @@ Both produced invisible text via different mistakes. Two models, two distinct bu
 
 **Next:** `openai/gpt-5-mini`.
 
+## openai/gpt-5-mini — needed an 8192-token budget; produced parser-error SCAD
+
+First attempt with the script's default `max_tokens=2048` returned `finish_reason="length"` and `content=null`. GPT-5-mini is a reasoning model — it spent all 2048 tokens on internal reasoning that doesn't surface in `content`, leaving zero budget for actual SCAD output. Added a `--max-tokens` flag to the script and re-ran with `--max-tokens 8192`. Generation took **121 seconds** (vs. 3.8 s for Claude, 2.9 s for Gemini) and produced SCAD that **fails to parse**. No render.
+
+```
+ERROR: Parser error: syntax error in file …, line 29
+```
+
+Looking at the SCAD source, gpt-5-mini wrote *two* versions of the text emboss in the same file:
+
+```scad
+// Version 1 (lines 26–42) — broken
+module embossed_text(str, size, depth, body_w, body_d, body_h, base_th) {
+    text_obj = linear_extrude(height=depth)        // ← invalid: OpenSCAD has no variable assignment for geometry
+                rotate([0,0,-90])
+                    text(str, size=size, halign="center", valign="center");
+    translate([body_w/2 + 0.01, 0, base_th + body_h/2])
+        rotate([0,-90,0])
+            children_safe(text_obj);                // ← invented wrapper to "fix" the variable issue
+}
+
+// Version 2 (lines 70–77, inside difference()) — correct
+translate([body_w/2 + 0.01, 0, base_th + body_h/2])
+    rotate([0,-90,0])
+        linear_extrude(height=text_depth)
+            rotate([0,0,-90])
+                text("PYCON 2026", size=text_size, halign="center", valign="center");
+```
+
+Version 2 is actually right — chained transforms onto `text()`, no variable assignment, top-level inside an outer `difference()`. If the file *only* contained version 2, this would render correctly with text on the wall.
+
+But the model shipped both. The reasoning produced a wrong approach, recognized it ("OpenSCAD doesn't allow assigning child to variable in older versions" — its own comment on line 37), tried a workaround module (`children_safe`), then wrote a separate correct inline version, and didn't remove the broken first attempt. Parser dies on line 29 before getting to the working code.
+
+This is a different class of bug than the previous two:
+
+| model | bug class |
+|---|---|
+| `claude-haiku-4.5` | wrong code, wrong outcome, but parses |
+| `gemini-2.5-flash` | half-right code, structurally cancelled, but parses |
+| `gpt-5-mini` | both right and wrong code in same file, doesn't parse |
+
+Operational note: the reasoning-token consumption (2048 was too low; needed 8192) is something to keep in mind for any future scadia integration of GPT-5-family models. Costs ~120 s and a much bigger token budget per call vs. ~3 s and 2 K tokens for Claude or Gemini.
+
+**Next:** `google/gemma-4-31b-it` — the model that caught Bug 1 in the multi-critic experiment, smallest in the lineup.
+
 <!-- (Subsequent model sections will append below as they ship.) -->

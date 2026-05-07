@@ -45,7 +45,7 @@ def slugify(model: str) -> str:
     return model.replace("/", "_")
 
 
-def call_openrouter(client: httpx.Client, model: str, prompt: str) -> tuple[str | None, dict, str | None]:
+def call_openrouter(client: httpx.Client, model: str, prompt: str, max_tokens: int) -> tuple[str | None, dict, str | None]:
     """Returns (scad_text_or_None, raw_response, error_message_or_None)."""
     body = {
         "model": model,
@@ -53,7 +53,7 @@ def call_openrouter(client: httpx.Client, model: str, prompt: str) -> tuple[str 
             {"role": "system", "content": SYSTEM_GENERATE},
             {"role": "user", "content": prompt},
         ],
-        "max_tokens": 2048,
+        "max_tokens": max_tokens,
     }
     try:
         r = client.post(OPENROUTER_URL, json=body, timeout=120.0)
@@ -77,12 +77,12 @@ def call_openrouter(client: httpx.Client, model: str, prompt: str) -> tuple[str 
         return None, data, f"unexpected response shape: {e}"
 
 
-def run_one(client: httpx.Client, model: str, prompt: str, out_dir: Path) -> dict:
+def run_one(client: httpx.Client, model: str, prompt: str, out_dir: Path, max_tokens: int) -> dict:
     slug = slugify(model)
     print(f"[multi_gen] {model:<40} ", end="", flush=True)
     t0 = time.monotonic()
 
-    scad, raw, gen_err = call_openrouter(client, model, prompt)
+    scad, raw, gen_err = call_openrouter(client, model, prompt, max_tokens)
     elapsed_gen = round(time.monotonic() - t0, 2)
     (out_dir / f"{slug}.raw.json").write_text(json.dumps(raw, indent=2))
 
@@ -138,6 +138,7 @@ def main() -> int:
     p.add_argument("--models", help="comma-separated model slugs")
     p.add_argument("--prompt", required=True)
     p.add_argument("--out", type=Path, default=None)
+    p.add_argument("--max-tokens", type=int, default=2048, help="upper bound on response tokens (reasoning models may need more)")
     args = p.parse_args()
 
     if not args.model and not args.models:
@@ -165,7 +166,7 @@ def main() -> int:
     results: list[dict] = []
     with httpx.Client(headers=headers) as client:
         for m in models:
-            results.append(run_one(client, m, args.prompt, out_dir))
+            results.append(run_one(client, m, args.prompt, out_dir, args.max_tokens))
 
     write_comparison(out_dir, args.prompt, results)
     print(f"\n[multi_gen] wrote {out_dir}/")
