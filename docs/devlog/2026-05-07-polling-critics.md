@@ -8,7 +8,11 @@
 
 ## 00:47 — six critics, one render, same prompt
 
-I ran the iter-0 SCADvil render through `scripts/multi_critic.py`, which sends the same image, the same SCAD source, and the same `SYSTEM_CRITIQUE` prompt to multiple OpenRouter multimodal models, then parses each model's `submit_critique` tool call into the same `Critique` shape the agent loop uses internally.
+The render every model was looking at — this is the SCADvil iter-0 from [yesterday's post](2026-05-07-scadvil-anvil.md), which scored 8/10 with `done=True` in the live agent loop:
+
+![SCADvil iter-0 render — the same image sent to all six critics](assets/2026-05-07-scadvil-anvil/render.png)
+
+I ran this render through `scripts/multi_critic.py`, which sends the same image, the same SCAD source, and the same `SYSTEM_CRITIQUE` prompt to multiple OpenRouter multimodal models, then parses each model's `submit_critique` tool call into the same `Critique` shape the agent loop uses internally.
 
 The script reuses scadia's existing `CRITIQUE_TOOL` schema and prompts — same instructions, same expected output format, just different model inferring on the other side.
 
