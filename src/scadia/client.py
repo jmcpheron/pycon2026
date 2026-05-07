@@ -101,7 +101,7 @@ def generate_scad(user_prompt: str) -> str:
         system=SYSTEM_GENERATE,
         messages=[{"role": "user", "content": user_prompt}],
     )
-    return _extract_text(msg).strip()
+    return _strip_fence(_extract_text(msg))
 
 
 def refine_scad(
@@ -133,7 +133,7 @@ def refine_scad(
         system=SYSTEM_REFINE,
         messages=[{"role": "user", "content": user_content}],
     )
-    return _extract_text(msg).strip()
+    return _strip_fence(_extract_text(msg))
 
 
 def critique_image(user_prompt: str, scad_source: str, png_path: Path) -> Critique:
@@ -178,6 +178,21 @@ def _extract_text(msg) -> str:
         if getattr(block, "type", None) == "text":
             return block.text
     raise RuntimeError(f"no text block in response: {msg}")
+
+
+def _strip_fence(text: str) -> str:
+    """Drop a surrounding markdown ``` fence if the model wrapped its SCAD in one.
+
+    Caught us once on the Pi 5 wall mount run: the agent's refine pass returned
+    valid SCAD wrapped in ```...``` and the renderer fed the backticks straight
+    to OpenSCAD, crashing the iteration. Cheap to defend against.
+    """
+    s = text.strip()
+    if s.startswith("```") and s.endswith("```"):
+        lines = s.splitlines()
+        if len(lines) >= 2:
+            return "\n".join(lines[1:-1]).strip()
+    return s
 
 
 def _extract_critique(msg) -> Critique:
