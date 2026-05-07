@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>scadia — Drive OpenSCAD with Claude</title>
+  <meta name="description" content="A bounded design loop with vision feedback. Built for PyCon 2026.">
+
+  <meta property="og:title" content="scadia — Drive OpenSCAD with Claude">
+  <meta property="og:description" content="A bounded design loop with vision feedback. Built for PyCon 2026.">
+  <meta property="og:image" content="https://jmcpheron.github.io/pycon2026/assets/m10-nut.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+  <header class="title-block" aria-label="Document title block">
+    <div class="tb-cell"><span class="tb-label">DRWG</span><span class="tb-value">SCAD‑001</span></div>
+    <div class="tb-cell"><span class="tb-label">REV</span><span class="tb-value">v1.0</span></div>
+    <div class="tb-cell"><span class="tb-label">PROJECT</span><span class="tb-value">scadia</span></div>
+    <div class="tb-cell"><span class="tb-label">DATE</span><span class="tb-value">2026.05.06</span></div>
+    <div class="tb-cell"><span class="tb-label">VENUE</span><span class="tb-value">PyCon US 2026 · Long Beach</span></div>
+  </header>
+
+  <main>
+
+    <section class="hero" id="hero">
+      <div class="hero-text">
+        <p class="kicker">§ Icebreaker</p>
+        <h1>scadia</h1>
+        <p class="tagline">Drive <em>OpenSCAD</em> with <em>Claude</em>.</p>
+        <p class="lede">A bounded design loop with vision feedback. Two sensors, one controller, no nonsense.</p>
+        <div class="hero-actions">
+          <a href="https://github.com/jmcpheron/pycon2026" class="btn btn-primary">Repository</a>
+          <a href="#quickstart" class="btn">Quickstart</a>
+        </div>
+      </div>
+
+      <figure class="plate">
+        <div class="plate-frame">
+          <img src="assets/m10-nut.png" alt="An M10 hexagonal nut, rendered in OpenSCAD's Cornfield colorscheme." width="768" height="768" loading="eager">
+          <span class="tick tick-tl" aria-hidden="true"></span>
+          <span class="tick tick-tr" aria-hidden="true"></span>
+          <span class="tick tick-bl" aria-hidden="true"></span>
+          <span class="tick tick-br" aria-hidden="true"></span>
+        </div>
+        <figcaption>
+          <span class="plate-no">PLATE 01</span>
+          <span class="plate-desc">M10 hex nut · prompt: <code>"a hexagonal nut, M10"</code></span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="section" id="architecture">
+      <header class="section-head">
+        <span class="section-no">§ 01</span>
+        <h2>The loop</h2>
+      </header>
+
+      <p class="dropquote">
+        The critic does not decide when we are done. The controller decides whether another iteration is worth spending. The critic is <em>one input</em>.
+      </p>
+
+      <figure class="diagram">
+        <svg viewBox="0 0 820 520" role="img" aria-labelledby="diagram-title">
+          <title id="diagram-title">Two sensors feed a controller; the controller decides whether to refine or finalize.</title>
+
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 Z" fill="currentColor"/>
+            </marker>
+            <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" stroke-opacity="0.06" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+
+          <rect width="820" height="520" fill="url(#grid)"/>
+
+          <!-- Inputs (top labels) -->
+          <g class="dg-label">
+            <text x="170" y="36" text-anchor="middle">prompt</text>
+            <text x="610" y="36" text-anchor="middle">render PNG · stderr</text>
+          </g>
+
+          <!-- Inputs lines down -->
+          <line x1="170" y1="48" x2="170" y2="116" stroke="currentColor" stroke-width="1.2" marker-end="url(#arr)"/>
+          <line x1="610" y1="48" x2="610" y2="116" stroke="currentColor" stroke-width="1.2" marker-end="url(#arr)"/>
+
+          <!-- VISION CRITIC -->
+          <g class="dg-box">
+            <rect x="60" y="120" width="220" height="100" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <text x="170" y="155" text-anchor="middle" class="dg-title">VISION CRITIC</text>
+            <text x="170" y="180" text-anchor="middle" class="dg-sub">sensor</text>
+            <text x="170" y="202" text-anchor="middle" class="dg-meta">blocking · nonblocking · next action</text>
+          </g>
+
+          <!-- VALIDATOR -->
+          <g class="dg-box">
+            <rect x="500" y="120" width="220" height="100" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <text x="610" y="155" text-anchor="middle" class="dg-title">VALIDATOR</text>
+            <text x="610" y="180" text-anchor="middle" class="dg-sub">sensor</text>
+            <text x="610" y="202" text-anchor="middle" class="dg-meta">manifold · geometry · warnings</text>
+          </g>
+
+          <!-- Both feed controller -->
+          <path d="M170,222 L170,260 L300,300" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#arr)"/>
+          <path d="M610,222 L610,260 L520,300" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#arr)"/>
+
+          <!-- CONTROLLER -->
+          <g class="dg-controller">
+            <rect x="290" y="298" width="240" height="120" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            <text x="410" y="332" text-anchor="middle" class="dg-title">CONTROLLER</text>
+            <text x="410" y="356" text-anchor="middle" class="dg-sub">should_continue()</text>
+            <text x="410" y="382" text-anchor="middle" class="dg-meta">is another iteration</text>
+            <text x="410" y="398" text-anchor="middle" class="dg-meta">worth spending?</text>
+          </g>
+
+          <!-- Outcomes -->
+          <path d="M340,418 L340,470 L120,470" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#arr)" stroke-dasharray="4 4"/>
+          <text x="120" y="490" text-anchor="middle" class="dg-out">refine ↺</text>
+
+          <path d="M480,418 L480,470 L700,470" fill="none" stroke="currentColor" stroke-width="1.6" marker-end="url(#arr)"/>
+          <text x="700" y="490" text-anchor="middle" class="dg-out dg-out-final">final STL</text>
+
+          <!-- decorative dimension marks -->
+          <g class="dg-dim">
+            <text x="40" y="170" class="dg-mark" transform="rotate(-90 40 170)">[1] sensors</text>
+            <text x="40" y="358" class="dg-mark" transform="rotate(-90 40 358)">[2] control</text>
+          </g>
+        </svg>
+        <figcaption class="diagram-cap">
+          <span>FIG 01</span>
+          <span>Two sensors, one controller, bounded loop</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="section" id="controller-code">
+      <header class="section-head">
+        <span class="section-no">§ 02</span>
+        <h2>The controller</h2>
+      </header>
+
+      <p class="prose">
+        Roughly thirty lines of Python. It reasons over both sensor outputs and stops the loop when there is no concrete reason to spend another iteration. The critic, in this design, is a sensor — not a judge.
+      </p>
+
+      <pre class="code"><code><span class="c"># The interesting question is not "do we trust the critic?" — it's
+# "is there evidence another iteration would improve the model?"
+#
+# We continue only when there is a concrete reason to spend another
+# iteration. We stop when the critic has nothing actionable left to
+# suggest, when quality is acceptable with no blocking issues, when
+# we plateau, or when we run out of budget.</span>
+def <span class="fn">should_continue</span>(iterations: list[Iteration], max_iterations: int) -> bool:
+    if len(iterations) >= max_iterations:
+        return False
+
+    last     = iterations[-1]
+    critique = last.critique
+
+    <span class="c"># Critic explicitly has no concrete change to suggest.</span>
+    if critique.suggested_next_action is None:
+        return False
+    if critique.done:
+        return False
+
+    <span class="c"># Acceptable score and no blocking issues — even if the critic is still
+    # offering nits, they don't justify spending another full iteration.</span>
+    if critique.score &gt;= <span class="n">8</span> and not critique.blocking_issues:
+        return False
+
+    <span class="c"># Let the first couple of iterations breathe before plateau-checking —
+    # early scores are noisy.</span>
+    if len(iterations) &lt; <span class="n">3</span>:
+        return True
+
+    prev = iterations[-2].critique
+
+    <span class="c"># Quality is not improving.</span>
+    if critique.score &lt;= prev.score:
+        return False
+
+    <span class="c"># Stuck: the same blocking issue surfaced two iterations in a row.</span>
+    if set(critique.blocking_issues) &amp; set(prev.blocking_issues):
+        return False
+
+    return True</code></pre>
+      <p class="caption">From <code>src/scadia/agent.py</code></p>
+    </section>
+
+    <section class="section" id="quickstart">
+      <header class="section-head">
+        <span class="section-no">§ 03</span>
+        <h2>Quickstart</h2>
+      </header>
+
+      <pre class="code shell"><code><span class="prompt">$</span> git clone https://github.com/jmcpheron/pycon2026
+<span class="prompt">$</span> cd pycon2026 &amp;&amp; uv sync
+<span class="prompt">$</span> cp .env.example .env  <span class="c"># add ANTHROPIC_API_KEY</span>
+<span class="prompt">$</span> uv run scadia <span class="s">"a hexagonal nut, M10"</span> --iterations 3</code></pre>
+
+      <p class="prose">
+        Every iteration's <code>.scad</code>, <code>.png</code>, validation report, and critique
+        land in <code>output/run-&lt;timestamp&gt;/</code>. The <code>manifest.json</code> records the
+        loop's stop reason — useful for the demo reveal.
+      </p>
+    </section>
+
+    <section class="section" id="showcase">
+      <header class="section-head">
+        <span class="section-no">§ 04</span>
+        <h2>Showcase</h2>
+      </header>
+
+      <p class="prose">
+        The <a href="https://github.com/jmcpheron/pycon2026/tree/main/models"><code>models/</code></a>
+        directory holds checked-in OpenSCAD source. On every push, a GitHub Actions workflow
+        compiles each <code>.scad</code> to a binary <code>.stl</code> and commits the file back —
+        printable geometry, straight from the repo, no local install required.
+      </p>
+
+      <p class="prose">
+        Drop a <code>.scad</code> file in, push, and grab the corresponding <code>.stl</code> from
+        the next commit.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="signoff" aria-label="Document signoff">
+    <div class="signoff-grid">
+      <div>
+        <p class="kicker">Source</p>
+        <p><a href="https://github.com/jmcpheron/pycon2026">github.com/jmcpheron/pycon2026</a></p>
+      </div>
+      <div>
+        <p class="kicker">Venue</p>
+        <p>PyCon US 2026 · Long Beach</p>
+      </div>
+      <div>
+        <p class="kicker">License</p>
+        <p>MIT</p>
+      </div>
+      <div>
+        <p class="kicker">Stamp</p>
+        <p class="signoff-stamp">SCAD‑001 · v1.0</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

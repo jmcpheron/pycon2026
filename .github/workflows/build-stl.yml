@@ -1,0 +1,69 @@
+name: Build STL Models
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'models/**/*.scad'
+      - '.github/workflows/build-stl.yml'
+  pull_request:
+    paths:
+      - 'models/**/*.scad'
+      - '.github/workflows/build-stl.yml'
+
+jobs:
+  build-stl:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Install OpenSCAD
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openscad
+
+      - name: Verify OpenSCAD installation
+        run: openscad --version
+
+      - name: Generate STL files
+        run: |
+          shopt -s nullglob
+          for scad in models/*.scad; do
+            base=$(basename "$scad" .scad)
+            echo "Building $scad -> models/$base.stl"
+            openscad -o "models/$base.stl" --export-format binstl "$scad"
+          done
+
+      - name: Verify STL files were created
+        run: |
+          ls -la models/
+          file models/*.stl
+
+      - name: Upload STL artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: stl-models
+          path: models/*.stl
+          retention-days: 30
+
+      - name: Commit updated STL files
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add models/*.stl
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-generate STL files from OpenSCAD source
+
+          Generated with GitHub Actions"
+            git push
+          fi
