@@ -66,4 +66,61 @@ The model scadia uses internally. Generated in 3.8s, rendered in 2.9s.
 
 **Next:** `google/gemini-2.5-flash` on the same prompt — different model, same task, see what changes.
 
+## google/gemini-2.5-flash
+
+Generated in 2.9s, rendered in 4.1s.
+
+![anvil from gemini-2.5-flash](assets/2026-05-07-multi-generator-anvil/google_gemini-2.5-flash.png)
+
+**What's right:**
+
+- **Used `rotate([90, 0, 90])` before `linear_extrude`** — exactly the move Claude didn't make. Gemini knows that text on a vertical wall needs to be reoriented out of the XY plane first:
+
+  ```scad
+  module anvil_text() {
+      translate([40, -0.1, 15]) {
+          rotate([90, 0, 90]) {
+              linear_extrude(height = 2) {
+                  text("PYCON 2026", size = 8, font = "Sans:style=Bold");
+              }
+          }
+      }
+  }
+  ```
+
+  This is the first time across this branch's runs that a generator has reached for `rotate` on text. Strong evidence that "letters lay flat" is a Claude habit, not a universal LLM habit.
+
+**What's wrong (different bug, same outcome):**
+
+- The text emboss never reaches the rendered surface. The top-level structure is:
+
+  ```scad
+  union() {
+      anvil_base();
+      anvil_body();
+      anvil_horn();
+      anvil_heel();
+      difference() {
+          anvil_body();
+          anvil_text();
+      }
+  }
+  ```
+
+  Notice `anvil_body()` is unioned **twice** — once positively, once with the text differenced. Since `union(A, A - text) = A`, the unmodified copy of the body covers the cut-out copy. The `difference()` runs but its result gets erased by the parallel union. **The text emboss is structurally invisible.** Gemini understood text orientation but missed that `difference()` needs to be at the top level, not buried alongside a duplicate of the same module.
+
+- Horn is a 45°-rotated cylinder + cube combo — visible but reads as a tilted wedge rather than a clean tapered horn.
+- Used `$fn = 60`, not the requested `$fn = 24` (minor).
+
+**Cumulative pattern after two models:**
+
+| model | rotate before extrude? | top-level difference? | text visible? |
+|---|---|---|---|
+| `claude-haiku-4.5` | no | yes (`difference(anvil(), text_emboss())`) | no — text laid flat above the body |
+| `gemini-2.5-flash` | **yes** | no — text differenced against duplicate body | no — duplicate body overshadows the cut |
+
+Both produced invisible text via different mistakes. Two models, two distinct bug classes — but if you only looked at renders you'd think they had the same problem.
+
+**Next:** `openai/gpt-5-mini`.
+
 <!-- (Subsequent model sections will append below as they ship.) -->
