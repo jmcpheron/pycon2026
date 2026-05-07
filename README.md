@@ -95,7 +95,20 @@ The `xvfb-run` prefix gives OpenSCAD an OpenGL context for PNG rendering. STL-on
 
 ## Status
 
-v1: bounded design loop with two sensors. Phase 2: 3D-printable **business card** with a print-in-place spinning gear and embossed identifier — to hand out at PyCon 2026. Working out loud in [`docs/devlog/`](docs/devlog/).
+**Phase 3 (current): Raspberry Pi demo arc.**
+
+<!-- TODO(jason): one-line pitch — the headline a PyCon attendee should walk away repeating. -->
+
+The PyCon talk demo is a four-stage progression, each stage same loop, increasing real-world constraint:
+
+1. **Bolt** — mechanical primitive. *Shows:* cylinders, hex, chamfers. *Status:* covered by [`models/m10-nut.scad`](models/m10-nut.scad).
+2. **SCADvil** — a small project-mascot calibration anvil. *Shows:* shape composition, overhangs, embossed text, holes, recognizable silhouette. *Status:* coming in a follow-up commit on this branch.
+3. **Raspberry Pi 5 wall mount** — practical mounting plate at real Pi 5 dimensions (85 × 56 mm board, 58 × 49 mm mounting-hole pattern, M2.5 clearance). *Shows:* dimensional fidelity, screw clearances, standoffs. *Status:* coming in a follow-up commit.
+4. **Retro Pi 5 case** — same Pi 5 constraints, layered 1980s-microcomputer design intent (vents, ribs, embossed `PYCON 2026`). *Shows:* preserving constraints while adding aesthetic intent. *Status:* coming in a follow-up commit.
+
+<!-- TODO(jason): "Why Raspberry Pi" framing — the hook explaining why this isn't just generating cute models. Draft you wrote earlier: "The goal is not just 'make a cute model.' The goal is to see whether an AI agent can respect real-world hardware constraints while using OpenSCAD as a deterministic geometry backend." Edit in your voice. -->
+
+> **Earlier phases:** v1 — the bounded design loop with two sensors (still the engine). Phase 2 — a 3D-printable business card with a print-in-place spinning gear; the artifact pivoted, the loop didn't. Working out loud in [`docs/devlog/`](docs/devlog/).
 
 ## License
 
