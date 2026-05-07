@@ -16,3 +16,10 @@ venv/
 
 # scadia run artifacts
 output/
+
+# Claude Code per-machine state (skills/ stays tracked)
+.claude/scheduled_tasks.lock
+.claude/settings.local.json
+
+# Editor scratch
+Untitled
