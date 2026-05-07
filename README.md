@@ -95,7 +95,7 @@ The `xvfb-run` prefix gives OpenSCAD an OpenGL context for PNG rendering. STL-on
 
 ## Status
 
-v1: bounded design loop with two sensors. Phase 2: 3D-printable challenge coin with a QR code linking to the OpenSCAD source on the coin itself — a self-describing artifact, designed to hand out at PyCon 2026.
+v1: bounded design loop with two sensors. Phase 2: 3D-printable **business card** with a print-in-place spinning gear and embossed identifier — to hand out at PyCon 2026. Working out loud in [`docs/devlog/`](docs/devlog/).
 
 ## License
 

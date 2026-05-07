@@ -1,0 +1,85 @@
+// scadia PyCon 2026 — printable business card
+// 88.9 × 50.8 × 1.6 mm with a print-in-place spinning gear and embossed text.
+//
+// The text layout is intentionally a stub until a variant is picked from
+// docs/devlog/2026-05-06-card-text-mockups.md.
+
+/* [Card] */
+card_w     = 88.9;
+card_h     = 50.8;
+card_t     = 1.6;
+corner_r   = 4.5;
+emboss_h   = 0.4;
+font       = "Liberation Mono:style=Bold";
+
+/* [Gear pocket] */
+pocket_x      = 27;
+pocket_d      = 32;
+pocket_depth  = 1.2;
+post_d        = 2.4;
+post_h        = 1.4;
+
+/* [Print-in-place gear] */
+gear_od     = 30;
+gear_t      = 1.0;
+gear_teeth  = 14;
+gear_bore   = 3.0;   // +0.3 mm radial clearance over post_d
+gear_z_lift = 0.2;   // sacrificial layer below gear
+
+$fn = 96;
+
+module rounded_card_2d() {
+    offset(r = corner_r) offset(r = -corner_r)
+        square([card_w, card_h], center = true);
+}
+
+module card_blank() {
+    difference() {
+        linear_extrude(card_t) rounded_card_2d();
+        translate([pocket_x, 0, card_t - pocket_depth + 0.01])
+            cylinder(d = pocket_d, h = pocket_depth + 0.02);
+    }
+}
+
+module center_post() {
+    translate([pocket_x, 0, card_t - pocket_depth])
+        cylinder(d = post_d, h = post_h);
+}
+
+module spur_gear() {
+    body_d = gear_od - 4;
+    union() {
+        difference() {
+            cylinder(d = body_d, h = gear_t);
+            cylinder(d = gear_bore, h = gear_t + 0.02);
+        }
+        for (i = [0 : gear_teeth - 1])
+            rotate([0, 0, i * 360 / gear_teeth])
+                translate([body_d / 2 - 0.1, 0, 0])
+                    linear_extrude(gear_t)
+                        polygon([[0, -1.6], [2.4, 0], [0, 1.6]]);
+    }
+}
+
+module pip_gear() {
+    translate([pocket_x, 0, card_t - pocket_depth + gear_z_lift])
+        spur_gear();
+}
+
+// TODO(jmcpheron): replace this stub once a variant is chosen.
+module text_layout() {
+    translate([-card_w / 2 + 6, 0, card_t]) linear_extrude(emboss_h)
+        text("jmcpheron / pycon2026", size = 5, font = font,
+             halign = "left", valign = "center");
+}
+
+// TODO(jmcpheron): drop a real github-mark.svg in models/ and uncomment.
+// module gh_mark(s = 7) {
+//     translate([-card_w/2 + 6, card_h/2 - 6, card_t])
+//         linear_extrude(emboss_h) resize([s, s]) import("github-mark.svg");
+// }
+
+card_blank();
+center_post();
+pip_gear();
+text_layout();
