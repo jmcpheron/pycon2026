@@ -168,4 +168,84 @@ Operational note: the reasoning-token consumption (2048 was too low; needed 8192
 
 **Next:** `google/gemma-4-31b-it` — the model that caught Bug 1 in the multi-critic experiment, smallest in the lineup.
 
-<!-- (Subsequent model sections will append below as they ship.) -->
+## google/gemma-4-31b-it
+
+The smallest, cheapest model in the lineup, and the only one that **caught the SCADvil's peg-vs-hole bug exactly** in [the multi-critic experiment](2026-05-07-polling-critics.md). Generated in 14.6 s, rendered in 3.3 s.
+
+![anvil from gemma-4-31b-it](assets/2026-05-07-multi-generator-anvil/google_gemma-4-31b-it.png)
+
+The visual is the cleanest horn of the four — `cylinder(h=20, r1=8, r2=1)` rotated to point along +X, an actual smooth tapered cone. Body, base, and heel are clearly distinguishable.
+
+**What's right (and notably so):**
+
+- **Followed `$fn = 24` from the user prompt.** Every other model used `$fn = 60` (which is what `SYSTEM_GENERATE` says). Gemma is the only one to honor the user-prompt override over the system-prompt default.
+- Top-level `difference(union(…body parts…), text)` — the structurally correct pattern.
+- `rotate([90, 0, 0])` before `linear_extrude(text(…))` — a real attempt at making text stand on a vertical wall.
+- 31 lines total. Tightest of the bunch.
+
+**What's wrong:**
+
+- The text is **positioned outside the wall and extrudes away from it**:
+
+  ```scad
+  translate([12, -0.1, 15])
+      rotate([90, 0, 0])
+      linear_extrude(height = 1)
+          text("PYCON 2026", size = 5, halign = "left");
+  ```
+
+  The body's front face sits at y = 0. The text is translated to y = -0.1 (0.1 mm in front of the wall), then `rotate([90,0,0])` flips the extrusion direction so the 1-mm extrusion goes from y=-0.1 into y=-1.1. So the text is a vertically-oriented slab floating 0.1 mm in front of the body, extending another 1 mm further out — never intersecting the wall material it's supposed to cut into. The `difference()` runs on geometry that doesn't overlap.
+
+- Heel block looks more like a ledge than a discrete heel.
+
+**Cumulative pattern after four models:**
+
+| model | rotate before extrude? | top-level diff? | text intersects body? | result |
+|---|---|---|---|---|
+| `claude-haiku-4.5` | no | yes | no — slab above top face | text invisible |
+| `gemini-2.5-flash` | **yes** | no — buried in union | n/a — duplicate body cancels cut | text invisible |
+| `gpt-5-mini` | yes (in working version) | yes (working version) | yes (working version) | parser error — broken module crashes the file |
+| `gemma-4-31b-it` | **yes** | **yes** | no — slab outside front face | text invisible |
+
+**Zero of four models naturally produced visible wall-face text from the prompt without an orientation hint.** Three of four produced renderable SCAD; one didn't. Of the three that rendered, all three failed at making the text actually emboss into the wall, but each failed for a different reason: orientation, structure, or positioning.
+
+The interesting subtlety: Gemma got *closer* than any other model. Correct orientation, correct CSG structure, just an off-by-the-wall positioning bug. A single sign flip on the rotate (or moving the translate from y=-0.1 to y=+0.1) would make it work.
+
+<!-- TODO(jmcpheron): your read on what to take away from this experiment. Some
+     angles to pick from:
+
+     - "Letters lay flat" was a Claude-specific habit. The other models knew to
+       rotate. But each had its OWN failure mode for vertical-wall text. The
+       universal lesson isn't about a Claude bug; it's that text-on-wall is hard
+       enough that a one-sentence hint is probably worth its weight in the prompt.
+
+     - Gemma 4 31B is the standout: smallest model, lowest cost, followed user
+       constraints most faithfully ($fn=24, primitive list), got closest to a
+       correct text emboss. Argues for switching scadia's default generator —
+       OR for a multi-generator ensemble where Gemma votes.
+
+     - GPT-5-mini's reasoning approach produced *both* a wrong attempt and a
+       correct attempt in the same file. Even with 8192 tokens it didn't catch
+       its own duplication. That's a reasoning-model failure mode worth a slide.
+
+     - For the live agent loop: every renderable run produced *invisible* text.
+       The vision critic in scadia would say "text not visible" and the controller
+       would iterate. So the loop probably *does* recover from this — but at the
+       cost of N more iterations. An AST-aware sensor that flags "text() emboss
+       not inside a top-level difference whose subject overlaps the text"
+       would catch all four bugs deterministically and save the iterations.
+   -->
+
+## How to reproduce
+
+```bash
+PROMPT="$(cat /path/to/prompt.txt)"     # or paste inline
+MODELS=anthropic/claude-haiku-4.5,google/gemini-2.5-flash,openai/gpt-5-mini,google/gemma-4-31b-it
+uv run python scripts/multi_generator.py \
+    --models "$MODELS" \
+    --prompt "$PROMPT" \
+    --max-tokens 8192 \
+    --out output/experiments/multi-gen-<your-tag>/
+```
+
+Per-model `.scad`, `.png` (or `.error.json`), and raw API JSON land alongside. `output/` is gitignored — only the canonical renders in `docs/devlog/assets/2026-05-07-multi-generator-anvil/` are checked in.
