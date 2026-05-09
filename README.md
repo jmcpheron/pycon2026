@@ -1,6 +1,6 @@
-# scadia
+# pycon2026 — a parametric PyCon 2026 badge
 
-> Drive OpenSCAD with Claude. Natural language in, 3D models out — built as a **bounded design loop** with vision feedback.
+> A 3D-printable conference badge with a print-in-place spinning gear. Forked, personalized, and built end-to-end with **Python driving OpenSCAD** in CI.
 
 [![CI](https://github.com/jmcpheron/pycon2026/actions/workflows/ci.yml/badge.svg)](https://github.com/jmcpheron/pycon2026/actions/workflows/ci.yml)
 [![Build STL](https://github.com/jmcpheron/pycon2026/actions/workflows/build-stl.yml/badge.svg)](https://github.com/jmcpheron/pycon2026/actions/workflows/build-stl.yml)
@@ -8,15 +8,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
 
-<p align="center">
-  <img src="docs/assets/m10-nut.png" alt="An M10 hex nut rendered by scadia" width="400" />
-  <br/>
-  <em>An M10 hex nut. Generated end-to-end from the prompt <code>"a hexagonal nut, M10"</code>.</em>
-</p>
+<!-- TODO(jmcpheron): hero image — drop a photo or render of the badge here once one exists. -->
 
 ---
 
-> **PyCon 2026 demo** — Built to share at PyCon US 2026 in Long Beach (May 14–17). [Live demo page →](https://jmcpheron.github.io/pycon2026/)
+> **PyCon US 2026 — Long Beach, May 14–17.** Built to hand out and to fork. [Live demo page →](https://jmcpheron.github.io/pycon2026/)
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/jmcpheron/pycon2026)
 
@@ -26,90 +22,101 @@
 git clone https://github.com/jmcpheron/pycon2026
 cd pycon2026
 uv sync
-cp .env.example .env  # then add your ANTHROPIC_API_KEY
-uv run scadia "a hexagonal nut, M10" --iterations 3
+uv run badgeforge build --name "Your Name" --github "yourhandle"
 ```
 
-Every iteration's `.scad`, `.png`, validation report, and the critique land in `output/run-<timestamp>/` along with a `manifest.json` that records the loop's stop reason.
+Out lands at `models/card.stl`. Slice it, print it (PLA, 0.2 mm layers, no supports), pop the gear free with a fingernail, wear it.
 
-## How it works
+## How the pipeline works
+
+```
+  user values ──►  badgeforge CLI  ──►  openscad -D name=…  ──►  card.stl
+  (--name,         (Python)             -D github=…             (binary STL)
+   --github)                            card.scad
+```
+
+Python is the parametric and orchestration layer. OpenSCAD is the deterministic geometry backend. The same `badgeforge build` runs locally and in CI — every push to `main` rebuilds `models/card.stl` and commits it back, so the printable file in the repo always matches the source.
+
+## What's on the badge
+
+- **Body:** 88.9 × 50.8 × 1.6 mm — the standard business-card footprint, sized to fit a wallet sleeve.
+- **Print-in-place gear:** a 30 mm spur gear sitting in a recessed pocket on a 2.4 mm post. The 0.2 mm sacrificial layer separates the gear from the post during printing; pop it free after.
+- **Embossed text:** two-line `<name>` / `<github>` layout, 0.4 mm relief, Liberation Mono Bold. Defaults are `jmcpheron` and `pycon2026`. Both lines fit comfortably at ~9 characters each — longer strings will overflow into the gear pocket. (See [`docs/devlog/2026-05-06-card-text-mockups.md`](docs/devlog/2026-05-06-card-text-mockups.md) for the layout exploration.)
+
+## Print settings (starting point)
+
+| Setting | Value |
+| --- | --- |
+| Material | PLA |
+| Layer height | 0.2 mm |
+| Walls | 3 |
+| Top/bottom layers | 4 |
+| Infill | 20 % gyroid |
+| Supports | none |
+| Adhesion | brim 5 mm if your bed is uneven |
+
+If the gear fuses to the post on first print, bump `gear_z_lift` from 0.2 to 0.3 mm in `models/card.scad`.
+
+## Devlog
+
+This is a working-out-loud project. Build progress, prints that worked, prints that didn't, and the design choices behind them live at [`docs/devlog/`](docs/devlog/).
+
+## Running in Codespaces
+
+Click the **Open in GitHub Codespaces** button above. The container ships Python 3.12, OpenSCAD, and `xvfb` pre-installed. Inside:
+
+```bash
+uv run badgeforge build --name "Your Name" --github "yourhandle"
+```
+
+## Requirements (local)
+
+- Python 3.11+
+- [OpenSCAD](https://openscad.org/) on your `$PATH`
+- [`uv`](https://docs.astral.sh/uv/) (recommended)
+
+## License
+
+MIT
+
+---
+
+<details>
+<summary><strong>Earlier: the AI design loop (scadia)</strong></summary>
+
+Before the pivot to the badge, this repo was `scadia` — a Python tool that drove OpenSCAD code generation through Claude with a vision-feedback iteration loop. The loop and its experiments are still in this repo (`src/scadia/`, `scripts/multi_*.py`) and the showcase models in `models/` (m10-nut, scadvil, pi5-wall-mount, pi5-retro-case) are all outputs from it.
+
+Why we stepped away from it for PyCon: the AI-loop arc had a Phase 3 plan (the Raspberry Pi case progression) that wasn't going to finish in time for the conference, and the badge was already half-built from Phase 2. The pivot is described in [`docs/devlog/2026-05-08-pivot-to-badge.md`](docs/devlog/).
 
 ```
                     ┌─────────────────┐
-   user prompt ────►│  generate SCAD  │  Anthropic, text-in/text-out
+   user prompt ────►│  generate SCAD  │
                     └────────┬────────┘
-                             │
                              ▼
                     ┌─────────────────┐
                     │     OpenSCAD    │
-                    │  (subprocess)   │
                     └────────┬────────┘
                        PNG    │   stderr
                   ┌───────────┴────────────┐
                   ▼                        ▼
           ┌──────────────┐         ┌────────────────┐
           │ vision critic │         │  validator     │
-          │ (sensor)     │         │  (sensor)      │
-          │ blocking /   │         │  manifold,     │
-          │ nonblocking, │         │  geometry,     │
-          │ next action  │         │  warnings      │
           └──────┬───────┘         └────────┬───────┘
                  │                          │
                  └──────────┬───────────────┘
                             ▼
                     ┌──────────────┐
-                    │  controller  │   should_continue:
-                    │   (agent.py) │   is another iteration
-                    └──────┬───────┘   likely to improve the model?
-                           │
-                  ┌────────┴────────┐
-                  │                 │
-              refine SCAD       final STL
-              (loop back)        (done)
+                    │  controller  │  should_continue?
+                    └──────────────┘
 ```
 
-The critic does not decide when we are done. The controller decides whether another iteration is worth spending. The critic is one input.
-
-## Showcase models
-
-The [`models/`](models/) directory holds checked-in OpenSCAD source files. On every push, the [`build-stl`](.github/workflows/build-stl.yml) workflow compiles them to STL files and commits them back — so you can grab a printable `.stl` straight from the repo without running anything locally.
-
-## Running in Codespaces
-
-Click the **Open in GitHub Codespaces** button above. The container comes with Python 3.12, OpenSCAD, and `xvfb` pre-installed. Inside the Codespace:
+To run the loop:
 
 ```bash
-# Add your key as a Codespaces secret named ANTHROPIC_API_KEY
-# (Settings → Codespaces → secrets), then:
-xvfb-run uv run scadia "a small mug" --iterations 3
+cp .env.example .env  # add ANTHROPIC_API_KEY
+uv run scadia "a hexagonal nut, M10" --iterations 3
 ```
 
-The `xvfb-run` prefix gives OpenSCAD an OpenGL context for PNG rendering. STL-only commands don't need it.
+Output lands in `output/run-<timestamp>/`. The loop is still functional; it's just not the headline anymore.
 
-## Requirements (local)
-
-- Python 3.11+
-- [OpenSCAD](https://openscad.org/) on your `$PATH`
-- An Anthropic API key
-- [`uv`](https://docs.astral.sh/uv/) (recommended)
-
-## Status
-
-**Phase 3 (current): Raspberry Pi demo arc.**
-
-<!-- TODO(jason): one-line pitch — the headline a PyCon attendee should walk away repeating. -->
-
-The PyCon talk demo is a four-stage progression, each stage same loop, increasing real-world constraint:
-
-1. **Bolt** — mechanical primitive. *Shows:* cylinders, hex, chamfers. *Status:* covered by [`models/m10-nut.scad`](models/m10-nut.scad).
-2. **SCADvil** — a small project-mascot calibration anvil. *Shows:* shape composition, overhangs, embossed text, holes, recognizable silhouette. *Status:* coming in a follow-up commit on this branch.
-3. **Raspberry Pi 5 wall mount** — practical mounting plate at real Pi 5 dimensions (85 × 56 mm board, 58 × 49 mm mounting-hole pattern, M2.5 clearance). *Shows:* dimensional fidelity, screw clearances, standoffs. *Status:* coming in a follow-up commit.
-4. **Retro Pi 5 case** — same Pi 5 constraints, layered 1980s-microcomputer design intent (vents, ribs, embossed `PYCON 2026`). *Shows:* preserving constraints while adding aesthetic intent. *Status:* coming in a follow-up commit.
-
-<!-- TODO(jason): "Why Raspberry Pi" framing — the hook explaining why this isn't just generating cute models. Draft you wrote earlier: "The goal is not just 'make a cute model.' The goal is to see whether an AI agent can respect real-world hardware constraints while using OpenSCAD as a deterministic geometry backend." Edit in your voice. -->
-
-> **Earlier phases:** v1 — the bounded design loop with two sensors (still the engine). Phase 2 — a 3D-printable business card with a print-in-place spinning gear; the artifact pivoted, the loop didn't. Working out loud in [`docs/devlog/`](docs/devlog/).
-
-## License
-
-MIT
+</details>

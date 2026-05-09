@@ -1,8 +1,14 @@
-// scadia PyCon 2026 — printable business card
+// scadia PyCon 2026 — printable parametric badge
 // 88.9 × 50.8 × 1.6 mm with a print-in-place spinning gear and embossed text.
 //
-// The text layout is intentionally a stub until a variant is picked from
-// docs/devlog/2026-05-06-card-text-mockups.md.
+// Override the embossed text from the command line via badgeforge:
+//   uv run badgeforge build --name "Your Name" --github "yourhandle"
+// or directly with OpenSCAD:
+//   openscad -D 'name="Jane"' -D 'github="janedev"' -o out.stl card.scad
+
+/* [Identity] */
+name   = "jmcpheron";
+github = "pycon2026";
 
 /* [Card] */
 card_w     = 88.9;
@@ -66,18 +72,31 @@ module pip_gear() {
         spur_gear();
 }
 
-// TODO(jmcpheron): replace this stub once a variant is chosen.
-module text_layout() {
-    translate([-card_w / 2 + 6, 0, card_t]) linear_extrude(emboss_h)
-        text("jmcpheron / pycon2026", size = 5, font = font,
-             halign = "left", valign = "center");
+// Outlined-square placeholder for the real GitHub mark. Inlined here so the
+// badge renders standalone without depending on an external SVG.
+module gh_mark(s = 6) {
+    union() {
+        difference() {
+            offset(r = 0.4) square([s, s], center = true);
+            offset(r = -0.4) square([s, s], center = true);
+        }
+        text("gh", size = s * 0.55, font = font,
+             halign = "center", valign = "center");
+    }
 }
 
-// TODO(jmcpheron): drop a real github-mark.svg in models/ and uncomment.
-// module gh_mark(s = 7) {
-//     translate([-card_w/2 + 6, card_h/2 - 6, card_t])
-//         linear_extrude(emboss_h) resize([s, s]) import("github-mark.svg");
-// }
+// Variant 2 from docs/devlog/2026-05-06-card-text-mockups.md:
+//   [gh] <name>
+//        <github>
+module text_layout() {
+    translate([-card_w/2 + 7,  6, card_t]) linear_extrude(emboss_h) gh_mark(6);
+    translate([-card_w/2 + 12, 6, card_t]) linear_extrude(emboss_h)
+        text(name, size = 5, font = font,
+             halign = "left", valign = "center");
+    translate([-card_w/2 + 7, -6, card_t]) linear_extrude(emboss_h)
+        text(github, size = 5, font = font,
+             halign = "left", valign = "center");
+}
 
 card_blank();
 center_post();

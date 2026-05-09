@@ -8,6 +8,7 @@ Posts are plain Markdown so they render natively in the GitHub web UI. Photos an
 
 <!-- newest at the top -->
 
+- **2026-05-08** — [Pivot from scadia AI loop to PyCon 2026 badge (`badgeforge`)](2026-05-08-pivot-to-badge.md) — pivot post. Headline of the repo flips back from the AI design loop to shipping a physical 3D-printed badge at the conference. New tiny Python wrapper `badgeforge` glues OpenSCAD into the CI build.
 - **2026-05-07** — [Multi-model SCAD generation: simplified anvil across four models](2026-05-07-multi-generator-anvil.md) — same prompt, four OpenRouter generators, no orientation hint. Living post; one model per commit. Tests whether the "text lays flat" bug is a Claude habit or universal.
 - **2026-05-07** — [Retro Pi 5 case — same blindspot, second confirmation](2026-05-07-pi5-retro-case.md) — Stage 3 of Phase 3. Critic gave it 9/10 with `done=True`; the SCAD has three CSG bugs the critic couldn't see (text orientation, hole depth, rib geometry). Same blindspot pattern as the SCADvil — vision sees shape, not source.
 - **2026-05-07** — [Pi 5 wall mount — three iterations, no convergence](2026-05-07-pi5-wall-mount.md) — Stage 2 of Phase 3. Score went 4 → 5 → 4 across three iterations. Critic caught real bugs this time; the agent fixed one thing per pass and broke another. Ships iter-1. Also patches a markdown-fence bug in `client.py` that crashed the first attempt.

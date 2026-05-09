@@ -5,10 +5,14 @@ on:
     branches: [main]
     paths:
       - 'models/**/*.scad'
+      - 'src/badgeforge/**'
+      - 'pyproject.toml'
       - '.github/workflows/build-stl.yml'
   pull_request:
     paths:
       - 'models/**/*.scad'
+      - 'src/badgeforge/**'
+      - 'pyproject.toml'
       - '.github/workflows/build-stl.yml'
 
 jobs:
@@ -32,11 +36,28 @@ jobs:
       - name: Verify OpenSCAD installation
         run: openscad --version
 
-      - name: Generate STL files
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Sync dependencies
+        run: uv sync
+
+      - name: Build badge via badgeforge
+        run: uv run badgeforge build --out models/card.stl
+
+      - name: Build remaining .scad files (scadia legacy models)
         run: |
           shopt -s nullglob
           for scad in models/*.scad; do
             base=$(basename "$scad" .scad)
+            if [ "$base" = "card" ]; then
+              continue   # already built via badgeforge above
+            fi
             echo "Building $scad -> models/$base.stl"
             openscad -o "models/$base.stl" --export-format binstl "$scad"
           done
