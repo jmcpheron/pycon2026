@@ -4,7 +4,7 @@ Originating:   ONSHAPE BY PTC INC, 1.214
 Timestamp:     2026-05-09T04:08:00Z
 Top-level:     6 children   Solids: 6
 Bounding box:  X[-163.28, 28.55]  Y[-30.76, 11.24]  Z[-17.51, 127.67]   (size 191.83 × 42.00 × 145.18)
-Tessellation:  3,874 triangles  (linear=0.1 mm  angular=0.5 rad)
+Tessellation:  3,876 triangles  (linear=0.1 mm  angular=0.5 rad)
 
 Assembly tree:
 Assembly_1 <Compound>  loc=(0.00, 0.00, 0.00)
