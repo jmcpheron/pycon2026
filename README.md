@@ -18,8 +18,6 @@
 
 > **PyCon US 2026 — Long Beach, May 14–17.** Built to hand out and to fork. [Live demo page →](https://jmcpheron.github.io/pycon2026/)
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/jmcpheron/pycon2026)
-
 ## Quickstart
 
 ```bash
@@ -64,14 +62,6 @@ If the gear fuses to the post on first print, bump `gear_z_lift` from 0.2 to 0.3
 ## Devlog
 
 This is a working-out-loud project. Build progress, prints that worked, prints that didn't, and the design choices behind them live at [`docs/devlog/`](docs/devlog/).
-
-## Running in Codespaces
-
-Click the **Open in GitHub Codespaces** button above. The container ships Python 3.12, OpenSCAD, and `xvfb` pre-installed. Inside:
-
-```bash
-uv run badgeforge build --name "Your Name" --github "yourhandle"
-```
 
 ## Requirements (local)
 
