@@ -1,0 +1,82 @@
+name: Build Engineering Explainers
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/explainers/**'
+      - 'pyproject.toml'
+      - '.github/workflows/build-explainers.yml'
+  pull_request:
+    paths:
+      - 'src/explainers/**'
+      - 'pyproject.toml'
+      - '.github/workflows/build-explainers.yml'
+
+# Cancel any in-flight run for the same branch when a new push arrives.
+concurrency:
+  group: build-explainers-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-explainers:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: 'uv.lock'
+
+      - name: Sync dependencies (explainers extra is fast — no native deps)
+        run: uv sync --extra explainers
+
+      - name: Build all explainer pages
+        run: uv run explainers build
+
+      - name: Verify outputs
+        run: |
+          ls -la docs/explainers/ docs/explainers/assets/
+          test -f docs/explainers/index.md
+          test -f docs/explainers/gear-ratios.md
+          test -f docs/explainers/stacking.md
+          test -f docs/explainers/terminology.md
+          test -f docs/explainers/printing.md
+
+      - name: Upload generated docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: explainer-docs
+          path: |
+            docs/explainers/*.md
+            docs/explainers/assets/*.svg
+          retention-days: 30
+
+      - name: Commit regenerated explainers
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add docs/explainers/*.md docs/explainers/assets/*.svg
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-regenerate explainer pages from src/explainers/
+
+          Generated with GitHub Actions"
+            git push
+          fi

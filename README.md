@@ -73,6 +73,26 @@ Python is the parametric and orchestration layer. OpenSCAD is the deterministic 
 
 If the gear fuses to the post on first print, bump `gear_z_lift` from 0.2 to 0.3 mm in `models/card.scad`.
 
+## explainers — engineering writeups, generated from Python
+
+The other side of the project: short, deterministic Python programs that produce illustrated writeups of the engineering decisions behind a more ambitious card design (a 5-stage compound reduction-gear chain, 256:1). The math, diagrams, and tables come from one canonical [`card.py`](src/explainers/card.py) — change a number there, every explainer page reflects it on the next build.
+
+```
+src/explainers/<topic>.py  →  uv run explainers build  →  docs/explainers/<topic>.md (+ assets/*.svg)
+```
+
+Four sections, all auto-rebuilt in CI:
+
+- [Gear ratios →](docs/explainers/gear-ratios.md) compound multiplication, thumb-travel.
+- [Stacking →](docs/explainers/stacking.md) why a 3-level cycle keeps the card thin.
+- [Terminology →](docs/explainers/terminology.md) pinion / hub / post / pitch circle, glossary.
+- [3D-printing considerations →](docs/explainers/printing.md) orientation, chamfers, separate posts.
+
+```bash
+uv sync --extra explainers
+uv run explainers build
+```
+
 ## stepforge — Python-driven STEP files
 
 Sibling tool that does for STEP what `badgeforge` does for OpenSCAD: a small Click CLI on top of a heavyweight backend ([`build123d`](https://github.com/gumyr/build123d) on OpenCascade), wired into CI so any committed `.step` file gets inspected, tessellated, rendered, and (optionally) composed into a multi-part assembly — with all artifacts auto-committed back so the repo always shows the current state.

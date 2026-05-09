@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="435.2" height="163.8" viewBox="0 0 435.2 163.8">
+<defs>
+</defs>
+<rect x="0" y="0" width="435.2" height="163.8" fill="#fafaf9" />
+<path d="M32,71.8 L243.2,71.8" stroke="#1f2937" stroke-width="1.5" />
+<text x="36" y="85.8" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280">build plate</text>
+<rect x="62.0" y="65.8" width="151.2" height="6.0" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<rect x="128.6" y="58.0" width="18.0" height="7.800000000000001" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
+<rect x="116.0" y="52.0" width="43.2" height="6.0" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
+<path d="M163.2,71.8 L167.2,71.8" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,71.2 L167.2,71.2" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,70.6 L167.2,70.6" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,70.0 L167.2,70.0" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,69.39999999999999 L167.2,69.39999999999999" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,68.8 L167.2,68.8" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,68.2 L167.2,68.2" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,67.6 L167.2,67.6" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,67.0 L167.2,67.0" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,66.39999999999999 L167.2,66.39999999999999" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,65.8 L167.2,65.8" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,65.19999999999999 L167.2,65.19999999999999" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,64.6 L167.2,64.6" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,64.0 L167.2,64.0" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,63.39999999999999 L167.2,63.39999999999999" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,62.8 L167.2,62.8" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,62.199999999999996 L167.2,62.199999999999996" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,61.599999999999994 L167.2,61.599999999999994" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,61.0 L167.2,61.0" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,60.39999999999999 L167.2,60.39999999999999" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,59.8 L167.2,59.8" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,59.199999999999996 L167.2,59.199999999999996" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,58.599999999999994 L167.2,58.599999999999994" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,57.99999999999999 L167.2,57.99999999999999" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,57.39999999999999 L167.2,57.39999999999999" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,56.8 L167.2,56.8" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,56.199999999999996 L167.2,56.199999999999996" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,55.599999999999994 L167.2,55.599999999999994" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,54.99999999999999 L167.2,54.99999999999999" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M163.2,54.39999999999999 L167.2,54.39999999999999" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M263.2,67.8 L263.2,52.0" stroke="#2563eb" stroke-width="1.0" />
+<path d="M259.2,58.0 L263.2,52.0 L267.2,58.0" fill="none" stroke="#2563eb" stroke-width="1.0" />
+<text x="271.2" y="61.9" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#2563eb">print direction</text>
+<path d="M214.2,68.8 L419.2,68.8" stroke="#6b7280" stroke-width="0.5" />
+<circle cx="214.2" cy="68.8" r="1.4" fill="#1f2937" />
+<text x="419.2" y="72.8" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937">big gear: 1 mm (9 layers @ 0.1 mm)</text>
+<path d="M147.6,61.9 L419.2,61.9" stroke="#6b7280" stroke-width="0.5" />
+<circle cx="147.6" cy="61.9" r="1.4" fill="#1f2937" />
+<text x="419.2" y="65.9" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937">hub: 1.3 mm</text>
+<path d="M160.2,55.0 L419.2,55.0" stroke="#6b7280" stroke-width="0.5" />
+<circle cx="160.2" cy="55.0" r="1.4" fill="#1f2937" />
+<text x="419.2" y="59.0" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937">pinion: 1 mm</text>
+<text x="32" y="24" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">Print orientation: big disc on the bed, layers stack up</text>
+<text x="32" y="157.8" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280" font-style="italic">Big gear's 0.6 mm-tall teeth print with their long axis flat — best resolution along the layer plane.</text>
+</svg>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="544" height="264" viewBox="0 0 544 264">
+<defs>
+</defs>
+<rect x="0" y="0" width="544" height="264" fill="#fafaf9" />
+<text x="32" y="24" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">Why the post is its own part</text>
+<path d="M52,202 L212,202" stroke="#1f2937" stroke-width="0.6" />
+<rect x="81.6" y="195.0" width="100.80000000000001" height="7.0" fill="#b8a169" stroke="#dc2626" stroke-width="1.5" />
+<rect x="122.0" y="165.0" width="20.0" height="30" fill="#4b5563" stroke="#dc2626" stroke-width="0.6" />
+<rect x="122.0" y="202" width="20.0" height="12.6" fill="#4b5563" stroke="#dc2626" stroke-width="0.6" stroke-dasharray="3,3" opacity="0.4" />
+<text x="132" y="228.6" font-size="9" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#dc2626" font-style="italic">can't print below build plate</text>
+<text x="132" y="42" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#dc2626" font-weight="bold">monolithic gear + post</text>
+<path d="M292,202 L492,202" stroke="#1f2937" stroke-width="0.6" />
+<rect x="281.6" y="195.0" width="100.80000000000001" height="7.0" fill="#b8a169" stroke="#16a34a" stroke-width="1.5" />
+<rect x="404" y="182.0" width="93.0" height="20.0" fill="#4b5563" stroke="#16a34a" stroke-width="1.5" />
+<text x="332" y="216" font-size="9" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937">gear (big-down)</text>
+<text x="450.5" y="216" font-size="9" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937">post (lying flat)</text>
+<text x="392" y="42" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#16a34a" font-weight="bold">two parts, both happy</text>
+<text x="32" y="258" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280" font-style="italic">Posts press-fit into the card body after printing. A gear and its post can't share a single print orientation.</text>
+</svg>

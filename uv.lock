@@ -265,6 +265,14 @@ wheels = [
 ]
 
 [[package]]
+name = "drawsvg"
+version = "2.4.1"
+source = { registry = "https://pypi.org/simple" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/bf/07/a2c3db84e6af6fa761de905b39109fe24eff2c8d52653c1bff968b6b965d/drawsvg-2.4.1-py3-none-any.whl", hash = "sha256:241ff024968e03542bc8685b41a285427303c17f81eae1933229d26bb65b7fda", size = 44067, upload-time = "2026-01-04T00:06:09.817Z" },
+]
+
+[[package]]
 name = "executing"
 version = "2.2.1"
 source = { registry = "https://pypi.org/simple" }
@@ -1230,6 +1238,10 @@ dependencies = [
 dev = [
     { name = "pytest" },
 ]
+explainers = [
+    { name = "drawsvg" },
+    { name = "matplotlib" },
+]
 step = [
     { name = "build123d" },
     { name = "cadquery-ocp" },
@@ -1242,11 +1254,13 @@ requires-dist = [
     { name = "build123d", marker = "extra == 'step'", specifier = ">=0.10" },
     { name = "cadquery-ocp", marker = "extra == 'step'", specifier = "==7.8.1.1.post1" },
     { name = "click", specifier = ">=8.1.0" },
+    { name = "drawsvg", marker = "extra == 'explainers'", specifier = ">=2.4" },
+    { name = "matplotlib", marker = "extra == 'explainers'", specifier = ">=3.9" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0.0" },
     { name = "python-dotenv", specifier = ">=1.0.0" },
     { name = "trimesh", marker = "extra == 'step'", specifier = ">=4" },
 ]
-provides-extras = ["dev", "step"]
+provides-extras = ["dev", "explainers", "step"]
 
 [[package]]
 name = "scipy"

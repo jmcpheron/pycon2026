@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="537.6" height="317.6" viewBox="0 0 537.6 317.6">
+<defs>
+</defs>
+<rect x="0" y="0" width="537.6" height="317.6" fill="#fafaf9" />
+<circle cx="208.8" cy="148.8" r="100.8" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="208.8" cy="148.8" r="100.8" fill="none" stroke="#6b7280" stroke-width="0.5" stroke-dasharray="3,2" />
+<circle cx="208.8" cy="148.8" r="96.0" fill="none" stroke="#2563eb" stroke-width="1.0" stroke-dasharray="4,3" />
+<circle cx="208.8" cy="148.8" r="90.0" fill="none" stroke="#6b7280" stroke-width="0.5" stroke-dasharray="2,2" />
+<path d="M305.0,148.8 L306.2,148.8" stroke="#1f2937" stroke-width="0.6" />
+<path d="M303.81561836525225,163.84899553687023 L305.0008443739664,164.0367168949185" stroke="#1f2937" stroke-width="0.6" />
+<path d="M300.29163686759375,178.52743485886995 L301.4329046871479,178.8982552521199" stroke="#1f2937" stroke-width="0.6" />
+<path d="M294.51482762692103,192.4738860749444 L295.58403545594706,193.01867467463188" stroke="#1f2937" stroke-width="0.6" />
+<path d="M286.62743485886995,205.3449412705359 L287.5982552521199,206.0502835732869" stroke="#1f2937" stroke-width="0.6" />
+<path d="M276.8236723501459,216.8236723501459 L277.67220048756974,217.67220048756974" stroke="#1f2937" stroke-width="0.6" />
+<path d="M265.3449412705359,226.62743485886995 L266.0502835732869,227.59825525211988" stroke="#1f2937" stroke-width="0.6" />
+<path d="M252.4738860749444,234.514827626921 L253.01867467463188,235.58403545594703" stroke="#1f2937" stroke-width="0.6" />
+<path d="M238.52743485886995,240.29163686759378 L238.8982552521199,241.43290468714795" stroke="#1f2937" stroke-width="0.6" />
+<path d="M223.84899553687023,243.81561836525225 L224.0367168949185,245.0008443739664" stroke="#1f2937" stroke-width="0.6" />
+<path d="M208.8,245.0 L208.8,246.2" stroke="#1f2937" stroke-width="0.6" />
+<path d="M193.75100446312982,243.81561836525225 L193.56328310508155,245.0008443739664" stroke="#1f2937" stroke-width="0.6" />
+<path d="M179.07256514113007,240.2916368675938 L178.70174474788013,241.43290468714798" stroke="#1f2937" stroke-width="0.6" />
+<path d="M165.12611392505562,234.514827626921 L164.58132532536817,235.58403545594703" stroke="#1f2937" stroke-width="0.6" />
+<path d="M152.2550587294641,226.62743485886995 L151.54971642671313,227.59825525211988" stroke="#1f2937" stroke-width="0.6" />
+<path d="M140.77632764985412,216.8236723501459 L139.92779951243028,217.67220048756974" stroke="#1f2937" stroke-width="0.6" />
+<path d="M130.97256514113008,205.34494127053594 L130.00174474788014,206.0502835732869" stroke="#1f2937" stroke-width="0.6" />
+<path d="M123.08517237307903,192.4738860749444 L122.01596454405299,193.01867467463188" stroke="#1f2937" stroke-width="0.6" />
+<path d="M117.30836313240624,178.52743485886995 L116.16709531285207,178.8982552521199" stroke="#1f2937" stroke-width="0.6" />
+<path d="M113.78438163474776,163.84899553687023 L112.5991556260336,164.0367168949185" stroke="#1f2937" stroke-width="0.6" />
+<path d="M112.60000000000001,148.8 L111.40000000000002,148.8" stroke="#1f2937" stroke-width="0.6" />
+<path d="M113.78438163474776,133.75100446312982 L112.5991556260336,133.56328310508155" stroke="#1f2937" stroke-width="0.6" />
+<path d="M117.30836313240621,119.07256514113013 L116.16709531285204,118.70174474788018" stroke="#1f2937" stroke-width="0.6" />
+<path d="M123.08517237307902,105.12611392505562 L122.01596454405299,104.58132532536817" stroke="#1f2937" stroke-width="0.6" />
+<path d="M130.97256514113008,92.25505872946411 L130.00174474788014,91.54971642671315" stroke="#1f2937" stroke-width="0.6" />
+<path d="M140.77632764985412,80.77632764985414 L139.92779951243028,79.9277995124303" stroke="#1f2937" stroke-width="0.6" />
+<path d="M152.25505872946408,70.97256514113008 L151.54971642671313,70.00174474788015" stroke="#1f2937" stroke-width="0.6" />
+<path d="M165.1261139250556,63.08517237307903 L164.58132532536814,62.01596454405299" stroke="#1f2937" stroke-width="0.6" />
+<path d="M179.07256514113004,57.30836313240624 L178.70174474788013,56.16709531285207" stroke="#1f2937" stroke-width="0.6" />
+<path d="M193.7510044631298,53.78438163474776 L193.5632831050815,52.59915562603361" stroke="#1f2937" stroke-width="0.6" />
+<path d="M208.79999999999998,52.60000000000001 L208.79999999999998,51.40000000000002" stroke="#1f2937" stroke-width="0.6" />
+<path d="M223.8489955368702,53.78438163474776 L224.03671689491847,52.59915562603361" stroke="#1f2937" stroke-width="0.6" />
+<path d="M238.52743485886992,57.30836313240623 L238.89825525211987,56.167095312852055" stroke="#1f2937" stroke-width="0.6" />
+<path d="M252.4738860749444,63.08517237307902 L253.01867467463185,62.01596454405299" stroke="#1f2937" stroke-width="0.6" />
+<path d="M265.3449412705359,70.97256514113005 L266.0502835732869,70.00174474788012" stroke="#1f2937" stroke-width="0.6" />
+<path d="M276.8236723501459,80.77632764985412 L277.67220048756974,79.92779951243027" stroke="#1f2937" stroke-width="0.6" />
+<path d="M286.62743485886995,92.25505872946408 L287.5982552521199,91.5497164267131" stroke="#1f2937" stroke-width="0.6" />
+<path d="M294.514827626921,105.12611392505559 L295.58403545594706,104.58132532536814" stroke="#1f2937" stroke-width="0.6" />
+<path d="M300.29163686759375,119.07256514113004 L301.4329046871479,118.70174474788011" stroke="#1f2937" stroke-width="0.6" />
+<path d="M303.81561836525225,133.7510044631298 L305.0008443739664,133.5632831050815" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="208.8" cy="148.8" r="28.8" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="208.8" cy="148.8" r="12.0" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="208.8" cy="148.8" r="8.8" fill="#fafaf9" stroke="#1f2937" stroke-width="0.6" />
+<path d="M112.00000000000001,144.8 L20,56.000000000000014" stroke="#6b7280" stroke-width="0.5" />
+<circle cx="112.00000000000001" cy="144.8" r="1.4" fill="#1f2937" />
+<text x="20" y="60.000000000000014" font-size="11" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" text-anchor="start">outer (addendum) circle</text>
+<path d="M127.20000000000002,100.80000000000001 L20,86.00000000000001" stroke="#6b7280" stroke-width="0.5" />
+<circle cx="127.20000000000002" cy="100.80000000000001" r="1.4" fill="#1f2937" />
+<text x="20" y="90.00000000000001" font-size="11" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" text-anchor="start">pitch circle — meshing radius</text>
+<path d="M195.8,148.8 L20,150.8" stroke="#6b7280" stroke-width="0.5" />
+<circle cx="195.8" cy="148.8" r="1.4" fill="#1f2937" />
+<text x="20" y="154.8" font-size="11" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" text-anchor="start">hub (boss)</text>
+<path d="M199.0,152.8 L20,184.8" stroke="#6b7280" stroke-width="0.5" />
+<circle cx="199.0" cy="152.8" r="1.4" fill="#1f2937" />
+<text x="20" y="188.8" font-size="11" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" text-anchor="start">post hole — through to axle</text>
+<path d="M179.0,154.8 L20,218.8" stroke="#6b7280" stroke-width="0.5" />
+<circle cx="179.0" cy="154.8" r="1.4" fill="#1f2937" />
+<text x="20" y="222.8" font-size="11" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" text-anchor="start">pinion (small gear)</text>
+<path d="M145.8,211.8 L20,248.8" stroke="#6b7280" stroke-width="0.5" />
+<circle cx="145.8" cy="211.8" r="1.4" fill="#1f2937" />
+<text x="20" y="252.8" font-size="11" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" text-anchor="start">root circle — tooth valley</text>
+<path d="M305.6,144.8 L517.6,56.000000000000014" stroke="#6b7280" stroke-width="0.5" />
+<circle cx="305.6" cy="144.8" r="1.4" fill="#1f2937" />
+<text x="517.6" y="60.000000000000014" font-size="11" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" text-anchor="end">big gear (driven by pinion of previous stage)</text>
+<path d="M279.36,189.12 L517.6,150.8" stroke="#6b7280" stroke-width="0.5" />
+<circle cx="279.36" cy="189.12" r="1.4" fill="#1f2937" />
+<text x="517.6" y="154.8" font-size="11" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" text-anchor="end">40 teeth, module 0.6 mm</text>
+<path d="M247.20000000000002,216.0 L517.6,184.8" stroke="#6b7280" stroke-width="0.5" />
+<circle cx="247.20000000000002" cy="216.0" r="1.4" fill="#1f2937" />
+<text x="517.6" y="188.8" font-size="11" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" text-anchor="end">pitch ⌀ = teeth × module = 24 mm</text>
+<text x="28" y="18" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">One compound gear, annotated (plan view)</text>
+<text x="28" y="307.6" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280" font-style="italic">All radii at 8× scale. Real big OD = 25.2 mm.</text>
+</svg>
