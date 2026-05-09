@@ -8,7 +8,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
 
-<!-- TODO(jmcpheron): hero image — drop a photo or render of the badge here once one exists. -->
+<p align="center">
+  <img src="docs/assets/badge-hero.png" alt="The pycon2026 badge — an 88.9 × 50.8 × 1.6 mm card with embossed jmcpheron / pycon2026 text and a 14-tooth print-in-place spinning gear sitting in a recessed pocket." width="780" />
+  <br/>
+  <em>Rendered by Python driving OpenSCAD, regenerated in <a href="./.github/workflows/build-stl.yml">GitHub Actions</a> on every push.<br/>The gear in the pocket is print-in-place — pop it free with a fingernail after printing.</em>
+</p>
 
 ---
 

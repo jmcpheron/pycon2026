@@ -28,10 +28,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Install OpenSCAD
+      - name: Install OpenSCAD + xvfb (PNG rendering needs an X display)
         run: |
           sudo apt-get update
-          sudo apt-get install -y openscad
+          sudo apt-get install -y openscad xvfb
 
       - name: Verify OpenSCAD installation
         run: openscad --version
@@ -50,6 +50,9 @@ jobs:
       - name: Build badge via badgeforge
         run: uv run badgeforge build --out models/card.stl
 
+      - name: Render badge hero PNG via badgeforge
+        run: xvfb-run -a uv run badgeforge render --out docs/assets/badge-hero.png
+
       - name: Build remaining .scad files (scadia legacy models)
         run: |
           shopt -s nullglob
@@ -62,10 +65,11 @@ jobs:
             openscad -o "models/$base.stl" --export-format binstl "$scad"
           done
 
-      - name: Verify STL files were created
+      - name: Verify outputs were created
         run: |
           ls -la models/
           file models/*.stl
+          file docs/assets/badge-hero.png
 
       - name: Upload STL artifacts
         uses: actions/upload-artifact@v4
@@ -74,16 +78,23 @@ jobs:
           path: models/*.stl
           retention-days: 30
 
-      - name: Commit updated STL files
+      - name: Upload hero render
+        uses: actions/upload-artifact@v4
+        with:
+          name: badge-hero
+          path: docs/assets/badge-hero.png
+          retention-days: 30
+
+      - name: Commit updated STL + hero render
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add models/*.stl
+          git add models/*.stl docs/assets/badge-hero.png
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Auto-generate STL files from OpenSCAD source
+            git commit -m "Auto-generate STL + hero PNG from OpenSCAD source
 
           Generated with GitHub Actions"
             git push
