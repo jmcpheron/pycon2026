@@ -17,6 +17,12 @@ on:
       - 'pyproject.toml'
       - '.github/workflows/build-step.yml'
 
+# Cancel any in-flight run for the same branch when a new push arrives.
+# Prevents two auto-commits from racing each other (and the human pusher).
+concurrency:
+  group: build-step-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build-step:
     runs-on: ubuntu-latest
