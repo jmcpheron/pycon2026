@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building the SCADvil — first attempt · pycon2026 devlog</title>
+  <meta name="description" content="Phase 3 stage 1: scadia produced an anvil that scored 8/10 from the vision critic but the SCAD source has three CSG bugs the loop couldn't see.">
+  <meta property="og:title" content="Building the SCADvil — first attempt">
+  <meta property="og:description" content="Phase 3 stage 1: scadia produced an anvil that scored 8/10 from the vision critic but the SCAD source has three CSG bugs the loop couldn't see.">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="devlog.css">
+</head>
+<body>
+
+  <header class="titlebar" aria-label="Document title block">
+    <div class="titlebar-inner">
+      <div class="tb-cell"><span class="tb-label">Doc</span><span class="tb-value">Devlog</span></div>
+      <div class="tb-cell"><span class="tb-label">Project</span><span class="tb-value">pycon2026</span></div>
+      <div class="tb-cell"><span class="tb-label">Author</span><span class="tb-value">jmcpheron</span></div>
+      <div class="tb-cell"><span class="tb-label">Venue</span><span class="tb-value">PyCon US 2026</span></div>
+    </div>
+  </header>
+
+  <div class="page">
+
+    <header class="page-head">
+      <nav class="crumbs"><a href="index.html">← Devlog</a></nav>
+      <p class="kicker">§ Entry · 2026-05-07</p>
+      <h1>Building the SCADvil — first attempt</h1>
+      <p class="lede">Phase 3 stage 1: scadia produced an anvil that scored 8/10 from the vision critic but the SCAD source has three CSG bugs the loop couldn't see.</p>
+      <p class="byline">
+        <time datetime="2026-05-07">2026-05-07</time>
+        ·
+        <span class="author">jmcpheron</span>
+      </p>
+    </header>
+
+    <article class="post">
+
+      <section class="entry">
+        <!-- TODO(jmcpheron): one or two sentences in your voice on what the SCADvil is and why it
+             leads off Phase 3. Suggested beats: project mascot / calibration object / not the
+             Benchy boat / the fun half of the demo arc that pairs with the more serious Pi mounts. -->
+        <aside class="todo">
+          <p>One or two sentences in your voice on what the SCADvil is and why it leads off Phase 3. Suggested beats: project mascot / calibration object / not the Benchy boat / the fun half of the demo arc that pairs with the more serious Pi mounts.</p>
+        </aside>
+      </section>
+
+      <section class="entry">
+        <h2>00:20 — first generation</h2>
+        <p>After a first attempt that got stuck rendering a <code>minkowski()</code>-wrapped model for over six minutes, I tightened the prompt with explicit OpenSCAD guardrails (no <code>minkowski()</code> / <code>hull()</code>, <code>$fn = 24</code>, sharp edges OK). Second run converged on iter-0 — the controller stopped because the vision critic gave it 8/10 with no blocking issues.</p>
+        <p><strong>Prompt:</strong></p>
+        <pre class="code"><code>Create a 3D-printable OpenSCAD calibration anvil.
+
+Design constraints to keep render time low:
+- Use only cube(), cylinder(), and sphere() primitives.
+- Do NOT use minkowski() or hull() — they are too slow on this OpenSCAD version.
+- Use $fn = 24 globally.
+- Avoid global edge rounding. Sharp edges are fine.
+
+The anvil should include:
+- A flat base (a wide cube), designed to print flat-side down.
+- A block body sitting on the base.
+- A tapered horn extending from one side (a cube or wedge, no hull).
+- A short heel block on the other side.
+- One 4 mm circular tolerance hole, drilled vertically through the body.
+- Embossed text "PYCON" recessed into one side face.
+
+Target ~50 mm wide. Keep it simple and printable on FDM at 0.2 mm layers.</code></pre>
+        <p><strong>What scadia produced (iter-0):</strong></p>
+        <figure>
+          <img src="assets/2026-05-07-scadvil-anvil/render.png" alt="iter-0 render of the SCADvil" loading="lazy">
+          <figcaption>
+            <span class="num">FIG 01</span>
+            <span class="desc">iter-0 render of the SCADvil</span>
+          </figcaption>
+        </figure>
+        <table class="data">
+          <tbody>
+            <tr><td>Stop reason</td><td><code>critic marked design done</code></td></tr>
+            <tr><td>Score</td><td class="num">8 / 10</td></tr>
+            <tr><td>Blocking issues</td><td class="num">0</td></tr>
+            <tr><td>Iterations</td><td>1 of 3 (controller stopped early)</td></tr>
+            <tr><td>Source</td><td><a href="../../models/scadvil.scad"><code>models/scadvil.scad</code></a> — checked in verbatim from the run</td></tr>
+          </tbody>
+        </table>
+        <p>The critic's only nonblocking notes were that the embossed text was too subtle and the tolerance hole wasn't visible from the rendered angle. It graded the shape favorably and stopped.</p>
+      </section>
+
+      <section class="entry">
+        <h2>What the loop missed</h2>
+        <p>Reading the actual <code>.scad</code> source surfaced three CSG bugs the vision critic couldn't see:</p>
+        <p><strong>1. The "tolerance hole" is a peg, not a hole.</strong> The agent defined <code>tolerance_hole()</code> as a <code>cylinder()</code> and called it from inside <code>module anvil()</code> — which composes its children by implicit union. Only the text emboss gets subtracted at the bottom. So the hole is positive geometry. That cylinder you can see protruding from the top of the body is what was supposed to be a 22 mm vertical drill.</p>
+        <pre class="code"><code>module anvil() {
+    cube([55, 35, 4], center = true);          // base
+    translate([0, 0, 9]) cube([45, 30, 14], center = true);  // body
+    // ...
+    tolerance_hole();   // ← this is a union, not a difference
+}</code></pre>
+        <p><strong>2. The embossed PYCON text is floating in space.</strong> The body's top face sits at z ≈ 16, but the text emboss <code>cube([..., 0.8])</code>s are translated to z = 19.5 — 3.5 mm above the body. The top-level <code>difference(anvil(), text_emboss())</code> only carves where geometry overlaps, so most of the letters subtract from nothing.</p>
+        <p><strong>3. The horn isn't really tapered.</strong> The agent approximated a wedge by differencing one cube from another — slicing a corner off rather than producing a smooth taper. Dimensionally fine, visually unconvincing.</p>
+        <!-- TODO(jmcpheron): your take on what these bugs mean for the demo / the talk.
+             Some angles to consider, pick whichever you want:
+
+             - The vision sensor looks at a render. It can't tell whether a cylinder is positive
+               or negative geometry — that information lives in the SCAD AST, not the pixels.
+             - A second sensor that reasoned about primitive *roles* (or even just a volume-
+               conservation check on the STL) would have caught Bug 1.
+             - "AI critique passed" is not the same as "the artifact is correct." A reminder
+               that the loop has blind spots — and showing those is more honest demo material
+               than a clean success.
+             - Or maybe: this is iter-0 of three. Letting the loop run further (or sharpening
+               the prompt to specify difference()) would likely fix it. Worth a follow-up post.
+           -->
+        <aside class="todo">
+          <p>Your take on what these bugs mean for the demo / the talk. Some angles to consider, pick whichever you want:</p>
+          <ul>
+            <li>The vision sensor looks at a render. It can't tell whether a cylinder is positive or negative geometry — that information lives in the SCAD AST, not the pixels.</li>
+            <li>A second sensor that reasoned about primitive <em>roles</em> (or even just a volume-conservation check on the STL) would have caught Bug 1.</li>
+            <li>"AI critique passed" is not the same as "the artifact is correct." A reminder that the loop has blind spots — and showing those is more honest demo material than a clean success.</li>
+            <li>Or maybe: this is iter-0 of three. Letting the loop run further (or sharpening the prompt to specify <code>difference()</code>) would likely fix it. Worth a follow-up post.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="entry">
+        <h2>What's next</h2>
+        <ol>
+          <li>Print this anvil as-is and see how the bugs show up in plastic. The peg-where-a-hole-should-be will be visible at a glance; the floating text will simply not exist on the print.</li>
+          <li>Decide whether the next post is <em>"refining the SCADvil prompt"</em> (sharpen the brief, add <code>difference()</code> and side-face placement language) or <em>"adding a third sensor"</em> (a code-aware AST/STL check that would have caught these bugs).</li>
+          <li>Stay on the <code>raspberry-pi-demos</code> branch — the Pi 5 wall mount and retro case follow this same workflow and will land in their own posts.</li>
+        </ol>
+      </section>
+
+      <section class="entry">
+        <h2>00:25 — printed object</h2>
+        <!-- TODO(jmcpheron): photo of the printed SCADvil (or the print attempt, including
+             however the peg-vs-hole bug looks in plastic) + 1–2 lines on how it came off
+             the printer. Append as a new ## HH:MM section here when the print is done. -->
+        <aside class="todo">
+          <p>Photo of the printed SCADvil (or the print attempt, including however the peg-vs-hole bug looks in plastic) + 1–2 lines on how it came off the printer. Append as a new ## HH:MM section here when the print is done.</p>
+        </aside>
+      </section>
+
+    </article>
+
+    <nav class="post-nav" aria-label="Adjacent posts">
+      <a class="prev" href="2026-05-06-card-text-mockups.html">
+        <span class="lbl">← Previous</span>
+        <span class="ttl">Card-text layout mockups</span>
+      </a>
+      <a class="next" href="2026-05-07-polling-critics.html">
+        <span class="lbl">Next →</span>
+        <span class="ttl">Polling six critics on the SCADvil</span>
+      </a>
+    </nav>
+
+    <footer class="signoff">
+      <span><a href="https://github.com/jmcpheron/pycon2026">github.com/jmcpheron/pycon2026</a></span>
+      <span class="stamp">DEVLOG · 2026-05-07</span>
+      <span>MIT</span>
+    </footer>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card-text layout mockups · pycon2026 devlog</title>
+  <meta name="description" content="Six variants of the embossed face, comparing single-line vs. two-line vs. full-path layouts. Renders side-by-side; sets up the v2 decision baked into card.scad.">
+  <meta property="og:title" content="Card-text layout mockups">
+  <meta property="og:description" content="Six variants of the embossed face, comparing single-line vs. two-line vs. full-path layouts. Renders side-by-side; sets up the v2 decision baked into card.scad.">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="devlog.css">
+</head>
+<body>
+
+  <header class="titlebar" aria-label="Document title block">
+    <div class="titlebar-inner">
+      <div class="tb-cell"><span class="tb-label">Doc</span><span class="tb-value">Devlog</span></div>
+      <div class="tb-cell"><span class="tb-label">Project</span><span class="tb-value">pycon2026</span></div>
+      <div class="tb-cell"><span class="tb-label">Author</span><span class="tb-value">jmcpheron</span></div>
+      <div class="tb-cell"><span class="tb-label">Venue</span><span class="tb-value">PyCon US 2026</span></div>
+    </div>
+  </header>
+
+  <div class="page">
+
+    <header class="page-head">
+      <nav class="crumbs"><a href="index.html">← Devlog</a></nav>
+      <p class="kicker">§ Entry · 2026-05-06</p>
+      <h1>Card-text layout mockups</h1>
+      <p class="lede">Six variants of the embossed face, comparing single-line vs. two-line vs. full-path layouts. Renders side-by-side; sets up the v2 decision baked into card.scad.</p>
+      <p class="byline">
+        <time datetime="2026-05-06">2026-05-06</time>
+        ·
+        <span class="author">jmcpheron</span>
+      </p>
+    </header>
+
+    <article class="post">
+
+      <section class="entry">
+        <p>Six variants of the embossed face, all rendered from <a href="../../models/card-mockup.scad"><code>models/card-mockup.scad</code></a> at 0.4 mm relief on the same 88.9 × 50.8 × 1.6 mm card body. The faint dotted circle on the right is the gear pocket — that real estate is reserved for the print-in-place gear, so the text has to live to the left of it.</p>
+        <p>The <code>[gh]</code> outlined-square is a placeholder for the real GitHub mark; that's swapped in once a layout is chosen.</p>
+
+        <h3>Variant 1 — single line, slash separator</h3>
+        <p><code>[gh] jmcpheron / pycon2026</code></p>
+        <figure>
+          <img src="assets/2026-05-06-card-text-mockups/variant-1.png" alt="variant 1" loading="lazy">
+          <figcaption>
+            <span class="num">FIG 01</span>
+            <span class="desc">variant 1</span>
+          </figcaption>
+        </figure>
+        <p><strong>Notes:</strong> Text runs across the gear pocket and past the right edge of the card. <strong>Doesn't fit</strong> — single-line is too long at any size that's still legible. Useful as a confirmation that the card needs two lines.</p>
+
+        <h3>Variant 2 — two lines, no slash</h3>
+        <p><code>[gh] jmcpheron</code> over <code>pycon2026</code></p>
+        <figure>
+          <img src="assets/2026-05-06-card-text-mockups/variant-2.png" alt="variant 2" loading="lazy">
+          <figcaption>
+            <span class="num">FIG 02</span>
+            <span class="desc">variant 2</span>
+          </figcaption>
+        </figure>
+        <p><strong>Notes:</strong> Comfortably fits the available real estate. The mark sits inline with the username, which keeps the visual weight on the top line. Reads as "this person, this conference" — clear and clean.</p>
+
+        <h3>Variant 3 — slash as line prefix (file-pathy)</h3>
+        <p><code>jmcpheron</code> over <code>/ pycon2026</code></p>
+        <figure>
+          <img src="assets/2026-05-06-card-text-mockups/variant-3.png" alt="variant 3" loading="lazy">
+          <figcaption>
+            <span class="num">FIG 03</span>
+            <span class="desc">variant 3</span>
+          </figcaption>
+        </figure>
+        <p><strong>Notes:</strong> The leading <code>/</code> gives it a URL/filesystem vibe. Bumps up against the gear pocket on the second line — barely fits. Drops the <code>[gh]</code> mark to make room.</p>
+
+        <h3>Variant 4 — corner mark + left-aligned stack</h3>
+        <p><code>[gh]</code> in top-left corner, then <code>jmcpheron</code> and <code>pycon2026</code> stacked</p>
+        <figure>
+          <img src="assets/2026-05-06-card-text-mockups/variant-4.png" alt="variant 4" loading="lazy">
+          <figcaption>
+            <span class="num">FIG 04</span>
+            <span class="desc">variant 4</span>
+          </figcaption>
+        </figure>
+        <p><strong>Notes:</strong> Mark is decoupled from the text — it becomes a corner accent rather than a prefix. The stack reads cleanly. Most "designed" of the variants, also the one with the most empty card area to play with later.</p>
+
+        <h3>Variant 5 — corner mark + right-aligned stack</h3>
+        <p>Same content as v4, text right-aligned against the gear</p>
+        <figure>
+          <img src="assets/2026-05-06-card-text-mockups/variant-5.png" alt="variant 5" loading="lazy">
+          <figcaption>
+            <span class="num">FIG 05</span>
+            <span class="desc">variant 5</span>
+          </figcaption>
+        </figure>
+        <p><strong>Notes:</strong> Pulls the text toward the gear, creating a "label + mechanism" reading. Tight on the gear-side margin — feels crowded.</p>
+
+        <h3>Variant 6 — full repo path, single line</h3>
+        <p><code>github.com/jmcpheron/pycon2026</code></p>
+        <figure>
+          <img src="assets/2026-05-06-card-text-mockups/variant-6.png" alt="variant 6" loading="lazy">
+          <figcaption>
+            <span class="num">FIG 06</span>
+            <span class="desc">variant 6</span>
+          </figcaption>
+        </figure>
+        <p><strong>Notes:</strong> Maximally explicit — anyone can type it back into a browser. Overflows the card at the size shown; would need a substantially smaller font (~3 mm) to fit, which sacrifices legibility from arm's length.</p>
+      </section>
+
+      <section class="entry">
+        <h2>Decision</h2>
+        <!-- TODO(jmcpheron): pick a variant (or describe a hybrid) and note why.
+             This block becomes the canonical "what's on the card" reference. Once
+             decided, update `text_layout()` in models/card.scad to match. -->
+        <aside class="todo">
+          <p>Pick a variant (or describe a hybrid) and note why. This block becomes the canonical "what's on the card" reference. Once decided, update <code>text_layout()</code> in models/card.scad to match.</p>
+        </aside>
+      </section>
+
+      <section class="entry">
+        <h2>Open follow-ups</h2>
+        <ul>
+          <li>Drop the real GitHub mark SVG into <code>models/github-mark.svg</code> and swap the <code>[gh]</code> placeholder in the chosen variant.</li>
+          <li>Confirm font availability on the build runner (CI uses Codespaces; Liberation Mono should ship by default but worth verifying after the first push).</li>
+          <li>Test the chosen layout at the actual print size — embossing can drop legibility at scale that looks fine in a render.</li>
+        </ul>
+      </section>
+
+    </article>
+
+    <nav class="post-nav" aria-label="Adjacent posts">
+      <a class="prev" href="2026-05-06-pivot-to-business-card.html">
+        <span class="lbl">← Previous</span>
+        <span class="ttl">Pivot: challenge coin → business card</span>
+      </a>
+      <a class="next" href="2026-05-07-scadvil-anvil.html">
+        <span class="lbl">Next →</span>
+        <span class="ttl">Building the SCADvil — first attempt</span>
+      </a>
+    </nav>
+
+    <footer class="signoff">
+      <span><a href="https://github.com/jmcpheron/pycon2026">github.com/jmcpheron/pycon2026</a></span>
+      <span class="stamp">DEVLOG · 2026-05-06</span>
+      <span>MIT</span>
+    </footer>
+
+  </div>
+
+</body>
+</html>

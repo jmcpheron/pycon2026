@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pivot: challenge coin → business card · pycon2026 devlog</title>
+  <meta name="description" content="Why the conference giveaway changed shape and what that buys us. Card parameters locked at 88.9 × 50.8 × 1.6 mm with a print-in-place spinning gear.">
+  <meta property="og:title" content="Pivot: challenge coin → business card">
+  <meta property="og:description" content="Why the conference giveaway changed shape and what that buys us. Card parameters locked at 88.9 × 50.8 × 1.6 mm with a print-in-place spinning gear.">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="devlog.css">
+</head>
+<body>
+
+  <header class="titlebar" aria-label="Document title block">
+    <div class="titlebar-inner">
+      <div class="tb-cell"><span class="tb-label">Doc</span><span class="tb-value">Devlog</span></div>
+      <div class="tb-cell"><span class="tb-label">Project</span><span class="tb-value">pycon2026</span></div>
+      <div class="tb-cell"><span class="tb-label">Author</span><span class="tb-value">jmcpheron</span></div>
+      <div class="tb-cell"><span class="tb-label">Venue</span><span class="tb-value">PyCon US 2026</span></div>
+    </div>
+  </header>
+
+  <div class="page">
+
+    <header class="page-head">
+      <nav class="crumbs"><a href="index.html">← Devlog</a></nav>
+      <p class="kicker">§ Entry · 2026-05-06</p>
+      <h1>Pivot: challenge coin → business card</h1>
+      <p class="lede">Why the conference giveaway changed shape and what that buys us. Card parameters locked at 88.9 × 50.8 × 1.6 mm with a print-in-place spinning gear.</p>
+      <p class="byline">
+        <time datetime="2026-05-06">2026-05-06</time>
+        ·
+        <span class="author">jmcpheron</span>
+      </p>
+    </header>
+
+    <article class="post">
+
+      <section class="entry">
+        <h2>What changed</h2>
+        <p>The Phase-2 conference giveaway has shifted from a challenge coin (round, ~40 mm, with a QR code on the back linking to its own OpenSCAD source) to a <strong>3D-printed business card</strong> (~88.9 × 50.8 mm, with rounded corners, a print-in-place spinning gear, and embossed identifier text).</p>
+      </section>
+
+      <section class="entry">
+        <h2>Why</h2>
+        <!-- TODO(jmcpheron): write your own reasoning here in your own voice.
+             Suggested beats — pick whichever resonate, ignore the rest:
+
+             - what made the coin idea feel cramped (real estate, novelty, etc.)
+             - what made the card idea feel right (wallet longevity, FDM-friendliness,
+               the gear as a conversation starter, the chance to do PIP)
+             - any constraints or context (printer choice, time before the conference,
+               what you've already tried with PIP parts)
+
+             Aim for a paragraph or three — this post is the canonical "why" the rest
+             of the devlog points back to. -->
+        <aside class="todo">
+          <p>Write your own reasoning here in your own voice. Suggested beats — pick whichever resonate, ignore the rest:</p>
+          <ul>
+            <li>what made the coin idea feel cramped (real estate, novelty, etc.)</li>
+            <li>what made the card idea feel right (wallet longevity, FDM-friendliness, the gear as a conversation starter, the chance to do PIP)</li>
+            <li>any constraints or context (printer choice, time before the conference, what you've already tried with PIP parts)</li>
+          </ul>
+          <p>Aim for a paragraph or three — this post is the canonical "why" the rest of the devlog points back to.</p>
+        </aside>
+      </section>
+
+      <section class="entry">
+        <h2>Card parameters (working values)</h2>
+        <table class="data">
+          <thead>
+            <tr><th>Parameter</th><th>Value</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Footprint</td><td class="num">88.9 × 50.8 mm</td><td>US-standard size</td></tr>
+            <tr><td>Corner radius</td><td class="num">4.5 mm</td><td>Generous round, "fun &gt; strict"</td></tr>
+            <tr><td>Thickness</td><td class="num">1.6 mm</td><td>4 layers @ 0.4 mm</td></tr>
+            <tr><td>Emboss height</td><td class="num">+0.4 mm</td><td>One layer of relief</td></tr>
+            <tr><td>Gear pocket Ø</td><td class="num">32 mm</td><td>Right third of card</td></tr>
+            <tr><td>Pocket depth</td><td class="num">1.2 mm</td><td></td></tr>
+            <tr><td>Gear OD</td><td class="num">30 mm</td><td>14-tooth spur</td></tr>
+            <tr><td>Gear thickness</td><td class="num">1.0 mm</td><td></td></tr>
+            <tr><td>Center post Ø</td><td class="num">2.4 mm</td><td></td></tr>
+            <tr><td>Bore Ø</td><td class="num">3.0 mm</td><td>0.3 mm radial clearance</td></tr>
+            <tr><td>Z-clearance under gear</td><td class="num">0.2 mm</td><td>Sacrificial layer</td></tr>
+          </tbody>
+        </table>
+        <p>These live in <a href="../../models/card.scad"><code>models/card.scad</code></a>. The mockups in the next post explore the embossed-text layout — that's the next decision to make.</p>
+      </section>
+
+      <section class="entry">
+        <h2>What's not decided</h2>
+        <ul>
+          <li><strong>Embossed text layout</strong> — see <a href="2026-05-06-card-text-mockups.html">the mockups post</a>.</li>
+          <li><strong>Font</strong> — starting point is <code>Liberation Mono Bold</code>. Open to swapping after seeing the variants.</li>
+          <li><strong>Whether the GitHub mark stays as a corner accent or gets dropped entirely</strong> — depends on whether it reads cleanly at this size.</li>
+          <li><strong>Gear tooth profile</strong> — first attempt is intentionally simple. The scadia loop will refine via vision feedback if the first print binds.</li>
+        </ul>
+      </section>
+
+      <section class="entry">
+        <h2>What's next</h2>
+        <ol>
+          <li>Pick a layout from the mockups post.</li>
+          <li>Bake the chosen layout into <code>card.scad</code>.</li>
+          <li>First print attempt — slice at 0.2 mm layer height, watch how the gear frees from the sacrificial layer.</li>
+          <li>Log results here, with photos.</li>
+        </ol>
+      </section>
+
+    </article>
+
+    <nav class="post-nav" aria-label="Adjacent posts">
+      <span></span>
+      <a class="next" href="2026-05-06-card-text-mockups.html">
+        <span class="lbl">Next →</span>
+        <span class="ttl">Card-text layout mockups</span>
+      </a>
+    </nav>
+
+    <footer class="signoff">
+      <span><a href="https://github.com/jmcpheron/pycon2026">github.com/jmcpheron/pycon2026</a></span>
+      <span class="stamp">DEVLOG · 2026-05-06</span>
+      <span>MIT</span>
+    </footer>
+
+  </div>
+
+</body>
+</html>
