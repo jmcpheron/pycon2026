@@ -1,0 +1,132 @@
+name: Build STEP Models
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'step-demo/**.step'
+      - 'step-demo/parts/**'
+      - 'src/stepforge/**'
+      - 'pyproject.toml'
+      - '.github/workflows/build-step.yml'
+  pull_request:
+    paths:
+      - 'step-demo/**.step'
+      - 'step-demo/parts/**'
+      - 'src/stepforge/**'
+      - 'pyproject.toml'
+      - '.github/workflows/build-step.yml'
+
+jobs:
+  build-step:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Install OpenSCAD + xvfb (PNG rendering needs an X display)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openscad xvfb
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: 'uv.lock'
+
+      - name: Sync dependencies (with the heavy OCP wheel)
+        run: uv sync --extra step
+
+      - name: Inspect pounce-a-pult.step
+        run: |
+          mkdir -p docs
+          uv run stepforge inspect step-demo/pounce-a-pult.step \
+            | tee docs/pounce-a-pult-tree.txt
+
+      - name: Tessellate STEP -> STL (renders in GitHub's native viewer)
+        run: uv run stepforge build
+              --in step-demo/pounce-a-pult.step
+              --out step-demo/pounce-a-pult.stl
+
+      - name: Tessellate STEP -> GLB (for embeds and downstream viewers)
+        run: uv run stepforge build
+              --in step-demo/pounce-a-pult.step
+              --out step-demo/pounce-a-pult.glb
+
+      - name: Render orthographic PNGs
+        run: |
+          mkdir -p docs/assets
+          for angle in iso top edge; do
+            xvfb-run -a uv run stepforge render \
+              --in step-demo/pounce-a-pult.step \
+              --angle "$angle" \
+              --out "docs/assets/pounce-a-pult-${angle}.png"
+          done
+
+      - name: Generate example assembly parts (idempotent)
+        run: uv run python step-demo/parts/generate.py
+
+      - name: Compose multi-part assembly
+        run: uv run stepforge assemble
+              --manifest step-demo/parts/assembly.toml
+              --out step-demo/parts/assembled.step
+              --also-stl
+
+      - name: Verify outputs
+        run: |
+          ls -la step-demo/ step-demo/parts/ docs/assets/
+          file step-demo/*.stl step-demo/*.glb step-demo/parts/*.stl
+          file docs/assets/pounce-a-pult-*.png
+
+      - name: Upload STEP/STL/GLB artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: step-models
+          path: |
+            step-demo/*.stl
+            step-demo/*.glb
+            step-demo/parts/*.step
+            step-demo/parts/*.stl
+          retention-days: 30
+
+      - name: Upload renders + tree artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: step-renders
+          path: |
+            docs/assets/pounce-a-pult-*.png
+            docs/pounce-a-pult-tree.txt
+          retention-days: 30
+
+      - name: Commit regenerated artifacts
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add \
+            step-demo/pounce-a-pult.stl \
+            step-demo/pounce-a-pult.glb \
+            step-demo/parts/*.step \
+            step-demo/parts/*.stl \
+            docs/assets/pounce-a-pult-*.png \
+            docs/pounce-a-pult-tree.txt
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-generate STEP-derived artifacts via stepforge
+
+          Generated with GitHub Actions"
+            git push
+          fi

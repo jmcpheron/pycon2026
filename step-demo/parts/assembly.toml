@@ -1,0 +1,30 @@
+name = "pounce-a-pult-mini"
+
+# Base plate flat on the ground.
+[[part]]
+path = "base.step"
+name = "base"
+xyz  = [0, 0, 0]
+
+# Two pivot pins standing on the plate.
+[[part]]
+path = "pin.step"
+name = "pin-left"
+xyz  = [-15, 0, 12]
+
+[[part]]
+path = "pin.step"
+name = "pin-right"
+xyz  = [15, 0, 12]
+
+# Throwing arm balanced on the pins.
+[[part]]
+path = "arm.step"
+name = "arm"
+xyz  = [0, 0, 26]
+
+# Cup at one end of the arm.
+[[part]]
+path = "cup.step"
+name = "cup"
+xyz  = [25, 0, 32]

@@ -73,6 +73,27 @@ Python is the parametric and orchestration layer. OpenSCAD is the deterministic 
 
 If the gear fuses to the post on first print, bump `gear_z_lift` from 0.2 to 0.3 mm in `models/card.scad`.
 
+## stepforge — Python-driven STEP files
+
+Sibling tool that does for STEP what `badgeforge` does for OpenSCAD: a small Click CLI on top of a heavyweight backend ([`build123d`](https://github.com/gumyr/build123d) on OpenCascade), wired into CI so any committed `.step` file gets inspected, tessellated, rendered, and (optionally) composed into a multi-part assembly — with all artifacts auto-committed back so the repo always shows the current state.
+
+```
+step-demo/pounce-a-pult.step  ──►  stepforge inspect  ──►  docs/pounce-a-pult-tree.txt
+                              ──►  stepforge build    ──►  step-demo/pounce-a-pult.stl   (GitHub viewer renders this)
+                              ──►  stepforge build    ──►  step-demo/pounce-a-pult.glb   (for embeds)
+                              ──►  stepforge render   ──►  docs/assets/pounce-a-pult-{iso,top,edge}.png
+step-demo/parts/assembly.toml ──►  stepforge assemble ──►  step-demo/parts/assembled.step
+```
+
+Try it locally:
+
+```bash
+uv sync --extra step
+uv run stepforge inspect step-demo/pounce-a-pult.step
+```
+
+See [`step-demo/README.md`](step-demo/) for the walkthrough. The `step` extra is opt-in — the OpenCascade Python wheel is ~180 MB and most badge work doesn't need it.
+
 ## Devlog
 
 This is a working-out-loud project. Build progress, prints that worked, prints that didn't, and the design choices behind them live at [`docs/devlog/`](docs/devlog/).

@@ -1,0 +1,99 @@
+"""stepforge CLI."""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+import click
+
+from stepforge.assemble import assemble
+from stepforge.build import (
+    DEFAULT_LINEAR_DEFLECTION,
+    DEFAULT_ANGULAR_DEFLECTION,
+    build,
+)
+from stepforge.inspect import inspect_step
+from stepforge.render import PRESETS, render
+
+
+@click.group()
+def main() -> None:
+    """Forge STEP files into inspectable, renderable, assemblable artifacts."""
+
+
+@main.command("inspect")
+@click.argument("path", type=click.Path(exists=True, dir_okay=False, path_type=Path))
+def inspect_cmd(path: Path) -> None:
+    """Print AP242 schema, units, product structure, and tessellation stats."""
+    click.echo(inspect_step(path))
+
+
+@main.command("build")
+@click.option("--in", "input_path", required=True,
+              type=click.Path(exists=True, dir_okay=False, path_type=Path),
+              help="Input STEP file.")
+@click.option("--out", required=True, type=click.Path(path_type=Path),
+              help="Output path. Format inferred from extension: .stl or .glb.")
+@click.option("--linear-deflection", default=DEFAULT_LINEAR_DEFLECTION,
+              show_default=True, type=float,
+              help="Tessellation linear deflection (mm).")
+@click.option("--angular-deflection", default=DEFAULT_ANGULAR_DEFLECTION,
+              show_default=True, type=float,
+              help="Tessellation angular deflection (rad).")
+@click.option("--binary/--ascii", "binary", default=True, show_default=True,
+              help="STL encoding (binary is the GitHub viewer's preferred form).")
+def build_cmd(input_path: Path, out: Path, linear_deflection: float,
+              angular_deflection: float, binary: bool) -> None:
+    """Convert STEP to STL or GLB (format inferred from --out extension)."""
+    result = build(
+        input_path=input_path, out=out,
+        linear_deflection=linear_deflection,
+        angular_deflection=angular_deflection,
+        binary=binary,
+    )
+    click.echo(f"wrote {result}")
+
+
+@main.command("render")
+@click.option("--in", "input_path", required=True,
+              type=click.Path(exists=True, dir_okay=False, path_type=Path),
+              help="Input STEP file.")
+@click.option("--out", required=True, type=click.Path(path_type=Path),
+              help="Output PNG path.")
+@click.option("--angle", type=click.Choice(sorted(PRESETS)), default="iso",
+              show_default=True, help="Camera preset.")
+@click.option("--size", default="1600x900", show_default=True,
+              help="Image size as WIDTHxHEIGHT.")
+@click.option("--colorscheme", default="Cornfield", show_default=True,
+              help="OpenSCAD colorscheme name.")
+@click.option("--projection", type=click.Choice(["ortho", "perspective"]),
+              default="ortho", show_default=True, help="Camera projection.")
+def render_cmd(input_path: Path, out: Path, angle: str, size: str,
+               colorscheme: str, projection: str) -> None:
+    """Render STEP to PNG by tessellating, then reusing the OpenSCAD pipeline."""
+    result = render(
+        input_path=input_path, out=out,
+        angle=angle, size=size, colorscheme=colorscheme, projection=projection,
+    )
+    click.echo(f"wrote {result}")
+
+
+@main.command("assemble")
+@click.option("--manifest", required=True,
+              type=click.Path(exists=True, dir_okay=False, path_type=Path),
+              help="TOML manifest listing parts and their xyz/rpy locations.")
+@click.option("--out", required=True, type=click.Path(path_type=Path),
+              help="Output combined STEP path.")
+@click.option("--also-stl", is_flag=True,
+              help="Also write a sibling .stl alongside the combined STEP.")
+@click.option("--also-png", is_flag=True,
+              help="Also write a sibling iso .png alongside the combined STEP.")
+def assemble_cmd(manifest: Path, out: Path, also_stl: bool, also_png: bool) -> None:
+    """Compose multiple STEP parts into a single STEP via a TOML manifest."""
+    result = assemble(manifest=manifest, out=out,
+                      also_stl=also_stl, also_png=also_png)
+    click.echo(f"wrote {result}")
+
+
+if __name__ == "__main__":
+    main()
