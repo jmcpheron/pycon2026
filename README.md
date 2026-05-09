@@ -8,11 +8,25 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
 
-<p align="center">
-  <img src="docs/assets/badge-hero.png" alt="The pycon2026 badge — an 88.9 × 50.8 × 1.6 mm card with embossed jmcpheron / pycon2026 text and a 14-tooth print-in-place spinning gear sitting in a recessed pocket." width="780" />
-  <br/>
-  <em>Rendered by Python driving OpenSCAD, regenerated in <a href="./.github/workflows/build-stl.yml">GitHub Actions</a> on every push.<br/>The gear in the pocket is print-in-place — pop it free with a fingernail after printing.</em>
-</p>
+<table>
+<tr>
+<td align="center" valign="top" width="33%">
+<img src="docs/assets/badge-hero.png" alt="The pycon2026 badge rendered in OpenSCAD's Cornfield colorscheme — an 88.9 × 50.8 × 1.6 mm card with embossed jmcpheron / pycon2026 text and a 14-tooth print-in-place gear in the pocket." />
+<br/>
+<sub><strong>1 · Source → OpenSCAD render</strong><br/>Python templates the SCAD, OpenSCAD renders the PNG. <a href=".github/workflows/build-stl.yml">Re-rendered in CI</a> on every push.</sub>
+</td>
+<td align="center" valign="top" width="33%">
+<a href="https://github.com/jmcpheron/pycon2026/blob/main/models/card.stl"><img src="docs/assets/badge-stl-github.png" alt="A screenshot of GitHub's built-in STL viewer showing the badge as a blue solid resting on a triangulated ground plane, with toolbar controls for zoom / pan / rotate / view mode." /></a>
+<br/>
+<sub><strong>2 · Same source → STL on GitHub</strong><br/>The same Python pipeline produces <a href="https://github.com/jmcpheron/pycon2026/blob/main/models/card.stl"><code>models/card.stl</code></a> — <a href="https://github.com/jmcpheron/pycon2026/blob/main/models/card.stl">click to spin it in GitHub's viewer →</a></sub>
+</td>
+<td align="center" valign="top" width="33%">
+<img src="docs/assets/badge-printed-placeholder.svg" alt="Placeholder graphic indicating that a photo of the actual printed badge will be added here once the print succeeds." />
+<br/>
+<sub><strong>3 · Same source → printed object</strong><br/>Coming soon — slice <code>card.stl</code>, print at 0.2 mm layers, pop the gear free with a fingernail.</sub>
+</td>
+</tr>
+</table>
 
 ---
 

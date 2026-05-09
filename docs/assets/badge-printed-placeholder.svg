@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="placeholder-title">
+  <title id="placeholder-title">Placeholder — photo of the printed badge to come</title>
+  <rect width="1600" height="900" fill="#1a1612"/>
+  <g fill="none" stroke="#534a39" stroke-width="2" stroke-dasharray="14 10">
+    <rect x="40" y="40" width="1520" height="820" rx="14"/>
+  </g>
+  <g fill="#b48738" font-family="ui-monospace, 'SF Mono', Menlo, monospace" text-anchor="middle">
+    <text x="800" y="380" font-size="44" letter-spacing="6">PHOTO OF THE PRINTED BADGE</text>
+    <text x="800" y="440" font-size="22" letter-spacing="4" fill="#8a6624">— jmcpheron will drop one in once the print succeeds</text>
+  </g>
+  <g fill="none" stroke="#b48738" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" transform="translate(720, 520)">
+    <rect x="10" y="50" width="160" height="100" rx="8"/>
+    <rect x="55" y="35" width="70" height="20" rx="4"/>
+    <circle cx="90" cy="100" r="28"/>
+    <circle cx="90" cy="100" r="14"/>
+  </g>
+</svg>
