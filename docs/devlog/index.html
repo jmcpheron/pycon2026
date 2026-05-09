@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devlog · pycon2026</title>
+  <meta name="description" content="Public R&D journal for the PyCon 2026 badge and the scadia design loop that came before it.">
+  <meta property="og:title" content="Devlog · pycon2026">
+  <meta property="og:description" content="Public R&D journal: prints that worked, prints that didn't, decisions behind them.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="devlog.css">
+</head>
+<body>
+
+  <header class="titlebar" aria-label="Document title block">
+    <div class="titlebar-inner">
+      <div class="tb-cell"><span class="tb-label">Doc</span><span class="tb-value">Devlog</span></div>
+      <div class="tb-cell"><span class="tb-label">Project</span><span class="tb-value">pycon2026</span></div>
+      <div class="tb-cell"><span class="tb-label">Author</span><span class="tb-value">jmcpheron</span></div>
+      <div class="tb-cell"><span class="tb-label">Venue</span><span class="tb-value">PyCon US 2026</span></div>
+    </div>
+  </header>
+
+  <div class="page">
+
+    <section class="page-head">
+      <p class="kicker">§ Devlog</p>
+      <h1>Working out loud, in HTML.</h1>
+      <p class="lede">
+        Public R&amp;D journal for the PyCon 2026 badge and the <a href="../index.html">scadia</a>
+        design loop that came before it. Decisions, prints that worked, prints that didn't, and
+        the reasons behind them — written as the work happens, not after.
+      </p>
+    </section>
+
+    <section aria-label="Posts, newest first">
+      <div class="post-grid">
+        <!-- newest -->
+
+        <article class="post-card">
+          <p class="date">2026 · 05 · 08</p>
+          <h2><a href="2026-05-08-pivot-to-badge.html">Pivot: scadia AI loop → PyCon 2026 badge</a></h2>
+          <p class="lede">
+            Headline of the repo flips back from the AI design loop to shipping a physical
+            3D-printed badge at the conference. New tiny Python wrapper <code>badgeforge</code>
+            glues OpenSCAD into the CI build.
+          </p>
+          <div class="tag-row">
+            <span class="tag tag-pivot">pivot</span>
+            <span class="tag tag-decision">decision-record</span>
+          </div>
+        </article>
+
+        <article class="post-card">
+          <p class="date">2026 · 05 · 07</p>
+          <h2><a href="2026-05-07-multi-generator-anvil.html">Multi-model SCAD generation: anvil across four models</a></h2>
+          <p class="lede">
+            Same prompt, four OpenRouter generators, no orientation hint. Living post — one
+            model per commit. Tests whether the "text lays flat" bug is a Claude habit or universal.
+          </p>
+          <div class="tag-row"><span class="tag tag-experiment">experiment</span></div>
+        </article>
+
+        <article class="post-card">
+          <p class="date">2026 · 05 · 07</p>
+          <h2><a href="2026-05-07-pi5-retro-case.html">Retro Pi 5 case — same blindspot, second confirmation</a></h2>
+          <p class="lede">
+            Stage 3 of Phase 3. Critic scored 9/10 with <code>done=True</code>; the SCAD has three CSG
+            bugs the critic couldn't see. Same pattern as the SCADvil — vision sees shape, not source.
+          </p>
+          <div class="tag-row"><span class="tag tag-experiment">experiment</span></div>
+        </article>
+
+        <article class="post-card">
+          <p class="date">2026 · 05 · 07</p>
+          <h2><a href="2026-05-07-pi5-wall-mount.html">Pi 5 wall mount — three iterations, no convergence</a></h2>
+          <p class="lede">
+            Stage 2 of Phase 3. Score went 4 → 5 → 4. The agent fixed one thing per pass and
+            broke another. Ships iter-1; also patches a markdown-fence bug that crashed the first attempt.
+          </p>
+          <div class="tag-row"><span class="tag tag-experiment">experiment</span></div>
+        </article>
+
+        <article class="post-card">
+          <p class="date">2026 · 05 · 07</p>
+          <h2><a href="2026-05-07-polling-critics.html">Polling six critics on the SCADvil</a></h2>
+          <p class="lede">
+            Same render, same prompt, six OpenRouter multimodal models. Gemma 4 31B caught the
+            peg-vs-hole bug exactly; Claude Haiku scored it 7/10 here vs. 8/10 in the live run.
+          </p>
+          <div class="tag-row"><span class="tag tag-experiment">experiment</span></div>
+        </article>
+
+        <article class="post-card">
+          <p class="date">2026 · 05 · 07</p>
+          <h2><a href="2026-05-07-scadvil-anvil.html">Building the SCADvil — first attempt</a></h2>
+          <p class="lede">
+            Phase 3 stage 1: scadia produced an anvil that scored 8/10 from the vision critic
+            but the SCAD source has three CSG bugs the loop couldn't see.
+          </p>
+          <div class="tag-row"><span class="tag tag-experiment">experiment</span></div>
+        </article>
+
+        <article class="post-card">
+          <p class="date">2026 · 05 · 06</p>
+          <h2><a href="2026-05-06-card-text-mockups.html">Card-text layout mockups</a></h2>
+          <p class="lede">
+            Six variants of the embossed face, comparing single-line vs. two-line vs. full-path
+            layouts. Renders side-by-side; sets up the v2 decision baked into <code>card.scad</code>.
+          </p>
+          <div class="tag-row"><span class="tag tag-decision">decision-record</span></div>
+        </article>
+
+        <article class="post-card">
+          <p class="date">2026 · 05 · 06</p>
+          <h2><a href="2026-05-06-pivot-to-business-card.html">Pivot: challenge coin → business card</a></h2>
+          <p class="lede">
+            Why the conference giveaway changed shape and what that buys us. Card parameters
+            locked at 88.9 × 50.8 × 1.6 mm with a print-in-place spinning gear.
+          </p>
+          <div class="tag-row">
+            <span class="tag tag-pivot">pivot</span>
+            <span class="tag tag-decision">decision-record</span>
+          </div>
+        </article>
+
+        <!-- oldest -->
+      </div>
+    </section>
+
+    <footer class="signoff">
+      <span><a href="https://github.com/jmcpheron/pycon2026">github.com/jmcpheron/pycon2026</a></span>
+      <span class="stamp">DEVLOG · v1</span>
+      <span>MIT</span>
+    </footer>
+
+  </div>
+
+</body>
+</html>

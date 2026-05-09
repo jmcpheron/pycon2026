@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!--
+  Canonical post template. Used by the /devlog skill as the source of truth
+  for new posts. Filename starts with `_` so it isn't surfaced as a published
+  post by Pages.
+
+  When the skill creates a new post:
+    1. Copy this file to docs/devlog/<YYYY-MM-DD>-<slug>.html
+    2. Replace the {{TITLE}}, {{DATE_ISO}}, {{DATE_HUMAN}}, {{LEDE}}, {{SLUG}}
+       placeholders.
+    3. Replace the example <section class="entry"> with the user's content.
+    4. Update <a class="prev"> / <a class="next"> in nav.post-nav to point at
+       the chronologically adjacent posts (or remove the empty side).
+    5. Prepend a matching <article class="post-card"> to index.html between
+       the `<!-- newest -->` / `<!-- oldest -->` markers.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}} · pycon2026 devlog</title>
+  <meta name="description" content="{{LEDE}}">
+  <meta property="og:title" content="{{TITLE}}">
+  <meta property="og:description" content="{{LEDE}}">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="devlog.css">
+</head>
+<body>
+
+  <header class="titlebar" aria-label="Document title block">
+    <div class="titlebar-inner">
+      <div class="tb-cell"><span class="tb-label">Doc</span><span class="tb-value">Devlog</span></div>
+      <div class="tb-cell"><span class="tb-label">Project</span><span class="tb-value">pycon2026</span></div>
+      <div class="tb-cell"><span class="tb-label">Author</span><span class="tb-value">jmcpheron</span></div>
+      <div class="tb-cell"><span class="tb-label">Venue</span><span class="tb-value">PyCon US 2026</span></div>
+    </div>
+  </header>
+
+  <div class="page">
+
+    <header class="page-head">
+      <nav class="crumbs"><a href="index.html">← Devlog</a></nav>
+      <p class="kicker">§ Entry · {{DATE_HUMAN}}</p>
+      <h1>{{TITLE}}</h1>
+      <p class="lede">{{LEDE}}</p>
+      <p class="byline">
+        <time datetime="{{DATE_ISO}}">{{DATE_HUMAN}}</time>
+        ·
+        <span class="author">jmcpheron</span>
+      </p>
+    </header>
+
+    <article class="post">
+
+      <!-- One <section class="entry"> per ## heading. Append more sections
+           when /devlog appends to this post. -->
+
+      <section class="entry">
+        <h2>What changed</h2>
+        <p>Replace this paragraph with the body of the post.</p>
+
+        <!-- Code block (default, light) -->
+        <pre class="code"><code>def example():
+    return "hello"</code></pre>
+
+        <!-- Shell block -->
+        <pre class="code shell"><code><span class="prompt">$</span> uv run badgeforge build
+<span class="c"># comment</span></code></pre>
+
+        <!-- Figure -->
+        <figure>
+          <img src="assets/{{SLUG}}/example.jpg" alt="Description of image" loading="lazy">
+          <figcaption>
+            <span class="num">FIG 01</span>
+            <span class="desc">A short caption.</span>
+          </figcaption>
+        </figure>
+
+        <!-- Data table -->
+        <table class="data">
+          <thead>
+            <tr><th>Parameter</th><th>Value</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Footprint</td><td class="num">88.9 × 50.8 mm</td><td>US-standard</td></tr>
+            <tr><td>Thickness</td><td class="num">1.6 mm</td><td>4 layers @ 0.4 mm</td></tr>
+          </tbody>
+        </table>
+
+        <!-- TODO callout for prose the user should write themselves -->
+        <aside class="todo">
+          <p>Replace this aside with the user's reasoning. Suggested beats:</p>
+          <ul>
+            <li>What prompted the change.</li>
+            <li>What the trade-offs are.</li>
+            <li>What this enables next.</li>
+          </ul>
+        </aside>
+      </section>
+
+    </article>
+
+    <nav class="post-nav" aria-label="Adjacent posts">
+      <a class="prev" href="{{PREV_HREF}}">
+        <span class="lbl">← Previous</span>
+        <span class="ttl">{{PREV_TITLE}}</span>
+      </a>
+      <a class="next" href="{{NEXT_HREF}}">
+        <span class="lbl">Next →</span>
+        <span class="ttl">{{NEXT_TITLE}}</span>
+      </a>
+    </nav>
+
+    <footer class="signoff">
+      <span><a href="https://github.com/jmcpheron/pycon2026">github.com/jmcpheron/pycon2026</a></span>
+      <span class="stamp">DEVLOG · {{DATE_ISO}}</span>
+      <span>MIT</span>
+    </footer>
+
+  </div>
+
+</body>
+</html>
