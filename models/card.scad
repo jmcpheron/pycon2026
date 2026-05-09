@@ -1,5 +1,8 @@
 // scadia PyCon 2026 — printable parametric badge
-// 88.9 × 50.8 × 1.6 mm with a print-in-place spinning gear and embossed text.
+// 88.9 × 50.8 × 1.6 mm with TWO print-in-place gears engaged in the upper-left:
+//   - a big dial (the knob you spin)
+//   - a smaller hex GitHub-logo gear that's engaged with the dial
+// Embossed name + handle along the bottom.
 //
 // Override the embossed text from the command line via badgeforge:
 //   uv run badgeforge build --name "Your Name" --github "yourhandle"
@@ -18,87 +21,121 @@ corner_r   = 4.5;
 emboss_h   = 0.4;
 font       = "Liberation Mono:style=Bold";
 
-/* [Gear pocket] */
-pocket_x      = 27;
-pocket_d      = 32;
-pocket_depth  = 1.2;
-post_d        = 2.4;
-post_h        = 1.4;
+/* [Dial gear — the spinner] */
+dial_x       = -card_w/2 + 14;          // upper-left, inset 14 mm
+dial_y       =  card_h/2 - 14;
+dial_od      = 18;
+dial_t       = 1.0;
+dial_teeth   = 16;
+dial_bore    = 3.0;
 
-/* [Print-in-place gear] */
-gear_od     = 30;
-gear_t      = 1.0;
-gear_teeth  = 14;
-gear_bore   = 3.0;   // +0.3 mm radial clearance over post_d
-gear_z_lift = 0.2;   // sacrificial layer below gear
+/* [Hex GH gear — engaged with the dial] */
+// Engagement geometry: dial body_d=14 → tooth tip reach 9.3mm; hex_pp=16 → hex point 8mm.
+// Center distance 15.5 puts a tooth tip ~0.7 mm past the hex flat — visible mesh,
+// dial spin will step the hex (occasional bind by design).
+hex_center_d = 15.5;
+hex_x        = dial_x + hex_center_d;
+hex_y        = dial_y;
+hex_pp       = 16;                      // hex point-to-point diameter
+hex_t        = 1.0;
+hex_bore     = 3.0;
+
+/* [Pocket — peanut-shaped, encompasses both gears] */
+pocket_depth = 1.2;
+post_d       = 2.4;
+post_h       = 1.4;
+gear_z_lift  = 0.2;
 
 $fn = 96;
 
+// ─── card body ──────────────────────────────────────────────────────────
 module rounded_card_2d() {
     offset(r = corner_r) offset(r = -corner_r)
         square([card_w, card_h], center = true);
 }
 
+// Peanut-shaped recess: union of two circles, one per gear
+module pocket_2d() {
+    translate([dial_x, dial_y]) circle(d = dial_od + 2);
+    translate([hex_x, hex_y]) circle(d = hex_pp + 1.5);
+}
+
 module card_blank() {
     difference() {
         linear_extrude(card_t) rounded_card_2d();
-        translate([pocket_x, 0, card_t - pocket_depth + 0.01])
-            cylinder(d = pocket_d, h = pocket_depth + 0.02);
+        translate([0, 0, card_t - pocket_depth + 0.01])
+            linear_extrude(pocket_depth + 0.02) pocket_2d();
     }
 }
 
-module center_post() {
-    translate([pocket_x, 0, card_t - pocket_depth])
+// ─── posts (one per gear) ───────────────────────────────────────────────
+module dial_post() {
+    translate([dial_x, dial_y, card_t - pocket_depth])
         cylinder(d = post_d, h = post_h);
 }
 
-module spur_gear() {
-    body_d = gear_od - 4;
+module hex_post() {
+    translate([hex_x, hex_y, card_t - pocket_depth])
+        cylinder(d = post_d, h = post_h);
+}
+
+// ─── big dial: standard 16-tooth spur gear ──────────────────────────────
+module dial_gear() {
+    body_d = dial_od - 4;
     union() {
         difference() {
-            cylinder(d = body_d, h = gear_t);
-            cylinder(d = gear_bore, h = gear_t + 0.02);
+            cylinder(d = body_d, h = dial_t);
+            cylinder(d = dial_bore, h = dial_t + 0.02);
         }
-        for (i = [0 : gear_teeth - 1])
-            rotate([0, 0, i * 360 / gear_teeth])
+        for (i = [0 : dial_teeth - 1])
+            rotate([0, 0, i * 360 / dial_teeth])
                 translate([body_d / 2 - 0.1, 0, 0])
-                    linear_extrude(gear_t)
+                    linear_extrude(dial_t)
                         polygon([[0, -1.6], [2.4, 0], [0, 1.6]]);
     }
 }
 
-module pip_gear() {
-    translate([pocket_x, 0, card_t - pocket_depth + gear_z_lift])
-        spur_gear();
-}
-
-// Outlined-square placeholder for the real GitHub mark. Inlined here so the
-// badge renders standalone without depending on an external SVG.
-module gh_mark(s = 6) {
-    union() {
-        difference() {
-            offset(r = 0.4) square([s, s], center = true);
-            offset(r = -0.4) square([s, s], center = true);
-        }
-        text("gh", size = s * 0.55, font = font,
-             halign = "center", valign = "center");
+// ─── hex GH gear: regular hexagon with "GH" engraved on top ─────────────
+// Text is shifted up so the central bore (post tip is visible there) sits
+// below the lettering instead of cutting through it.
+module hex_gear() {
+    difference() {
+        // Hex body — circle($fn=6) gives point-to-point = d
+        linear_extrude(hex_t) circle(d = hex_pp, $fn = 6);
+        // Center bore for the post
+        translate([0, 0, -0.01])
+            cylinder(d = hex_bore, h = hex_t + 0.02);
+        // GH text engraved on top face, shifted up clear of the bore
+        translate([0, 2.6, hex_t - 0.35 + 0.01])
+            linear_extrude(0.35 + 0.02)
+                text("GH", size = 4.5, font = font,
+                     halign = "center", valign = "center");
     }
 }
 
-// Variant 2 from docs/devlog/2026-05-06-card-text-mockups.md:
-//   [gh] <name>
-//        <github>
+module pip_dial() {
+    translate([dial_x, dial_y, card_t - pocket_depth + gear_z_lift])
+        dial_gear();
+}
+
+module pip_hex() {
+    translate([hex_x, hex_y, card_t - pocket_depth + gear_z_lift])
+        hex_gear();
+}
+
+// ─── bottom-of-card text ────────────────────────────────────────────────
 module text_layout() {
-    translate([-card_w/2 + 7,  6, card_t]) linear_extrude(emboss_h) gh_mark(6);
-    translate([-card_w/2 + 12, 6, card_t]) linear_extrude(emboss_h)
-        text(name, size = 5, font = font,
+    translate([-card_w/2 + 7, -7, card_t]) linear_extrude(emboss_h)
+        text(name, size = 5.5, font = font,
              halign = "left", valign = "center");
-    translate([-card_w/2 + 7, -6, card_t]) linear_extrude(emboss_h)
-        text(github, size = 5, font = font,
+    translate([-card_w/2 + 7, -16, card_t]) linear_extrude(emboss_h)
+        text(github, size = 5.5, font = font,
              halign = "left", valign = "center");
 }
 
 card_blank();
-center_post();
-pip_gear();
+dial_post();
+hex_post();
+pip_dial();
+pip_hex();
 text_layout();
