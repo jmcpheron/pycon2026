@@ -1,0 +1,68 @@
+3D Files License — pycon2026 reduction-gear card
+=================================================
+
+The 3D design files in this repository are released under the
+
+  Creative Commons Attribution-ShareAlike 4.0 International License
+  (CC BY-SA 4.0)
+
+Canonical legal text:   https://creativecommons.org/licenses/by-sa/4.0/legalcode
+Human-readable summary: https://creativecommons.org/licenses/by-sa/4.0/
+
+This file is a NOTICE, not the legal text. The full license is the
+text at the URL above; that text controls in any disagreement.
+
+
+What this covers
+----------------
+
+The CC BY-SA 4.0 license applies to all of the following:
+
+  - jmcpheron-card.step                (the Onshape AP242 export)
+  - docs/assets/card/exploded.gif      (the animated exploded view)
+  - docs/assets/card/exploded.glb      (the assembled 3D model)
+  - docs/assets/card/jmcpheron-card.{stl,glb}
+  - docs/assets/card/parts/*.{stl,glb,png}
+  - docs/assets/card/inspect.txt
+  - docs/assets/card/manifest.toml
+  - The public Onshape source document at
+    https://cad.onshape.com/documents/786fefdef357fb6860b54650/w/33fb9222a6752311e4f08c8b/e/da99fedbaeebf1422d4cb0d3
+
+It does NOT cover the source code in src/, tests/, .github/workflows/,
+or anything else. Those files are MIT-licensed — see LICENSE.
+
+
+What you can do
+---------------
+
+You are free to:
+
+  - Share — copy and redistribute the material in any medium or format.
+  - Adapt — remix, transform, and build upon the material for any
+    purpose, including commercially.
+
+Under the following terms:
+
+  - Attribution. You must give appropriate credit, provide a link to
+    this license, and indicate if changes were made. You may do so in
+    any reasonable manner, but not in any way that suggests the
+    licensor endorses you or your use.
+
+  - ShareAlike. If you remix, transform, or build upon the material,
+    you must distribute your contributions under the same license
+    (CC BY-SA 4.0) as the original.
+
+  - No additional restrictions. You may not apply legal terms or
+    technological measures that legally restrict others from doing
+    anything the license permits.
+
+
+Attribution snippet
+-------------------
+
+If you print one, fork the design, or otherwise reuse these files,
+the following attribution line is sufficient:
+
+  pycon2026 reduction-gear card by jmcpheron
+  https://github.com/jmcpheron/pycon2026
+  Licensed under CC BY-SA 4.0
