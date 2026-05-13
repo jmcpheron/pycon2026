@@ -1,0 +1,17 @@
+File:          jmcpheron-card.step
+Schema:        AP242_MANAGED_MODEL_BASED_3D_ENGINEERING_MIM_LF { 1 0 10303 442 3 1 4 }
+Originating:   ONSHAPE BY PTC INC, 1.214
+Timestamp:     2026-05-13T01:27:47Z
+Top-level:     7 children   Solids: 7
+Bounding box:  X[-42.54, 42.75]  Y[-22.07, 22.33]  Z[-4.11, 9.59]   (size 85.29 × 44.40 × 13.70)
+Tessellation:  28,036 triangles  (linear=0.1 mm  angular=0.5 rad)
+
+Assembly tree:
+Assembly_1 <Compound>  loc=(0.00, 0.00, 0.00)
+├─ Spur_gear__40_teeth_ <Solid>  loc=(-29.94, 0.13, -1.41)
+├─ Part_1 <Solid>  loc=(0.06, 0.13, -3.31)
+├─ Spur_gear__40_teeth_ <Solid>  loc=(-14.94, 0.13, -0.41)
+├─ Spur_gear__40_teeth_ <Solid>  loc=(15.06, 0.13, 1.59)
+├─ Spur_gear__40_teeth_ <Solid>  loc=(0.06, 0.13, 0.59)
+├─ Spur_gear__40_teeth_ <Solid>  loc=(30.06, 0.13, 2.59)
+└─ Part_1 <Solid>  loc=(0.06, 0.13, 4.99)

@@ -11,7 +11,7 @@ glb = "Part_1_1.glb"
 [[part]]
 label = "Spur gear (40 teeth)_4"
 slug = "Spur_gear_40_teeth_4"
-centroid = [30.0579, 0.1288, 2.8611]
+centroid = [30.0577, 0.1289, 2.8611]
 bbox_size = [25.2000, 25.2000, 8.0000]
 displacement = [0.0000, 0.0000, 12.0000]
 color_rgba = [11, 30, 116, 255]
