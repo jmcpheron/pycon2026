@@ -103,5 +103,17 @@ jobs:
             git commit -m "Auto-generate STL + hero PNG from OpenSCAD source
 
           Generated with GitHub Actions"
-            git push
+            # Push with rebase-and-retry — peer auto-commit workflows
+            # (build-step, build-card, build-explainers) sometimes race
+            # us to main. Each workflow writes to disjoint paths, so
+            # rebasing onto the winner is always conflict-free.
+            for attempt in 1 2 3 4 5; do
+              if git push; then
+                echo "Pushed on attempt $attempt"
+                break
+              fi
+              echo "Push rejected (attempt $attempt); rebasing onto origin/main..."
+              git fetch origin main
+              git rebase origin/main || { git rebase --abort; exit 1; }
+            done
           fi
