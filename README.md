@@ -108,11 +108,7 @@ If you scanned this from the card I handed you, here's what I'm hoping to talk a
 - **Python ↔ CAD pipelines.** Onshape STEP exports → `cascadio` → `trimesh` → OpenSCAD → animated GIF, all in CI. I'd like to hear what other people are gluing together.
 - **Open-source licensing for physical 3D files.** STEP and STL aren't software; MIT covers the code in this repo, but the geometry sits in a fuzzier zone.
 - **Less-permissive licensing for STEP/STL** as a hedge against patent trolls and copyright-shaped opportunism. Whether stricter terms actually protect physical-design authors, or just create friction for the people who'd remix in good faith.
-- **Devlog-as-build-journal.** Everything I do on this project is in [`docs/devlog/`](docs/devlog/), in public. I'd like to hear from others doing the same.
-
-## Devlog
-
-Build progress, prints that worked, prints that didn't. [`docs/devlog/`](docs/devlog/).
+- **Devlog-as-build-journal** as a way to ship hardware in public. I'd like to hear from others doing the same.
 
 ## License
 
