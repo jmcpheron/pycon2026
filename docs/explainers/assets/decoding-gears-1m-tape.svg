@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="720.0" height="306.0" viewBox="0 0 720.0 306.0">
+<defs>
+</defs>
+<rect x="0" y="0" width="720.0" height="306.0" fill="#fafaf9" />
+<text x="360.0" y="62.0" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">Roll the card on edge like a coin — the input gear contacts the floor.</text>
+<text x="360.0" y="80.0" font-size="9" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280">Input OD = 25.20 mm  ·  circumference = 79.2 mm  ·  chain ratio = 256:1</text>
+<rect x="50.0" y="140.0" width="620.0" height="26.0" fill="#fde68a" stroke="#1f2937" stroke-width="1.0" />
+<path d="M50.0,140.0 L50.0,150.0" stroke="#1f2937" stroke-width="0.6" />
+<text x="50.0" y="180.0" font-size="9" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937">0 m</text>
+<path d="M81.0,140.0 L81.0,145.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M112.0,140.0 L112.0,150.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M143.0,140.0 L143.0,145.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M174.0,140.0 L174.0,150.0" stroke="#1f2937" stroke-width="0.6" />
+<text x="174.0" y="180.0" font-size="9" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937">0.2 m</text>
+<path d="M205.0,140.0 L205.0,145.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M236.0,140.0 L236.0,150.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M267.0,140.0 L267.0,145.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M298.0,140.0 L298.0,150.0" stroke="#1f2937" stroke-width="0.6" />
+<text x="298.0" y="180.0" font-size="9" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937">0.4 m</text>
+<path d="M329.0,140.0 L329.0,145.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M360.0,140.0 L360.0,150.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M391.0,140.0 L391.0,145.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M422.0,140.0 L422.0,150.0" stroke="#1f2937" stroke-width="0.6" />
+<text x="422.0" y="180.0" font-size="9" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937">0.6 m</text>
+<path d="M453.0,140.0 L453.0,145.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M484.0,140.0 L484.0,150.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M515.0,140.0 L515.0,145.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M546.0,140.0 L546.0,150.0" stroke="#1f2937" stroke-width="0.6" />
+<text x="546.0" y="180.0" font-size="9" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937">0.8 m</text>
+<path d="M577.0,140.0 L577.0,145.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M608.0,140.0 L608.0,150.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M639.0,140.0 L639.0,145.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M670.0,140.0 L670.0,150.0" stroke="#1f2937" stroke-width="0.6" />
+<text x="670.0" y="180.0" font-size="9" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937">1 m</text>
+<text x="50.0" y="128.0" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280">input gear: 12.6 rotations over 1 m</text>
+<circle cx="678.0" cy="153.0" r="32" fill="#fafaf9" stroke="#1f2937" stroke-width="1.0" />
+<path d="M678.0,153.0 L678.0,121.0 A32,32,0,0,1,687.7623349948556,122.5254726788385 L678.0,153.0 Z" fill="#2563eb" fill-opacity="0.45" stroke="#1f2937" stroke-width="0.6" />
+<text x="360.0" y="204.0" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#2563eb" font-weight="bold">output gear after rolling 1 m: 0.0493 rotations ≈ 17.8°</text>
+<text x="360.0" y="222.0" font-size="9" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280">To get one full output rotation you'd have to roll 20.3 metres.</text>
+</svg>

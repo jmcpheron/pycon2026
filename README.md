@@ -193,13 +193,14 @@ Short, deterministic Python programs that produce the writeups under [`docs/expl
 src/explainers/<topic>.py  →  uv run explainers build  →  docs/explainers/<topic>.md (+ assets/*.svg)
 ```
 
-Five sections, all auto-rebuilt in CI:
+Six sections, all auto-rebuilt in CI:
 
 - [Gear ratios →](docs/explainers/gear-ratios.md) compound multiplication, thumb-travel.
 - [Stacking →](docs/explainers/stacking.md) why a 3-level cycle keeps the card thin.
 - [Terminology →](docs/explainers/terminology.md) pinion / hub / post / pitch circle, glossary.
 - [3D-printing considerations →](docs/explainers/printing.md) orientation, chamfers, separate posts.
 - [The card in 3D →](docs/explainers/card-3d.md) interactive `<model-viewer>` embed, exploded view, parts.
+- [Decoding the gears from STEP →](docs/explainers/decoding-gears.md) slice the committed gear STL, FFT the radial profile to recover tooth count + module, then a rolling-tape thought experiment.
 
 ---
 

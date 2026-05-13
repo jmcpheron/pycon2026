@@ -24,6 +24,10 @@ dev = [
 explainers = [
     "drawsvg>=2.4",
     "matplotlib>=3.9",
+    # The `decoding` explainer slices the committed gear STL to recover
+    # tooth count + module from geometry. trimesh ships its own STL parser
+    # and mesh-plane intersection helper.
+    "trimesh>=4",
 ]
 step = [
     "build123d>=0.10",

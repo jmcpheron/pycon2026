@@ -11,7 +11,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_OUT_DIR = REPO_ROOT / "docs" / "explainers"
 
 # Order matters here — it's the order the index page lists them.
-EXPLAINERS = ("ratios", "stacking", "terminology", "printing")
+EXPLAINERS = ("ratios", "stacking", "terminology", "printing", "decoding")
 
 
 def _build_one(name: str, out_dir: Path) -> Path:

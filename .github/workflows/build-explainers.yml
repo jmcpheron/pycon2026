@@ -7,11 +7,15 @@ on:
       - 'src/explainers/**'
       - 'pyproject.toml'
       - '.github/workflows/build-explainers.yml'
+      # `decoding` reads the committed gear STL — re-run when it changes.
+      - 'docs/assets/card/parts/Spur_gear_40_teeth_4.stl'
   pull_request:
     paths:
       - 'src/explainers/**'
       - 'pyproject.toml'
       - '.github/workflows/build-explainers.yml'
+      # `decoding` reads the committed gear STL — re-run when it changes.
+      - 'docs/assets/card/parts/Spur_gear_40_teeth_4.stl'
 
 # Cancel any in-flight run for the same branch when a new push arrives.
 concurrency:
@@ -56,6 +60,7 @@ jobs:
           test -f docs/explainers/stacking.md
           test -f docs/explainers/terminology.md
           test -f docs/explainers/printing.md
+          test -f docs/explainers/decoding-gears.md
 
       - name: Upload generated docs
         uses: actions/upload-artifact@v4

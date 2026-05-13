@@ -1263,6 +1263,7 @@ dev = [
 explainers = [
     { name = "drawsvg" },
     { name = "matplotlib" },
+    { name = "trimesh" },
 ]
 step = [
     { name = "build123d" },
@@ -1284,6 +1285,7 @@ requires-dist = [
     { name = "pillow", marker = "extra == 'step'", specifier = ">=10" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0.0" },
     { name = "python-dotenv", specifier = ">=1.0.0" },
+    { name = "trimesh", marker = "extra == 'explainers'", specifier = ">=4" },
     { name = "trimesh", marker = "extra == 'step'", specifier = ">=4" },
 ]
 provides-extras = ["dev", "explainers", "step"]

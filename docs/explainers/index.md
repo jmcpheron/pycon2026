@@ -8,7 +8,7 @@ This directory is a *generated* set of writeups. Every page below is produced by
 src/explainers/<topic>.py  ─►  uv run explainers build <topic>  ─►  docs/explainers/<topic>.md (+ assets/*.svg)
 ```
 
-## The four sections
+## The six sections
 
 ### 1. [Gear ratios](gear-ratios.md)
 
@@ -25,6 +25,14 @@ Pinion vs big gear, hub vs boss, post vs axle vs arbor. One annotated cross-sect
 ### 4. [3D-printing considerations](printing.md)
 
 Print orientation, the hub-to-pinion overhang and why a 45° chamfer fixes it, and why the post is its own part rather than printed monolithic with the gear.
+
+### 5. [The card in 3D](card-3d.md)
+
+The Onshape STEP itself, decomposed by Python. An interactive `<model-viewer>` embed, an exploded-view animation, and per-part renders — all derived from one canonical [`jmcpheron-card.step`](../../jmcpheron-card.step) by `stepforge explode`.
+
+### 6. [Decoding the gears from STEP](decoding-gears.md)
+
+Onshape's STEP export drops the parametric metadata — we recover it from the committed STL by slicing the gear, FFT-ing the radial profile, and back-solving the module. Plus a rolling-tape thought experiment: how far do you push the card before the output ticks once?
 
 ## Why a Python repo, not a static site?
 
