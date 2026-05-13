@@ -9,8 +9,8 @@
 <text x="101.42857142857143" y="64.0" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280" font-weight="normal">PyCon booth (3 m)</text>
 <rect x="60.0" y="80.0" width="158.24761904761905" height="22.0" fill="#6b7280" fill-opacity="0.7" stroke="#1f2937" stroke-width="0.6" />
 <text x="224.24761904761905" y="94.0" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280" font-weight="normal">badminton court (13.4 m)</text>
-<rect x="60.0" y="110.0" width="239.3478206794918" height="22.0" fill="#2563eb" fill-opacity="0.7" stroke="#1f2937" stroke-width="0.6" />
-<text x="305.3478206794918" y="124.0" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#2563eb" font-weight="bold">one output click (20.3 m)</text>
+<rect x="60.0" y="110.0" width="239.34414223362683" height="22.0" fill="#2563eb" fill-opacity="0.7" stroke="#1f2937" stroke-width="0.6" />
+<text x="305.3441422336268" y="124.0" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#2563eb" font-weight="bold">one output click (20.3 m)</text>
 <rect x="60.0" y="140.0" width="590.4761904761905" height="22.0" fill="#6b7280" fill-opacity="0.7" stroke="#1f2937" stroke-width="0.6" />
 <text x="656.4761904761905" y="154.0" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280" font-weight="normal">Olympic pool (50 m)</text>
 <path d="M60.0,174.0 L680.0,174.0" stroke="#1f2937" stroke-width="0.6" />
