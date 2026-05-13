@@ -26,6 +26,10 @@ html {
   text-size-adjust: 100%;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 body, h1, h2, h3, p, figure, ul, pre, blockquote {
   margin: 0;
 }
@@ -157,21 +161,23 @@ a:hover {
 
 .hero h1 {
   font-family: var(--serif);
-  font-size: clamp(4.5rem, 13vw, 10.5rem);
+  font-size: clamp(2.75rem, 13vw, 10.5rem);
   font-variation-settings: "opsz" 144, "SOFT" 0, "wght" 380;
   line-height: 0.85;
   letter-spacing: -0.045em;
   margin-bottom: 32px;
+  overflow-wrap: break-word;
   animation: rise 760ms cubic-bezier(.2,.8,.2,1) both;
 }
 
 .tagline {
   font-family: var(--serif);
-  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  font-size: clamp(1.25rem, 2.6vw, 2.1rem);
   font-variation-settings: "opsz" 36, "SOFT" 100, "wght" 360;
   line-height: 1.2;
   letter-spacing: -0.005em;
   margin-bottom: 22px;
+  overflow-wrap: break-word;
   animation: rise 760ms 80ms cubic-bezier(.2,.8,.2,1) both;
 }
 .tagline em {
@@ -185,11 +191,13 @@ a:hover {
   color: var(--ink-mid);
   max-width: 46ch;
   margin-bottom: 40px;
+  overflow-wrap: break-word;
   animation: rise 760ms 160ms cubic-bezier(.2,.8,.2,1) both;
 }
 
 .hero-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 14px;
   animation: rise 760ms 240ms cubic-bezier(.2,.8,.2,1) both;
 }
@@ -207,6 +215,7 @@ a:hover {
   display: inline-flex;
   align-items: center;
   gap: 12px;
+  white-space: nowrap;
   transition: background .2s, color .2s, border-color .2s, transform .2s;
   cursor: pointer;
 }
@@ -294,6 +303,24 @@ a:hover {
   }
 }
 
+@media (max-width: 480px) {
+  .hero {
+    padding: 48px 18px 40px;
+    gap: 36px;
+  }
+  .hero-text { padding-top: 4px; }
+  .hero h1 { margin-bottom: 22px; }
+  .lede { margin-bottom: 28px; }
+  .plate-frame { padding: 16px; }
+  .plate-frame img { filter: none; }
+  .plate figcaption {
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.66rem;
+  }
+  .plate-desc { text-align: left; }
+}
+
 /* ─── sections ────────────────────────────────────────────────── */
 
 .section {
@@ -363,6 +390,17 @@ a:hover {
 @media (max-width: 760px) {
   .section { padding: 64px 28px; }
   .section-head { gap: 18px; flex-wrap: wrap; }
+}
+
+@media (max-width: 480px) {
+  .section { padding: 48px 18px; }
+  .section-head { gap: 10px; margin-bottom: 28px; }
+  .dropquote {
+    padding-left: 18px;
+    margin-bottom: 36px;
+  }
+  .code { padding: 18px 18px; font-size: 0.8rem; }
+  .prose { font-size: 1rem; }
 }
 
 /* ─── architecture diagram ────────────────────────────────────── */
@@ -551,6 +589,11 @@ a:hover {
     grid-template-columns: 1fr 1fr;
     gap: 28px;
   }
+}
+
+@media (max-width: 480px) {
+  .signoff { padding: 40px 18px 56px; }
+  .signoff-grid { gap: 22px; }
 }
 
 /* ─── motion ──────────────────────────────────────────────────── */
