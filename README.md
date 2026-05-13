@@ -6,7 +6,8 @@
 [![Build Card](https://github.com/jmcpheron/pycon2026/actions/workflows/build-card.yml/badge.svg)](https://github.com/jmcpheron/pycon2026/actions/workflows/build-card.yml)
 [![Build Explainers](https://github.com/jmcpheron/pycon2026/actions/workflows/build-explainers.yml/badge.svg)](https://github.com/jmcpheron/pycon2026/actions/workflows/build-explainers.yml)
 [![Pages](https://github.com/jmcpheron/pycon2026/actions/workflows/pages.yml/badge.svg)](https://jmcpheron.github.io/pycon2026/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Code: MIT](https://img.shields.io/badge/Code-MIT-blue.svg)](LICENSE)
+[![3D files: CC BY-SA 4.0](https://img.shields.io/badge/3D%20files-CC%20BY--SA%204.0-blue.svg)](LICENSE-3D-FILES)
 
 <p align="center">
   <img src="docs/assets/card/exploded.gif" alt="Animated exploded view of the reduction-gear card: top card half lifts up, five blue 40-tooth spur gears fan out in the middle, bottom card half lowers to reveal five shaft holes spaced 15 mm apart." width="900" />
@@ -38,7 +39,7 @@
 
 ## Hand me one at PyCon US 2026
 
-Long Beach, May 14–17. If you found this repo from a 3D-printed card I gave you — hi. The source for that card is [`jmcpheron-card.step`](jmcpheron-card.step) at the root of this repo. Fork it, slice it, print your own.
+Long Beach, May 14–17. If you found this repo from a 3D-printed card I gave you — hi. The source for the card is [`jmcpheron-card.step`](jmcpheron-card.step) at the root of this repo, exported from a **[public Onshape document](https://cad.onshape.com/documents/786fefdef357fb6860b54650/w/33fb9222a6752311e4f08c8b/e/da99fedbaeebf1422d4cb0d3)** — open it in your browser to spin it around, or fork it into your own free Onshape account to remix the geometry directly. Slice the STEP, print one, hand someone else a copy.
 
 ## How it works
 
@@ -106,14 +107,14 @@ If you scanned this from the card I handed you, here's what I'm hoping to talk a
 
 - **3D printing**, especially print-in-place mechanisms and the geometry tricks that make them survive a bed-slinger.
 - **Python ↔ CAD pipelines.** Onshape STEP exports → `cascadio` → `trimesh` → OpenSCAD → animated GIF, all in CI. I'd like to hear what other people are gluing together.
-- **Open-source licensing for physical 3D files.** STEP and STL aren't software; MIT covers the code in this repo, but the geometry sits in a fuzzier zone.
-- **Less-permissive licensing for STEP/STL** as a hedge against patent trolls and copyright-shaped opportunism. Whether stricter terms actually protect physical-design authors, or just create friction for the people who'd remix in good faith.
-- **Devlog-as-build-journal.** Everything I do on this project is in [`docs/devlog/`](docs/devlog/), in public. I'd like to hear from others doing the same.
-
-## Devlog
-
-Build progress, prints that worked, prints that didn't. [`docs/devlog/`](docs/devlog/).
+- **Open-source licensing for physical 3D files.** I went with CC BY-SA 4.0 for the geometry — did I get that right? STEP and STL aren't software; copyright on mechanical designs is fuzzy; CERN OHL exists. Would love to hear from people who've thought harder about this.
+- **Defensive disclosure vs. license clauses** as protection against patent trolls and copyright-shaped opportunism. Public Onshape + dated commits is probably doing most of the work; share-alike does the rest. Or does it?
+- **Devlog-as-build-journal** as a way to ship hardware in public. I'd like to hear from others doing the same.
 
 ## License
 
-MIT — code and 3D assets, for now. See "Things I'd love to chat about at PyCon" above; the right license for the STEP/STL files is a live question, not a settled answer.
+**Code** (`src/`, `tests/`, workflows): **MIT** — see [`LICENSE`](LICENSE).
+
+**3D files** ([`jmcpheron-card.step`](jmcpheron-card.step), the generated STL / GLB / PNG / GIF under `docs/assets/card/`, and the [public Onshape document](https://cad.onshape.com/documents/786fefdef357fb6860b54650/w/33fb9222a6752311e4f08c8b/e/da99fedbaeebf1422d4cb0d3)): **CC BY-SA 4.0** — see [`LICENSE-3D-FILES`](LICENSE-3D-FILES).
+
+Print it, fork it, remix the gears. If you publish a derivative — a different layout, a coin-sized version, whatever — it needs to be CC BY-SA 4.0 too, and please credit `pycon2026` by jmcpheron with a link back here.
