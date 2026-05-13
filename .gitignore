@@ -14,8 +14,8 @@ venv/
 # Secrets
 .env
 
-# scadia run artifacts
-output/
+# macOS Finder metadata
+.DS_Store
 
 # Claude Code per-machine state (skills/ stays tracked)
 .claude/scheduled_tasks.lock

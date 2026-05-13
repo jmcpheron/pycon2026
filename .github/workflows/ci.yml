@@ -30,7 +30,7 @@ jobs:
       - name: Set up Python ${{ matrix.python-version }}
         run: uv python install ${{ matrix.python-version }}
 
-      - name: Install scadia
+      - name: Install project
         run: uv sync --all-extras
 
       - name: Run pytest under xvfb
