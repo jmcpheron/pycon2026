@@ -1,0 +1,112 @@
+name: Build Card Renders
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'jmcpheron-card.step'
+      - 'jmcpheron-card.meta.toml'
+      - 'src/stepforge/**'
+      - 'pyproject.toml'
+      - '.github/workflows/build-card.yml'
+  pull_request:
+    paths:
+      - 'jmcpheron-card.step'
+      - 'jmcpheron-card.meta.toml'
+      - 'src/stepforge/**'
+      - 'pyproject.toml'
+      - '.github/workflows/build-card.yml'
+
+# Cancel any in-flight run for the same branch when a new push arrives.
+# Prevents two auto-commits from racing each other (and the human pusher).
+concurrency:
+  group: build-card-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-card:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Install OpenSCAD + xvfb (PNG rendering needs an X display)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openscad xvfb
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: 'uv.lock'
+
+      - name: Sync dependencies (step extra pulls cascadio + trimesh)
+        run: uv sync --extra step
+
+      - name: Inspect jmcpheron-card.step
+        run: |
+          mkdir -p docs/assets/card
+          uv run stepforge inspect jmcpheron-card.step \
+            | tee docs/assets/card/inspect.txt
+
+      - name: Tessellate STEP -> STL (GitHub viewer)
+        run: uv run stepforge build
+              --in jmcpheron-card.step
+              --out docs/assets/card/jmcpheron-card.stl
+
+      - name: Decompose into parts + exploded view + GIF
+        run: xvfb-run -a uv run stepforge explode
+              --in jmcpheron-card.step
+              --out docs/assets/card/
+              --strategy card-layered
+              --factor 1.0
+              --frames 24
+
+      - name: Verify outputs
+        run: |
+          ls -la docs/assets/card/ docs/assets/card/parts/
+          file docs/assets/card/*.glb docs/assets/card/*.gif
+          file docs/assets/card/*.stl docs/assets/card/parts/*.png
+
+      - name: Upload card artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: card-renders
+          path: |
+            docs/assets/card/**
+            !docs/assets/card/_frames/**
+          retention-days: 30
+
+      - name: Commit regenerated artifacts
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          # Stage everything under docs/assets/card/ except the debug frames.
+          git add docs/assets/card/jmcpheron-card.glb \
+                  docs/assets/card/jmcpheron-card.stl \
+                  docs/assets/card/exploded.glb \
+                  docs/assets/card/exploded.gif \
+                  docs/assets/card/manifest.toml \
+                  docs/assets/card/inspect.txt \
+                  docs/assets/card/parts
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-generate card-derived artifacts via stepforge
+
+          Generated with GitHub Actions"
+            git push
+          fi

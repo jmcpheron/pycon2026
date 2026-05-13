@@ -26,6 +26,10 @@ Pinion vs big gear, hub vs boss, post vs axle vs arbor. One annotated cross-sect
 
 Print orientation, the hub-to-pinion overhang and why a 45° chamfer fixes it, and why the post is its own part rather than printed monolithic with the gear.
 
+### 5. [The card in 3D](card-3d.md)
+
+The Onshape STEP itself, decomposed by Python. An interactive `<model-viewer>` embed, an exploded-view animation, and per-part renders — all derived from one canonical [`jmcpheron-card.step`](../../jmcpheron-card.step) by `stepforge explode`.
+
 ## Why a Python repo, not a static site?
 
 Each explainer is a deterministic Python program. You can read its source, change a parameter, re-run it, and the writeup updates. The diagrams aren't hand-drawn — they're [SVG primitives](../../src/explainers/diagrams.py) composed by Python from the same canonical inputs. The repo is the explanation.

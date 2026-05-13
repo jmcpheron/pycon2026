@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 import struct
 import tempfile
+import tomllib
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -142,4 +143,43 @@ def inspect_step(path: Path) -> str:
         "Assembly tree:",
         *tree_lines,
     ]
+
+    sidecar_lines = _format_sidecar(path)
+    if sidecar_lines:
+        lines.extend(["", *sidecar_lines])
+
     return "\n".join(lines)
+
+
+def load_sidecar(step_path: Path) -> dict | None:
+    """Look for `<stem>.meta.toml` next to the STEP and parse it.
+
+    Returns None if absent. The schema is open-ended; the convention is a
+    top-level `[card]` table plus a list of `[[part]]` entries that the
+    explode subcommand joins to rendered parts by name.
+    """
+    sidecar = step_path.with_suffix(".meta.toml")
+    if not sidecar.exists():
+        return None
+    return tomllib.loads(sidecar.read_text())
+
+
+def _format_sidecar(step_path: Path) -> list[str]:
+    """Format the sidecar metadata for inclusion in the inspect report."""
+    data = load_sidecar(step_path)
+    if data is None:
+        return []
+
+    out = ["Sidecar metadata:"]
+    card = data.get("card") or {}
+    for k, v in card.items():
+        out.append(f"  {k}: {v}")
+
+    parts = data.get("part") or []
+    if parts:
+        out.append(f"  parts: {len(parts)}")
+        for p in parts:
+            name = p.get("name", "?")
+            extras = ", ".join(f"{k}={v}" for k, v in p.items() if k != "name")
+            out.append(f"    - {name}  ({extras})" if extras else f"    - {name}")
+    return out

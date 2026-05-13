@@ -1,4 +1,4 @@
-"""STEP → STL / GLB conversion via build123d (OCCT)."""
+"""STEP → STL / GLB conversion via build123d (OCCT) + cascadio for colored GLB."""
 
 from __future__ import annotations
 
@@ -30,12 +30,30 @@ def build(
             f"unsupported output extension {suffix!r}; want .stl, .glb, or .gltf"
         )
 
-    # Imported lazily so `stepforge --help` doesn't pay the OCP wheel's
-    # ~2 s import cost when the user is just exploring the CLI.
+    out.parent.mkdir(parents=True, exist_ok=True)
+
+    # GLB: route through cascadio when available. It wraps OCCT's
+    # RWGltf_CafWriter and preserves XCAF part names + colors in one
+    # call, which build123d's export_gltf does not. Fall back to
+    # build123d if cascadio isn't installed (older venvs).
+    if suffix == ".glb":
+        try:
+            import cascadio
+        except ImportError:
+            cascadio = None
+        if cascadio is not None:
+            cascadio.step_to_glb(
+                str(input_path), str(out),
+                tol_linear=linear_deflection,
+                tol_angular=angular_deflection,
+                include_materials=True,
+            )
+            return out
+
+    # Fallback path: build123d / OCCT. Imported lazily so `stepforge --help`
+    # doesn't pay the OCP wheel's ~2 s import cost.
     from build123d import Compound, import_step
     from build123d.exporters3d import export_gltf, export_stl
-
-    out.parent.mkdir(parents=True, exist_ok=True)
 
     shape: Compound = import_step(str(input_path))
 
@@ -48,7 +66,6 @@ def build(
             ascii_format=not binary,
         )
     else:
-        # GLB / glTF — uses OCCT's RWGltf_CafWriter under the hood.
         export_gltf(
             to_export=shape,
             file_path=str(out),

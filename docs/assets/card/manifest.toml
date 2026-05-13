@@ -1,0 +1,69 @@
+[[part]]
+label = "Part 1_1"
+slug = "Part_1_1"
+centroid = [1.8864, 0.1288, 2.1174]
+bbox_size = [78.6884, 44.4000, 9.1047]
+displacement = [0.0000, 0.0000, 25.0000]
+color_rgba = [202, 202, 202, 255]
+png = "Part_1_1.png"
+glb = "Part_1_1.glb"
+
+[[part]]
+label = "Spur gear (40 teeth)_4"
+slug = "Spur_gear_40_teeth_4"
+centroid = [30.0579, 0.1288, 2.8611]
+bbox_size = [25.2000, 25.2000, 8.0000]
+displacement = [0.0000, 0.0000, 12.0000]
+color_rgba = [11, 30, 116, 255]
+png = "Spur_gear_40_teeth_4.png"
+glb = "Spur_gear_40_teeth_4.glb"
+
+[[part]]
+label = "Spur gear (40 teeth)_3"
+slug = "Spur_gear_40_teeth_3"
+centroid = [0.0577, 0.1289, 0.1692]
+bbox_size = [25.1858, 25.1858, 3.0000]
+displacement = [0.0000, 0.0000, 0.0000]
+color_rgba = [11, 30, 116, 255]
+png = "Spur_gear_40_teeth_3.png"
+glb = "Spur_gear_40_teeth_3.glb"
+
+[[part]]
+label = "Spur gear (40 teeth)_2"
+slug = "Spur_gear_40_teeth_2"
+centroid = [15.0577, 0.1289, 1.1692]
+bbox_size = [25.2000, 25.2000, 3.0000]
+displacement = [0.0000, 0.0000, 6.0000]
+color_rgba = [11, 30, 116, 255]
+png = "Spur_gear_40_teeth_2.png"
+glb = "Spur_gear_40_teeth_2.glb"
+
+[[part]]
+label = "Spur gear (40 teeth)_1"
+slug = "Spur_gear_40_teeth_1"
+centroid = [-14.9423, 0.1289, -0.8308]
+bbox_size = [25.1986, 25.1986, 3.0000]
+displacement = [0.0000, 0.0000, -6.0000]
+color_rgba = [11, 30, 116, 255]
+png = "Spur_gear_40_teeth_1.png"
+glb = "Spur_gear_40_teeth_1.glb"
+
+[[part]]
+label = "Part 1"
+slug = "Part_1"
+centroid = [2.4407, 0.1289, -0.7890]
+bbox_size = [74.0000, 40.0000, 7.3000]
+displacement = [0.0000, 0.0000, -25.0000]
+color_rgba = [202, 202, 202, 255]
+png = "Part_1.png"
+glb = "Part_1.glb"
+
+[[part]]
+label = "Spur gear (40 teeth)"
+slug = "Spur_gear_40_teeth"
+centroid = [-29.9423, 0.1289, -1.8308]
+bbox_size = [25.1956, 25.1956, 3.0000]
+displacement = [0.0000, 0.0000, -12.0000]
+color_rgba = [11, 30, 116, 255]
+png = "Spur_gear_40_teeth.png"
+glb = "Spur_gear_40_teeth.glb"

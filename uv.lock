@@ -117,6 +117,28 @@ wheels = [
 ]
 
 [[package]]
+name = "cascadio"
+version = "0.0.18rc6"
+source = { registry = "https://pypi.org/simple" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/65/2a/2661fc4caf64a9175c785d79be3d466923db986a8625ac606258e25dc65b/cascadio-0.0.18rc6-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:c89637eff84a0c7885aab35189c9818624af92b8e9582ba1ae21705e1a572cb3", size = 21451327, upload-time = "2026-03-11T21:01:51.165Z" },
+    { url = "https://files.pythonhosted.org/packages/52/c1/c7be22ff0aab1ca7518d7ae7138e7b9d1c17dfd17bed0dfe641342a905e1/cascadio-0.0.18rc6-cp311-cp311-macosx_11_0_x86_64.whl", hash = "sha256:ce03f1f28534957a1e1f6bbec9bc53aeb6a8984010155e3c006c777dd1d76d1b", size = 23701507, upload-time = "2026-03-11T21:01:54.782Z" },
+    { url = "https://files.pythonhosted.org/packages/4f/c9/aa1f6ed02310ce57b88f0775406ee141484ecd5b5e50c1c26f3290a45abc/cascadio-0.0.18rc6-cp311-cp311-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:e53ef199824fc6489ae95651556af08898ce8adb6079484190eddae6a4fbb274", size = 25566353, upload-time = "2026-03-11T21:01:58.608Z" },
+    { url = "https://files.pythonhosted.org/packages/31/6c/7b169e67859feb1ce058426885a166579d7d8817d0eea7c8186c64f6d503/cascadio-0.0.18rc6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:615da7d7de0f594389765ce9468f5fd9886080dda4e6e1b8b486dadc1429eec1", size = 26888301, upload-time = "2026-03-11T21:02:02.522Z" },
+    { url = "https://files.pythonhosted.org/packages/d4/a2/919c1f21850d2c376c14873ba691458f60988cc3759b2314537f23e575e5/cascadio-0.0.18rc6-cp311-cp311-win_amd64.whl", hash = "sha256:36f78623c6f1d07ea7f1a60c77b02f9b09c0391c0894e785020129c9d4678ab1", size = 16522446, upload-time = "2026-03-11T21:02:05.621Z" },
+    { url = "https://files.pythonhosted.org/packages/4f/6e/9177c0c972199c495e50cb83d92a75b83ee2347f2bb85d7711844ca8c018/cascadio-0.0.18rc6-cp312-abi3-macosx_11_0_arm64.whl", hash = "sha256:b65686109243dc37def51bfd300304ed31cc10507fd567413ac630a96051de8e", size = 21449614, upload-time = "2026-03-11T21:02:09.025Z" },
+    { url = "https://files.pythonhosted.org/packages/ec/42/f3306693813e7d9fababe24c05cb007e89de043f5eb3e95fdeedc32608cd/cascadio-0.0.18rc6-cp312-abi3-macosx_11_0_x86_64.whl", hash = "sha256:5b7f725f46de9850a8a33a30e6e8b01164fa73df5dcfb87387c87d5f58204835", size = 23699540, upload-time = "2026-03-11T21:02:12.472Z" },
+    { url = "https://files.pythonhosted.org/packages/f7/e2/fdddd2ae59036445fc9d818c71736d4f9e9ad45ccdcdf7c57f084b94e246/cascadio-0.0.18rc6-cp312-abi3-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:a5d452c44ef450fa7a6be4e55acfc34c55635f7fce5fa2f46ae38e3655fc91e8", size = 25561752, upload-time = "2026-03-11T21:02:16.011Z" },
+    { url = "https://files.pythonhosted.org/packages/74/89/fe5f3396c40efcaf77bd63f88424be980a6d301097e75cd8d65c52b91878/cascadio-0.0.18rc6-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:b26ae4b7672b9115f4275da6704f64e564003d4d4c372625c0f7a37fc189f2b3", size = 26883953, upload-time = "2026-03-11T21:02:19.791Z" },
+    { url = "https://files.pythonhosted.org/packages/3e/4d/ed258366b9438cf6ce0ee3b2feaa0e765375bef2a0429767adb5a0e2e56a/cascadio-0.0.18rc6-cp312-abi3-win_amd64.whl", hash = "sha256:85124eacfa1c20324b1aa6091468479c1ed29d225f4d5fe1309c90a23679bffd", size = 16520129, upload-time = "2026-03-11T21:02:23.321Z" },
+    { url = "https://files.pythonhosted.org/packages/63/33/902e5ae1dabeb1f6fae385255f91fe36ec6e689730b82c52a6a33ac2a51c/cascadio-0.0.18rc6-cp314-cp314t-macosx_11_0_arm64.whl", hash = "sha256:46cc3ca3a1887905cd27eaa0fde43e7846306e61282c0180a3ec2b1d3589c719", size = 21453365, upload-time = "2026-03-11T21:02:26.806Z" },
+    { url = "https://files.pythonhosted.org/packages/3d/67/0edc33eadc50b545ec6be8f6a9e4d8f7af6b057bd77bd9f4d8bd267ee9cc/cascadio-0.0.18rc6-cp314-cp314t-macosx_11_0_x86_64.whl", hash = "sha256:948eb1ce23eb00234f94742d1abb6a518e068c3381b8a9d1c33608117f61b50b", size = 23703692, upload-time = "2026-03-11T21:02:30.831Z" },
+    { url = "https://files.pythonhosted.org/packages/e4/d2/0515f11330e0e66de44e8bb6ead21621809b57c892374ff9c036c701cc3d/cascadio-0.0.18rc6-cp314-cp314t-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:9ce7c07e2bfe535d2f0744eb128c49b32b826c5299bfcbcbe7d413081f01c8ea", size = 25571086, upload-time = "2026-03-11T21:02:34.655Z" },
+    { url = "https://files.pythonhosted.org/packages/81/42/044d8d1ff37ab1c85486e7b5b1031ec2f80cb89a7047f836a3703f79c6fa/cascadio-0.0.18rc6-cp314-cp314t-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:6afb31501c7032758ceab2af0b7c4d3ecb881dd0088de1dfd8b1e5e153a4038b", size = 26893042, upload-time = "2026-03-11T21:02:39.051Z" },
+    { url = "https://files.pythonhosted.org/packages/82/74/aa99f8c2476c3a7713c7c95b55fc499bd21dc3376b0820e57f0b3ee2ba55/cascadio-0.0.18rc6-cp314-cp314t-win_amd64.whl", hash = "sha256:f7a148cffc8c2184f8f304ac953d944e62abb4bfa602f67d2035b233b704b0e3", size = 17090748, upload-time = "2026-03-11T21:02:42.303Z" },
+]
+
+[[package]]
 name = "certifi"
 version = "2026.4.22"
 source = { registry = "https://pypi.org/simple" }
@@ -1245,6 +1267,8 @@ explainers = [
 step = [
     { name = "build123d" },
     { name = "cadquery-ocp" },
+    { name = "cascadio" },
+    { name = "pillow" },
     { name = "trimesh" },
 ]
 
@@ -1253,9 +1277,11 @@ requires-dist = [
     { name = "anthropic", specifier = ">=0.40.0" },
     { name = "build123d", marker = "extra == 'step'", specifier = ">=0.10" },
     { name = "cadquery-ocp", marker = "extra == 'step'", specifier = "==7.8.1.1.post1" },
+    { name = "cascadio", marker = "extra == 'step'", specifier = ">=0.0.18rc6" },
     { name = "click", specifier = ">=8.1.0" },
     { name = "drawsvg", marker = "extra == 'explainers'", specifier = ">=2.4" },
     { name = "matplotlib", marker = "extra == 'explainers'", specifier = ">=3.9" },
+    { name = "pillow", marker = "extra == 'step'", specifier = ">=10" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0.0" },
     { name = "python-dotenv", specifier = ">=1.0.0" },
     { name = "trimesh", marker = "extra == 'step'", specifier = ">=4" },

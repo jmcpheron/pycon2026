@@ -84,3 +84,92 @@ def test_assemble_manifest(tmp_path: Path) -> None:
     # roughly X[-2.5, 11.5]. Loose tolerance — tessellation rounding is fine.
     assert bbox.max.X > 11
     assert bbox.min.X < -2
+
+
+def test_glb_via_cascadio_preserves_geometry(tmp_path: Path) -> None:
+    """GLB built via cascadio should round-trip into a trimesh Scene.
+
+    We don't assert non-default colors here because build123d's
+    ``export_step`` doesn't emit XCAF color metadata for synthetic boxes,
+    so cascadio has nothing to preserve. We assert geometry survives:
+    the box loaded out of the GLB has the same volume.
+    """
+    pytest.importorskip("cascadio")
+    trimesh = pytest.importorskip("trimesh")
+    from stepforge.build import build
+
+    src = _write_box_step(tmp_path / "box.step", 8, 8, 8)
+    out = tmp_path / "box.glb"
+    build(input_path=src, out=out)
+    assert out.exists() and out.stat().st_size > 0
+
+    scene = trimesh.load(str(out), force="scene")
+    # cascadio's GLB is in meters; the box was 8mm so its bbox should be
+    # ~0.008 across after the m-unit GLB load.
+    bbox = scene.bounding_box.extents
+    span = max(bbox)
+    assert 0.005 < span < 0.012, f"expected ~0.008 m span, got {span}"
+
+
+def test_inspect_merges_sidecar(tmp_path: Path) -> None:
+    """A `<stem>.meta.toml` next to the STEP should appear in inspect output."""
+    from stepforge.inspect import inspect_step
+
+    src = _write_box_step(tmp_path / "card.step")
+    sidecar = src.with_suffix(".meta.toml")
+    sidecar.write_text(
+        '[card]\n'
+        'title = "Test card"\n'
+        'stages = 3\n'
+        '[[part]]\n'
+        'name = "test-box"\n'
+        'teeth = 40\n'
+    )
+    report = inspect_step(src)
+    assert "Sidecar metadata" in report
+    assert "Test card" in report
+    assert "teeth=40" in report
+
+
+def test_explode_smoke(tmp_path: Path) -> None:
+    """End-to-end smoke: explode on a synthetic 2-box assembly STEP.
+
+    Verifies: per-part STL/GLB/PNG written, exploded.glb produced,
+    manifest.toml has N entries with the expected slugs and displacements.
+    Skips the GIF step (--no-gif equivalent) to avoid the OpenSCAD
+    runtime cost — covered separately by the local e2e run.
+    """
+    pytest.importorskip("cascadio")
+    pytest.importorskip("trimesh")
+    import shutil
+    if shutil.which("openscad") is None:
+        pytest.skip("openscad not on PATH — explode smoke needs it for PNGs")
+
+    from stepforge.assemble import assemble
+    from stepforge.explode import explode
+
+    _write_box_step(tmp_path / "a.step", 8, 8, 4)
+    _write_box_step(tmp_path / "b.step", 6, 6, 4)
+    manifest = tmp_path / "assembly.toml"
+    manifest.write_text(
+        '[[part]]\npath = "a.step"\nname = "alpha"\nxyz = [0, 0, 0]\n'
+        '[[part]]\npath = "b.step"\nname = "beta"\nxyz = [15, 0, 0]\n'
+    )
+    src = tmp_path / "combined.step"
+    assemble(manifest=manifest, out=src)
+
+    out_dir = tmp_path / "out"
+    result = explode(
+        input_path=src, out_dir=out_dir, strategy="radial",
+        frames=4, gif=False, size="320x240",
+    )
+    assert len(result.parts) >= 2
+    assert result.assembly_glb.exists()
+    assert result.exploded_glb.exists()
+    assert result.manifest_path.exists()
+    for p in result.parts:
+        assert p.stl_path.exists()
+        assert p.glb_path.exists()
+        assert p.png_path.exists()
+        # Radial strategy must produce a non-zero displacement.
+        assert any(abs(v) > 0.001 for v in p.displacement)

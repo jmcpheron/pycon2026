@@ -32,6 +32,12 @@ step = [
     # in CI on every wheel update.
     "cadquery-ocp==7.8.1.1.post1",
     "trimesh>=4",
+    # cascadio wraps OCCT's RWGltf_CafWriter directly — gives us colored
+    # GLB out of a STEP in one call. Permissive pin: PyPI versions get
+    # pruned to stay under the size cap, so we accept the latest rc.
+    "cascadio>=0.0.18rc6",
+    # GIF assembly for the exploded-view animation.
+    "pillow>=10",
 ]
 
 [build-system]
