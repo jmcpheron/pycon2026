@@ -23,8 +23,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable
 
-from badgeforge.build import _scad_string
-
+from stepforge._scad import _scad_string
 from stepforge.inspect import load_sidecar
 from stepforge.render import _stl_bbox, render_scad, render_stl
 

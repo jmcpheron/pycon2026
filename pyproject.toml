@@ -1,19 +1,15 @@
 [project]
-name = "scadia"
+name = "pycon2026"
 version = "0.1.0"
-description = "Drive OpenSCAD with Claude — natural-language CAD with a vision-feedback iteration loop"
+description = "A 3D-printed 256:1 reduction-gear card and the Python tooling that deconstructs it"
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.11"
 dependencies = [
-    "anthropic>=0.40.0",
     "click>=8.1.0",
-    "python-dotenv>=1.0.0",
 ]
 
 [project.scripts]
-scadia = "scadia.cli:main"
-badgeforge = "badgeforge.cli:main"
 stepforge = "stepforge.cli:main"
 explainers = "explainers.cli:main"
 
@@ -49,4 +45,4 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/scadia", "src/badgeforge", "src/stepforge", "src/explainers"]
+packages = ["src/stepforge", "src/explainers"]

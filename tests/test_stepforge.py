@@ -1,7 +1,7 @@
 """Tests for stepforge — STEP I/O, inspection, and assembly composition.
 
 All tests skip cleanly when the optional ``step`` extra (build123d / OCP)
-isn't installed, so they don't break the badgeforge-only ``ci.yml`` matrix.
+isn't installed, so they don't gate the default ``ci.yml`` matrix.
 """
 
 from __future__ import annotations

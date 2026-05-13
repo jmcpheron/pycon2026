@@ -1,11 +1,9 @@
 """Render a STEP file to a PNG by reusing the OpenSCAD pipeline.
 
-We don't ship a separate 3D renderer — the repo already has a working OpenSCAD
-+ xvfb story (see badgeforge). So we tessellate the STEP to STL, generate a
-one-line .scad shim that ``import()``s the STL (translated to origin), and
-hand it to ``openscad`` exactly as ``badgeforge.render`` does. Same camera /
-colorscheme / projection knobs, same Cornfield aesthetic — visually unified
-with the badge artwork.
+We don't ship a separate 3D renderer — OpenSCAD + xvfb already works. So we
+tessellate the STEP to STL, generate a one-line .scad shim that ``import()``s
+the STL (translated to origin), and hand it to ``openscad``. Same camera /
+colorscheme / projection knobs, same Cornfield aesthetic.
 """
 
 from __future__ import annotations
@@ -15,8 +13,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 
-from badgeforge.build import OpenSCADNotFound, _scad_string
-
+from stepforge._scad import OpenSCADNotFound, _scad_string
 from stepforge.build import (
     DEFAULT_ANGULAR_DEFLECTION,
     DEFAULT_LINEAR_DEFLECTION,
@@ -24,7 +21,6 @@ from stepforge.build import (
     build,
 )
 
-# Camera rotation triplets borrowed from the badgeforge preset language —
 # OpenSCAD's 7-arg --camera form is tx,ty,tz,rotx,roty,rotz,dist. Distance
 # is filled in per-call after we know the imported model's bounding box.
 _PRESET_ROTATIONS: dict[str, tuple[float, float, float]] = {
