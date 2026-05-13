@@ -8,37 +8,30 @@
 [![Pages](https://github.com/jmcpheron/pycon2026/actions/workflows/pages.yml/badge.svg)](https://jmcpheron.github.io/pycon2026/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
+<p align="center">
+  <img src="docs/assets/card/exploded.gif" alt="Animated exploded view of the reduction-gear card: top card half lifts up, five blue 40-tooth spur gears fan out in the middle, bottom card half lowers to reveal five shaft holes spaced 15 mm apart." width="900" />
+</p>
+
+<p align="center">
+  <sub>Onshape AP242 STEP → <a href="src/stepforge"><code>stepforge explode</code></a> → seven parts → animated GIF. Every frame is regenerated in CI when the STEP changes.</sub>
+</p>
+
 <table>
 <tr>
-<td valign="middle" width="55%">
-<img src="docs/assets/card/exploded.gif" alt="Animated exploded view of the reduction-gear card: top card half lifts up, five blue 40-tooth spur gears fan out in the middle, bottom card half lowers to reveal five shaft holes spaced 15 mm apart." />
+<td align="center" valign="top" width="33%">
+<img src="docs/assets/card/parts/Part_1.png" alt="Render of one of the two card halves — a 78 × 44 mm flat body with four square gear pockets, an axle hole, and a curved bottle-opener-style notch on the right." />
+<br/>
+<sub><strong>Card half</strong><br/>78 × 44 mm body, four pockets, axle hole, bottle-opener notch.</sub>
 </td>
-<td valign="top" width="45%">
-<table>
-<tr>
-<td align="center" valign="top">
-<img src="docs/assets/card/parts/Part_1.png" alt="Render of one of the two card halves — a 78 × 44 mm flat body with four square gear pockets, an axle hole, and a curved bottle-opener-style notch on the right." width="240" />
-<br/><sub><strong>Card half</strong></sub>
+<td align="center" valign="top" width="33%">
+<img src="docs/assets/card/parts/Spur_gear_40_teeth.png" alt="Render of a 40-tooth spur gear with a short 10-tooth pinion hub fused on top — the standard compound gear." />
+<br/>
+<sub><strong>Standard compound gear</strong><br/>40-tooth driven disc + 10-tooth pinion on a short hub.</sub>
 </td>
-</tr>
-<tr>
-<td align="center" valign="top">
-<img src="docs/assets/card/parts/Spur_gear_40_teeth.png" alt="Render of a 40-tooth spur gear with a short 10-tooth pinion hub fused on top — the standard compound gear." width="240" />
-<br/><sub><strong>Standard compound gear</strong></sub>
-</td>
-</tr>
-<tr>
-<td align="center" valign="top">
-<img src="docs/assets/card/parts/Spur_gear_40_teeth_4.png" alt="Render of a 40-tooth spur gear with a tall 10-tooth pinion hub — the tall-hub variant used in alternating stages of the compound chain." width="240" />
-<br/><sub><strong>Tall-hub variant</strong></sub>
-</td>
-</tr>
-</table>
-</td>
-</tr>
-<tr>
-<td colspan="2" align="center">
-<sub>Onshape AP242 STEP → <a href="src/stepforge"><code>stepforge explode</code></a> → seven parts → animated GIF. Every frame is regenerated in CI when the STEP changes.</sub>
+<td align="center" valign="top" width="33%">
+<img src="docs/assets/card/parts/Spur_gear_40_teeth_4.png" alt="Render of a 40-tooth spur gear with a tall 10-tooth pinion hub — the tall-hub variant used in alternating stages of the compound chain." />
+<br/>
+<sub><strong>Tall-hub variant</strong><br/>Same 40 / 10 teeth, taller hub. Interleaved with short-hub gears so the discs don't collide.</sub>
 </td>
 </tr>
 </table>
