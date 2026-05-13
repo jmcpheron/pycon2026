@@ -38,7 +38,7 @@
 
 ## Hand me one at PyCon US 2026
 
-Long Beach, May 14–17. If you found this repo from a 3D-printed card I gave you — hi. The source for that card is [`jmcpheron-card.step`](jmcpheron-card.step) at the root of this repo. Fork it, slice it, print your own.
+Long Beach, May 14–17. If you found this repo from a 3D-printed card I gave you — hi. The source for the card is [`jmcpheron-card.step`](jmcpheron-card.step) at the root of this repo, exported from a **[public Onshape document](https://cad.onshape.com/documents/786fefdef357fb6860b54650/w/33fb9222a6752311e4f08c8b/e/da99fedbaeebf1422d4cb0d3)** — open it in your browser to spin it around, or fork it into your own free Onshape account to remix the geometry directly. Slice the STEP, print one, hand someone else a copy.
 
 ## How it works
 
@@ -112,4 +112,6 @@ If you scanned this from the card I handed you, here's what I'm hoping to talk a
 
 ## License
 
-MIT — code and 3D assets, for now. See "Things I'd love to chat about at PyCon" above; the right license for the STEP/STL files is a live question, not a settled answer.
+**Code** (`src/`, `tests/`, workflows): MIT — see [`LICENSE`](LICENSE).
+
+**3D files** ([`jmcpheron-card.step`](jmcpheron-card.step), the generated STL / GLB / PNG under `docs/assets/card/`, and the [Onshape source document](https://cad.onshape.com/documents/786fefdef357fb6860b54650/w/33fb9222a6752311e4f08c8b/e/da99fedbaeebf1422d4cb0d3)): still being decided. The Onshape doc is public and free to fork; the exported geometry in this repo is under the same MIT terms for now, but see "Things I'd love to chat about at PyCon" above — Creative Commons vs. CERN OHL vs. just-leave-it-MIT is exactly the conversation I'm hoping to have at the conference.
