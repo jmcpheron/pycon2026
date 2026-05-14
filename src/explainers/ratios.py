@@ -75,6 +75,104 @@ def _hero_chain(out: Path) -> Path:
     return out
 
 
+BASE_PERIOD_S: float = 2.0
+"""Rotation period of the input gear in the animated hero. Each subsequent
+gear's period scales by ``RATIO_PER_STAGE`` — so gear N has period
+``BASE_PERIOD_S * 4**N`` (gear 1 → 2 s, gear 5 → 512 s). Each gear loops
+on its own SMIL clock; the durations don't need to align."""
+
+
+def _hero_chain_animated(out: Path) -> Path:
+    """Same plan-view as ``_hero_chain``, but each gear rotates at its
+    physically correct relative speed and direction.
+
+    Layout widens centre-distance vs the static hero to fit the per-mesh
+    4:1 callouts above the row and the INPUT/OUTPUT bookends below
+    without label collisions.
+    """
+    n = card.N_STAGES
+    big_r = 18.0
+    pinion_r = 5.0
+    hub_r = 2.0
+    cd = 64.0          # px between centres (wider than static hero for labels)
+    pad = 24.0
+    top_extra = 24.0   # space for "4:1" mesh callouts above the gear row
+    bottom_extra = 60.0  # space for speed / role / caption rows
+
+    width = 2 * pad + (n - 1) * cd + 2 * big_r
+    height = 2 * pad + 2 * big_r + top_extra + bottom_extra
+    cy = pad + top_extra + big_r
+
+    d = diagrams.new_drawing(width, height)
+
+    # --- Per-mesh 4:1 callouts (between gears, above the row) ---------------
+    mesh_y = cy - big_r - 8
+    for i in range(n - 1):
+        mx = pad + big_r + i * cd + cd / 2
+        d.append(dw.Text(f"{int(card.RATIO_PER_STAGE)}:1",
+                         S.FONT_SIZE_LABEL,
+                         x=mx, y=mesh_y,
+                         text_anchor="middle",
+                         font_family=S.FONT_FAMILY,
+                         fill=S.ACCENT_HILITE, font_weight="bold"))
+
+    # --- Gears + speed/role labels ------------------------------------------
+    for i in range(n):
+        cx = pad + big_r + i * cd
+        cumulative = card.RATIO_PER_STAGE ** i
+        period = BASE_PERIOD_S * (card.RATIO_PER_STAGE ** i)
+        clockwise = (i % 2 == 0)
+
+        diagrams.animated_compound_gear(
+            d, cx, cy,
+            big_r=big_r, pinion_r=pinion_r, hub_r=hub_r,
+            big_teeth=card.BIG_TEETH,
+            pinion_teeth=card.PINION_TEETH,
+            period_s=period,
+            clockwise=clockwise,
+        )
+
+        # Speed (large blue, primary visual weight): 1×, 1/4×, 1/16×, ...
+        speed_label = "1×" if i == 0 else f"1/{int(cumulative):,}×"
+        d.append(dw.Text(speed_label, S.FONT_SIZE_LABEL,
+                         x=cx, y=cy + big_r + 16,
+                         text_anchor="middle",
+                         font_family=S.FONT_FAMILY,
+                         fill=S.ACCENT_HILITE, font_weight="bold"))
+
+        # Role label on the input/output extremes only
+        if i == 0:
+            d.append(dw.Text("INPUT", S.FONT_SIZE_DIM,
+                             x=cx, y=cy + big_r + 30,
+                             text_anchor="middle",
+                             font_family=S.FONT_FAMILY,
+                             fill=S.INK, font_weight="bold"))
+            d.append(dw.Text("thumb-spun", S.FONT_SIZE_DIM,
+                             x=cx, y=cy + big_r + 42,
+                             text_anchor="middle",
+                             font_family=S.FONT_FAMILY,
+                             fill=S.INK_MUTED, font_style="italic"))
+        elif i == n - 1:
+            d.append(dw.Text("OUTPUT", S.FONT_SIZE_DIM,
+                             x=cx, y=cy + big_r + 30,
+                             text_anchor="middle",
+                             font_family=S.FONT_FAMILY,
+                             fill=S.INK, font_weight="bold"))
+            d.append(dw.Text(f"1/{int(card.TOTAL_RATIO)} turn",
+                             S.FONT_SIZE_DIM,
+                             x=cx, y=cy + big_r + 42,
+                             text_anchor="middle",
+                             font_family=S.FONT_FAMILY,
+                             fill=S.INK_MUTED, font_style="italic"))
+
+    diagrams.caption(d, pad, height - 6,
+                     f"{card.BIG_TEETH}t / {card.PINION_TEETH}t compound gears · "
+                     f"module {card.MODULE_MM} mm · "
+                     f"{card.CENTER_DISTANCE_MM:g} mm post-to-post")
+    d.save_svg(str(out))
+    return out
+
+
 def _ratio_bar_chart(out: Path) -> Path:
     """Cumulative ratio for gear counts 1..6."""
     stages = list(range(1, 7))
@@ -156,6 +254,7 @@ def build(out_dir: Path) -> Path:
     assets.mkdir(parents=True, exist_ok=True)
 
     hero_path = _hero_chain(assets / f"{SLUG}-hero.svg")
+    animated_path = _hero_chain_animated(assets / f"{SLUG}-animated.svg")
     bar_path = _ratio_bar_chart(assets / f"{SLUG}-bars.svg")
     travel_path = _thumb_travel_chart(assets / f"{SLUG}-thumb.svg")
 
@@ -169,6 +268,8 @@ def build(out_dir: Path) -> Path:
 > *[your voice here] one-line hook about why this card has a wildly impractical reduction chain.*
 
 ![compound gear chain](assets/{hero_path.name})
+
+![the same chain, animated — each gear spins at its physically correct relative speed and direction](assets/{animated_path.name})
 
 ## The compound gear, briefly
 
