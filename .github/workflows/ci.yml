@@ -12,7 +12,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.12", "3.13"]
+        # 3.13 is excluded: cadquery-ocp==7.8.1.1.post1 (pinned to avoid
+        # OCCT STL float-format drift) depends on vtk==9.3.1, which has no
+        # cp313 wheels. Revisit when we can bump cadquery-ocp.
+        python-version: ["3.11", "3.12"]
 
     steps:
       - uses: actions/checkout@v4
