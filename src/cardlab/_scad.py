@@ -1,4 +1,4 @@
-"""Small OpenSCAD utilities shared between stepforge's explode/render paths."""
+"""Small OpenSCAD utilities shared between cardlab's explode/render paths."""
 
 from __future__ import annotations
 

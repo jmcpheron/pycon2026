@@ -50,7 +50,7 @@ def build(
             )
             return out
 
-    # Fallback path: build123d / OCCT. Imported lazily so `stepforge --help`
+    # Fallback path: build123d / OCCT. Imported lazily so `cardlab --help`
     # doesn't pay the OCP wheel's ~2 s import cost.
     from build123d import Compound, import_step
     from build123d.exporters3d import export_gltf, export_stl

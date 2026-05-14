@@ -1,4 +1,4 @@
-"""stepforge CLI."""
+"""cardlab CLI — a little script for poking at the card's STEP file."""
 
 from __future__ import annotations
 
@@ -6,20 +6,20 @@ from pathlib import Path
 
 import click
 
-from stepforge.assemble import assemble
-from stepforge.build import (
+from cardlab.assemble import assemble
+from cardlab.build import (
     DEFAULT_LINEAR_DEFLECTION,
     DEFAULT_ANGULAR_DEFLECTION,
     build,
 )
-from stepforge.explode import STRATEGIES, explode
-from stepforge.inspect import inspect_step
-from stepforge.render import PRESETS, render
+from cardlab.explode import STRATEGIES, explode
+from cardlab.inspect import inspect_step
+from cardlab.render import PRESETS, render
 
 
 @click.group()
 def main() -> None:
-    """Forge STEP files into inspectable, renderable, assemblable artifacts."""
+    """A little script for poking at the card's STEP file."""
 
 
 @main.command("inspect")

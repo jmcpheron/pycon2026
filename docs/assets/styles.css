@@ -92,51 +92,6 @@ a:hover {
   background-size: 100% 2px;
 }
 
-/* ─── title-block strip ───────────────────────────────────────── */
-
-.title-block {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  border-bottom: 1.5px solid var(--ink);
-  background: var(--paper);
-  font-family: var(--mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-.tb-cell {
-  padding: 14px 22px;
-  border-right: 1px solid var(--rule);
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-.tb-cell:last-child { border-right: none; }
-
-.tb-label {
-  font-size: 0.58rem;
-  color: var(--ink-mid);
-  letter-spacing: 0.2em;
-}
-.tb-value {
-  color: var(--ink);
-  font-weight: 500;
-}
-
-@media (max-width: 760px) {
-  .title-block {
-    grid-template-columns: repeat(2, 1fr);
-    font-size: 0.6rem;
-  }
-  .tb-cell {
-    border-bottom: 1px solid var(--rule);
-    padding: 10px 16px;
-  }
-  .tb-cell:nth-child(odd) { border-right: 1px solid var(--rule); }
-  .tb-cell:nth-child(even) { border-right: none; }
-}
-
 /* ─── hero ────────────────────────────────────────────────────── */
 
 .hero {
@@ -246,53 +201,11 @@ a:hover {
   animation: rise 760ms 200ms cubic-bezier(.2,.8,.2,1) both;
 }
 
-.plate-frame {
-  position: relative;
-  background: var(--paper-deep);
-  padding: 26px;
-  border: 1.4px solid var(--ink);
-  /* faint inner double-rule */
-  outline: 1px solid var(--ink);
-  outline-offset: -8px;
-}
-.plate-frame img {
+.plate img {
   display: block;
   width: 100%;
   height: auto;
-  /* subtle plate shadow */
   filter: drop-shadow(0 12px 24px rgba(36, 25, 8, 0.08));
-}
-
-/* corner ticks — drafted-plate detail */
-.tick {
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  border: 0 solid var(--ink);
-}
-.tick-tl { top: -7px; left: -7px;  border-top-width: 1.4px; border-left-width: 1.4px; }
-.tick-tr { top: -7px; right: -7px; border-top-width: 1.4px; border-right-width: 1.4px; }
-.tick-bl { bottom: -7px; left: -7px;  border-bottom-width: 1.4px; border-left-width: 1.4px; }
-.tick-br { bottom: -7px; right: -7px; border-bottom-width: 1.4px; border-right-width: 1.4px; }
-
-.plate figcaption {
-  margin-top: 16px;
-  display: flex;
-  justify-content: space-between;
-  gap: 18px;
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--ink-mid);
-}
-.plate-no { color: var(--ink); font-weight: 600; flex-shrink: 0; }
-.plate-desc { text-align: right; text-transform: none; letter-spacing: 0.04em; }
-.plate-desc code {
-  font-style: normal;
-  background: var(--paper-deep);
-  padding: 1px 5px;
-  border: 1px solid var(--rule);
 }
 
 @media (max-width: 900px) {
@@ -311,14 +224,7 @@ a:hover {
   .hero-text { padding-top: 4px; }
   .hero h1 { margin-bottom: 22px; }
   .lede { margin-bottom: 28px; }
-  .plate-frame { padding: 16px; }
-  .plate-frame img { filter: none; }
-  .plate figcaption {
-    flex-direction: column;
-    gap: 6px;
-    font-size: 0.66rem;
-  }
-  .plate-desc { text-align: left; }
+  .plate img { filter: none; }
 }
 
 /* ─── parts row (below the hero) ──────────────────────────────── */
@@ -399,46 +305,12 @@ a:hover {
   position: relative;
 }
 
-.section-head {
-  display: flex;
-  align-items: baseline;
-  gap: 28px;
-  margin-bottom: 36px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--rule);
-}
-
-.section-no {
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold-deep);
-  flex-shrink: 0;
-}
-
 .section h2 {
   font-family: var(--serif);
   font-size: clamp(2.6rem, 5vw, 3.8rem);
   font-variation-settings: "opsz" 96, "SOFT" 30, "wght" 360;
   line-height: 1;
   letter-spacing: -0.03em;
-}
-
-.dropquote {
-  font-family: var(--serif);
-  font-size: clamp(1.45rem, 2.5vw, 1.95rem);
-  font-variation-settings: "opsz" 36, "SOFT" 100, "wght" 360;
-  line-height: 1.32;
-  max-width: 36ch;
-  margin: 0 0 56px;
-  padding-left: 28px;
-  border-left: 2px solid var(--gold);
-}
-.dropquote em {
-  color: var(--gold-deep);
-  font-style: italic;
-  font-variation-settings: "opsz" 36, "SOFT" 100, "wght" 500;
 }
 
 .prose {
@@ -608,99 +480,23 @@ ul.prose li::marker {
   .prose { font-size: 1rem; }
 }
 
-/* ─── architecture diagram ────────────────────────────────────── */
+/* ─── figure with SVG (gear-ratios teaser etc.) ───────────────── */
 
-.diagram {
-  background: var(--paper-deep);
-  border: 1.4px solid var(--ink);
-  outline: 1px solid var(--ink);
-  outline-offset: -8px;
-  padding: 36px 36px 24px;
-  margin-top: 8px;
-  position: relative;
+.figure-svg {
+  max-width: 520px;
+  margin: 0 auto 32px;
+  text-align: center;
 }
-.diagram svg,
-.diagram img {
+.figure-svg img {
   width: 100%;
   height: auto;
   display: block;
-  color: var(--ink);
 }
-
-.diagram-svg {
-  background: var(--paper-deep);
-  padding: 28px 36px;
-  max-width: 720px;
-  margin: 0 auto 24px;
-}
-.diagram-svg img {
-  max-width: 480px;
-  margin: 0 auto;
-}
-@media (max-width: 600px) {
-  .diagram-svg { padding: 20px 22px; }
-}
-
-.diagram .dg-box rect,
-.diagram .dg-controller rect {
-  fill: var(--paper);
-  transition: fill .25s;
-}
-.diagram .dg-controller rect { fill: var(--paper); }
-.diagram .dg-box:hover rect { fill: #f7f1de; }
-
-.diagram .dg-title {
-  font-family: var(--mono);
-  font-size: 13px;
-  letter-spacing: 0.16em;
-  font-weight: 600;
-  fill: var(--ink);
-}
-.diagram .dg-sub {
+.figure-svg figcaption {
+  margin-top: 12px;
   font-family: var(--serif);
   font-style: italic;
-  font-size: 13px;
-  fill: var(--ink-mid);
-  font-variation-settings: "opsz" 18, "SOFT" 100;
-}
-.diagram .dg-meta {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.08em;
-  fill: var(--ink-mid);
-}
-.diagram .dg-label {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  fill: var(--ink-mid);
-}
-.diagram .dg-out {
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  fill: var(--ink-mid);
-}
-.diagram .dg-out-final { fill: var(--gold-deep); font-weight: 600; }
-
-.diagram .dg-mark {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  fill: var(--ink-mid);
-}
-
-.diagram-cap {
-  margin-top: 18px;
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
+  font-size: 0.92rem;
   color: var(--ink-mid);
 }
 
@@ -764,56 +560,23 @@ ul.prose li::marker {
   letter-spacing: 0.04em;
 }
 
-/* ─── footer / signoff ────────────────────────────────────────── */
+/* ─── footer ──────────────────────────────────────────────────── */
 
-.signoff {
-  padding: 64px 64px 88px;
-  background: var(--paper-deep);
-  border-top: 1.5px solid var(--ink);
-  position: relative;
-}
-.signoff::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: var(--ink);
-  transform: translateY(7px);
-  opacity: 0.4;
-}
-
-.signoff-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 36px;
-}
-.signoff .kicker {
-  margin-bottom: 8px;
+.page-footer {
+  padding: 48px 64px 64px;
+  border-top: 1px solid var(--rule);
+  text-align: center;
   color: var(--ink-mid);
+  font-size: 0.88rem;
 }
-.signoff p {
-  font-size: 0.96rem;
-  color: var(--ink);
-}
-.signoff-stamp {
-  font-family: var(--mono);
-  font-size: 0.85rem !important;
-  letter-spacing: 0.16em;
+.page-footer p {
+  margin: 0 auto;
+  max-width: 720px;
+  line-height: 1.7;
 }
 
 @media (max-width: 760px) {
-  .signoff {
-    padding: 48px 28px 64px;
-  }
-  .signoff-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 28px;
-  }
-}
-
-@media (max-width: 480px) {
-  .signoff { padding: 40px 18px 56px; }
-  .signoff-grid { gap: 22px; }
+  .page-footer { padding: 36px 24px 48px; font-size: 0.82rem; }
 }
 
 /* ─── motion ──────────────────────────────────────────────────── */

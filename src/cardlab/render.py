@@ -13,8 +13,8 @@ import subprocess
 import tempfile
 from pathlib import Path
 
-from stepforge._scad import OpenSCADNotFound, _scad_string
-from stepforge.build import (
+from cardlab._scad import OpenSCADNotFound, _scad_string
+from cardlab.build import (
     DEFAULT_ANGULAR_DEFLECTION,
     DEFAULT_LINEAR_DEFLECTION,
     REPO_ROOT,
@@ -43,7 +43,7 @@ def render(
     linear_deflection: float = DEFAULT_LINEAR_DEFLECTION,
     angular_deflection: float = DEFAULT_ANGULAR_DEFLECTION,
 ) -> Path:
-    with tempfile.TemporaryDirectory(prefix="stepforge-render-") as tmpdir:
+    with tempfile.TemporaryDirectory(prefix="cardlab-render-") as tmpdir:
         tmp = Path(tmpdir)
         stl = tmp / f"{input_path.stem}.stl"
         build(
@@ -88,7 +88,7 @@ def render_stl(
 
     out.parent.mkdir(parents=True, exist_ok=True)
 
-    with tempfile.TemporaryDirectory(prefix="stepforge-render-stl-") as tmpdir:
+    with tempfile.TemporaryDirectory(prefix="cardlab-render-stl-") as tmpdir:
         tmp = Path(tmpdir)
 
         # Compute camera setup. Without a caller-supplied center, peek at
@@ -157,7 +157,7 @@ def render_scad(
 
     out.parent.mkdir(parents=True, exist_ok=True)
 
-    with tempfile.TemporaryDirectory(prefix="stepforge-scad-") as tmpdir:
+    with tempfile.TemporaryDirectory(prefix="cardlab-scad-") as tmpdir:
         tmp = Path(tmpdir)
         for fname, src in (extra_files or {}).items():
             (tmp / fname).write_bytes(src.read_bytes())

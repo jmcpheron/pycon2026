@@ -4,7 +4,7 @@ Run-once: ``uv run --extra step python step-demo/parts/generate.py``.
 
 We deliberately *don't* invoke this from CI — committing the resulting
 ``.step`` files keeps the repo deterministic and lets reviewers see the
-actual binary product structure that ``stepforge`` later inspects.
+actual binary product structure that ``cardlab`` later inspects.
 
 The four primitives compose into a tiny pounce-a-pult-shaped trebuchet:
 a base plate, two pivot pins, a throwing arm, and a counterweight cup.

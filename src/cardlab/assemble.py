@@ -21,7 +21,7 @@ from __future__ import annotations
 import tomllib
 from pathlib import Path
 
-from stepforge.build import build
+from cardlab.build import build
 
 
 def _location(xyz, rpy):
@@ -72,7 +72,7 @@ def assemble(manifest: Path, out: Path,
 
     if also_png:
         # Lazy import — render pulls openscad presence in.
-        from stepforge.render import render
+        from cardlab.render import render
         png_out = out.with_suffix(".png")
         render(input_path=out, out=png_out, angle="iso")
 

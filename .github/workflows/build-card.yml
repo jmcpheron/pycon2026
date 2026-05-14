@@ -6,14 +6,14 @@ on:
     paths:
       - 'jmcpheron-card.step'
       - 'jmcpheron-card.meta.toml'
-      - 'src/stepforge/**'
+      - 'src/cardlab/**'
       - 'pyproject.toml'
       - '.github/workflows/build-card.yml'
   pull_request:
     paths:
       - 'jmcpheron-card.step'
       - 'jmcpheron-card.meta.toml'
-      - 'src/stepforge/**'
+      - 'src/cardlab/**'
       - 'pyproject.toml'
       - '.github/workflows/build-card.yml'
 
@@ -58,16 +58,16 @@ jobs:
       - name: Inspect jmcpheron-card.step
         run: |
           mkdir -p docs/assets/card
-          uv run stepforge inspect jmcpheron-card.step \
+          uv run cardlab inspect jmcpheron-card.step \
             | tee docs/assets/card/inspect.txt
 
       - name: Tessellate STEP -> STL (GitHub viewer)
-        run: uv run stepforge build
+        run: uv run cardlab build
               --in jmcpheron-card.step
               --out docs/assets/card/jmcpheron-card.stl
 
       - name: Decompose into parts + exploded view + GIF
-        run: xvfb-run -a uv run stepforge explode
+        run: xvfb-run -a uv run cardlab explode
               --in jmcpheron-card.step
               --out docs/assets/card/
               --strategy card-layered
@@ -105,7 +105,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Auto-generate card-derived artifacts via stepforge
+            git commit -m "Auto-generate card-derived artifacts via cardlab
 
           Generated with GitHub Actions"
             # Push with rebase-and-retry — peer auto-commit workflows

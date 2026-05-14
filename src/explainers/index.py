@@ -13,7 +13,7 @@ def build_index(out_dir: Path) -> Path:
 
 > *[your voice here] one paragraph framing the project: a 3D-printed business card with a {int(card.TOTAL_RATIO):,}:1 compound reduction-gear chain, and a Python-driven repo that explains the engineering behind it.*
 
-This directory is a *generated* set of writeups. Every page below is produced by running a Python program in [`src/explainers/`](../../src/explainers). The math, diagrams, and tables come from one canonical parameter file ([`card.py`](../../src/explainers/card.py)) — change a number there and every page reflects it on the next build.
+This directory is a *generated* set of writeups. Every page below is produced by running a Python script in [`src/explainers/`](../../src/explainers). The math, diagrams, and tables come from one parameter file ([`card.py`](../../src/explainers/card.py)) — change a number there and every page reflects it on the next build.
 
 ```
 src/explainers/<topic>.py  ─►  uv run explainers build <topic>  ─►  docs/explainers/<topic>.md (+ assets/*.svg)
@@ -39,7 +39,7 @@ Print orientation, the hub-to-pinion overhang and why a 45° chamfer fixes it, a
 
 ### 5. [The card in 3D](card-3d.md)
 
-The Onshape STEP itself, decomposed by Python. An interactive `<model-viewer>` embed, an exploded-view animation, and per-part renders — all derived from one canonical [`jmcpheron-card.step`](../../jmcpheron-card.step) by `stepforge explode`.
+The Onshape STEP itself, pulled apart by Python. An interactive `<model-viewer>` embed, an exploded-view animation, and per-part renders — all built from the one [`jmcpheron-card.step`](../../jmcpheron-card.step) by `cardlab explode`.
 
 ### 6. [Decoding the gears from STEP](decoding-gears.md)
 
@@ -47,7 +47,7 @@ Onshape's STEP export drops the parametric metadata — we recover it from the c
 
 ## Why a Python repo, not a static site?
 
-Each explainer is a deterministic Python program. You can read its source, change a parameter, re-run it, and the writeup updates. The diagrams aren't hand-drawn — they're [SVG primitives](../../src/explainers/diagrams.py) composed by Python from the same canonical inputs. The repo is the explanation.
+Each explainer is a small Python script. You can read its source, change a parameter, re-run it, and the writeup updates. The diagrams aren't hand-drawn — they're [SVG primitives](../../src/explainers/diagrams.py) composed by Python from the same inputs. The repo is the explanation.
 
 CI rebuilds these pages on every push that touches [`src/explainers/`](../../src/explainers) and auto-commits the regenerated markdown + SVG, so what you're reading on github.com is always the result of running today's source.
 

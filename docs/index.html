@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>pycon2026 — a 256:1 reduction-gear card, deconstructed by Python</title>
-  <meta name="description" content="A credit-card-sized 256:1 compound reduction-gear chain. Designed in a public Onshape document, deconstructed by Python in CI. I'm bringing a stack of these to PyCon US 2026 in Long Beach to start conversations about 3D-printable hardware, STEP-file licensing, and Python ↔ CAD tooling.">
+  <title>pycon2026 — a 256:1 reduction-gear card I'm bringing to PyCon</title>
+  <meta name="description" content="A 3D-printed business card with a 256:1 compound gear chain inside, designed in Onshape and deconstructed by a little Python script. I'm bringing a stack to PyCon US 2026 in Long Beach to start conversations about 3D-printable hardware, STEP-file licensing, and Python ↔ CAD.">
 
-  <meta property="og:title" content="pycon2026 — a 256:1 reduction-gear card, deconstructed by Python">
-  <meta property="og:description" content="A credit-card-sized 256:1 compound reduction-gear chain. Designed in Onshape, deconstructed by Python. Bringing a stack to PyCon US 2026 to start conversations.">
+  <meta property="og:title" content="pycon2026 — a 256:1 reduction-gear card I'm bringing to PyCon">
+  <meta property="og:description" content="A 3D-printed business card with a 256:1 gear chain inside. Designed in Onshape, taken apart by a little Python script. Bringing a stack to PyCon US 2026.">
   <meta property="og:image" content="https://jmcpheron.github.io/pycon2026/assets/card/parts/Part_1.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
@@ -19,42 +19,21 @@
 </head>
 <body>
 
-  <header class="title-block" aria-label="Document title block">
-    <div class="tb-cell"><span class="tb-label">DRWG</span><span class="tb-value">CARD‑001</span></div>
-    <div class="tb-cell"><span class="tb-label">REV</span><span class="tb-value">v1.0</span></div>
-    <div class="tb-cell"><span class="tb-label">PROJECT</span><span class="tb-value">pycon2026</span></div>
-    <div class="tb-cell"><span class="tb-label">RATIO</span><span class="tb-value">256 : 1</span></div>
-    <div class="tb-cell"><span class="tb-label">DATES</span><span class="tb-value">May 14–17, 2026</span></div>
-    <div class="tb-cell"><span class="tb-label">VENUE</span><span class="tb-value">PyCon US · Long Beach</span></div>
-  </header>
-
   <main>
 
     <section class="hero" id="hero">
       <div class="hero-text">
-        <p class="kicker">§ Reduction-gear card</p>
         <h1>pycon2026</h1>
-        <p class="tagline">A 256:1 reduction-gear chain, <em>in a card</em>, <em>deconstructed by Python</em>.</p>
-        <p class="lede">I'm going to <strong>PyCon US 2026</strong> in Long Beach this May. I'm bringing a stack of 3D-printed business cards with a 256:1 compound gear chain inside, to start conversations on the floor about 3D-printable hardware, open-source licensing for physical designs, and the Python tooling around <a href="https://cad.onshape.com/documents/786fefdef357fb6860b54650/w/33fb9222a6752311e4f08c8b/e/da99fedbaeebf1422d4cb0d3">a public Onshape document</a>. This page is what's on the back of those cards — what the thing is, how it works, and the open-source pieces it's built from.</p>
+        <p class="lede">Hi — I'm <a href="https://github.com/jmcpheron">jmcpheron</a>, and I'm going to <strong>PyCon US 2026</strong> in Long Beach this May. I made a little 3D-printed business card with a 256:1 compound gear chain inside, and I'm bringing a stack to hand out as conversation starters. This page is what's on the back of those cards.</p>
+        <p class="lede">It's not a product. It's a thing I made so I'd have something concrete to talk about with people on the conference floor — about 3D-printable hardware, open-source licensing for STEP/STL files, and the Python tooling I glued together to take an <a href="https://cad.onshape.com/documents/786fefdef357fb6860b54650/w/33fb9222a6752311e4f08c8b/e/da99fedbaeebf1422d4cb0d3">Onshape design</a> apart.</p>
         <div class="hero-actions">
           <a href="https://github.com/jmcpheron/pycon2026" class="btn btn-primary">Repository</a>
           <a href="https://cad.onshape.com/documents/786fefdef357fb6860b54650/w/33fb9222a6752311e4f08c8b/e/da99fedbaeebf1422d4cb0d3" class="btn">Open in Onshape</a>
-          <a href="#how-it-works" class="btn">How it works</a>
         </div>
       </div>
 
       <figure class="plate">
-        <div class="plate-frame">
-          <img src="assets/card/exploded.gif" alt="Animated exploded view of the reduction-gear card: top card half lifts up, five blue 40-tooth spur gears fan out in the middle, bottom card half lowers to reveal five shaft holes spaced 15 mm apart." width="1600" height="900" loading="eager">
-          <span class="tick tick-tl" aria-hidden="true"></span>
-          <span class="tick tick-tr" aria-hidden="true"></span>
-          <span class="tick tick-bl" aria-hidden="true"></span>
-          <span class="tick tick-br" aria-hidden="true"></span>
-        </div>
-        <figcaption>
-          <span class="plate-no">PLATE 01</span>
-          <span class="plate-desc">Reduction-gear card · <code>uv run stepforge explode</code></span>
-        </figcaption>
+        <img src="assets/card/exploded.gif" alt="Animated exploded view of the reduction-gear card: top card half lifts up, five blue 40-tooth spur gears fan out in the middle, bottom card half lowers to reveal five shaft holes spaced 15 mm apart." width="1600" height="900" loading="eager">
       </figure>
     </section>
 
@@ -83,29 +62,27 @@
     </section>
 
     <section class="section" id="how-it-works">
-      <header class="section-head">
-        <span class="section-no">§ 01</span>
-        <h2>How it works</h2>
-      </header>
+      <h2>How it works</h2>
 
-      <p class="dropquote">
-        Five gears in a chain. <em>Four meshes.</em> 4 : 1 reduction at every mesh. <em>4<sup>4</sup> = 256 : 1</em> overall. Spin the input gear with your thumb; the output gear moves a quarter-degree.
+      <p class="prose">
+        Five compound gears in a chain. Four meshes between them. Each mesh is a 4:1 reduction, so the whole chain multiplies to <strong>4⁴ = 256 : 1</strong>. Spin the input gear with your thumb and the output gear moves about a quarter of a degree.
       </p>
 
-      <figure class="diagram diagram-svg">
+      <p class="prose">
+        <em>Five gears, four reductions — not five reductions. An idler-style chain of the same five gears would still only reduce 4:1 total.</em>
+      </p>
+
+      <figure class="figure-svg">
         <img src="explainers/assets/gear-ratios-hero.svg" alt="A 6-panel diagram of the compound gear chain: a row of stacked discs (big driven, small pinion) labelled left to right, with arrows indicating the 4:1 step-down at each mesh.">
-        <figcaption class="diagram-cap">
-          <span>FIG 01</span>
-          <span><a href="explainers/gear-ratios.md">Gear ratios — the math, in three lines</a></span>
-        </figcaption>
+        <figcaption><a href="explainers/gear-ratios.md">Gear ratios — the math, in three lines</a></figcaption>
       </figure>
 
       <p class="prose">
-        Six short Python-generated explainers tell the rest of the story. Each one is a deterministic Python program that produces its own page — change a number in <code>src/explainers/card.py</code> and the math, diagrams, and tables update on the next CI run. Start with <a href="explainers/card-3d.md"><strong>The card in 3D</strong></a>.
+        There are six short explainer pages if you want the longer version. Start with <a href="explainers/card-3d.md"><strong>The card in 3D</strong></a>.
       </p>
 
       <ul class="prose explainer-list">
-        <li><a href="explainers/card-3d.md"><strong>The card in 3D</strong></a> — canonical STEP source and the <code>stepforge</code> pipeline.</li>
+        <li><a href="explainers/card-3d.md"><strong>The card in 3D</strong></a> — the STEP file and the little script that pulls it apart.</li>
         <li><a href="explainers/gear-ratios.md"><strong>Gear ratios</strong></a> — compound 4:1 multiplication with a thumb-travel intuition: ~20.3 m of finger motion per output rotation.</li>
         <li><a href="explainers/decoding-gears.md"><strong>Decoding the gears from STEP</strong></a> — slice the committed STL, FFT the radial profile, recover tooth count and module from geometry alone.</li>
         <li><a href="explainers/stacking.md"><strong>Stacking</strong></a> — why a 3-level cycle of hub heights keeps the card thin without the discs colliding.</li>
@@ -114,96 +91,74 @@
       </ul>
     </section>
 
-    <section class="section" id="python-tools">
-      <header class="section-head">
-        <span class="section-no">§ 02</span>
-        <h2>The Python tools</h2>
-      </header>
-
-      <p class="dropquote">
-        <a href="https://cad.onshape.com/documents/786fefdef357fb6860b54650/w/33fb9222a6752311e4f08c8b/e/da99fedbaeebf1422d4cb0d3"><em>Onshape</em></a> as the parametric design surface. <em>Python</em> as the deconstruction layer. <em>GitHub Actions</em> as the build server.
-      </p>
+    <section class="section" id="build">
+      <h2>How it gets built</h2>
 
       <p class="prose">
-        <code>stepforge</code> is a small Click CLI on top of <a href="https://github.com/gumyr/build123d"><code>build123d</code></a> (OpenCascade) and <a href="https://github.com/trimesh/cascadio"><code>cascadio</code></a>. Five subcommands, each a one-line responsibility:
+        The card lives in a free <a href="https://cad.onshape.com/documents/786fefdef357fb6860b54650/w/33fb9222a6752311e4f08c8b/e/da99fedbaeebf1422d4cb0d3">public Onshape document</a>. The STEP export is committed at the repo root. A little Click CLI called <code>cardlab</code> does five small things to it, leaning on <a href="https://github.com/gumyr/build123d"><code>build123d</code></a> and <a href="https://github.com/trimesh/cascadio"><code>cascadio</code></a>:
       </p>
 
       <dl class="cmd-list">
-        <dt><code>stepforge inspect</code></dt>
+        <dt><code>cardlab inspect</code></dt>
         <dd>Print AP242 schema, units, product structure, and tessellation stats.</dd>
 
-        <dt><code>stepforge build</code></dt>
+        <dt><code>cardlab build</code></dt>
         <dd>Convert STEP to STL or GLB (format inferred from <code>--out</code> extension). The GLB path uses <code>cascadio</code> and preserves Onshape's per-part colors.</dd>
 
-        <dt><code>stepforge render</code></dt>
-        <dd>Render STEP to PNG by tessellating, then reusing the OpenSCAD pipeline (iso / top / edge / front / right camera presets).</dd>
+        <dt><code>cardlab render</code></dt>
+        <dd>Render STEP to PNG by tessellating, then handing the result to OpenSCAD (iso / top / edge / front / right camera presets).</dd>
 
-        <dt><code>stepforge explode</code></dt>
-        <dd>Decompose a STEP assembly into per-part PNG / GLB plus exploded views — an animated GIF, an exploded GLB, and a TOML manifest.</dd>
+        <dt><code>cardlab explode</code></dt>
+        <dd>Pull a STEP assembly apart into per-part PNG / GLB plus exploded views — an animated GIF, an exploded GLB, and a TOML manifest.</dd>
 
-        <dt><code>stepforge assemble</code></dt>
-        <dd>Compose multiple STEP parts into a single STEP via a TOML manifest.</dd>
+        <dt><code>cardlab assemble</code></dt>
+        <dd>Glue multiple STEP parts back into a single STEP via a TOML manifest.</dd>
       </dl>
 
       <p class="prose">
-        Every file under <a href="https://github.com/jmcpheron/pycon2026/tree/main/docs/assets/card"><code>docs/assets/card/</code></a> is regenerated by the
-        <a href="https://github.com/jmcpheron/pycon2026/actions/workflows/build-card.yml"><code>Build Card</code> workflow</a>
-        on any push that touches the STEP or the <code>stepforge</code> source, then auto-committed back. Push a new Onshape export and the hero animation regenerates within a minute.
+        Everything under <a href="https://github.com/jmcpheron/pycon2026/tree/main/docs/assets/card"><code>docs/assets/card/</code></a> is regenerated by the <a href="https://github.com/jmcpheron/pycon2026/actions/workflows/build-card.yml"><code>Build Card</code> workflow</a> on any push that touches the STEP or the <code>cardlab</code> script, and then auto-committed back. Push a new Onshape export and the hero GIF above rebuilds itself within a minute.
       </p>
     </section>
 
     <section class="section" id="try">
-      <header class="section-head">
-        <span class="section-no">§ 03</span>
-        <h2>Try it yourself</h2>
-      </header>
+      <h2>Try it yourself</h2>
 
       <pre class="code shell"><code><span class="prompt">$</span> git clone https://github.com/jmcpheron/pycon2026
 <span class="prompt">$</span> cd pycon2026
 <span class="prompt">$</span> uv sync --extra step
-<span class="prompt">$</span> uv run stepforge inspect jmcpheron-card.step
-<span class="prompt">$</span> uv run stepforge explode --in jmcpheron-card.step --out /tmp/card/
+<span class="prompt">$</span> uv run cardlab inspect jmcpheron-card.step
+<span class="prompt">$</span> uv run cardlab explode --in jmcpheron-card.step --out /tmp/card/
 <span class="c"># → /tmp/card/{exploded.gif, jmcpheron-card.glb, parts/*.{stl,glb,png}, manifest.toml}</span></code></pre>
 
       <p class="prose">
-        The <code>step</code> extra is opt-in — the OpenCascade wheel is ~180 MB. Requirements: Python 3.11+, <a href="https://openscad.org/">OpenSCAD</a> on your <code>$PATH</code>, <a href="https://docs.astral.sh/uv/"><code>uv</code></a>. Or just <a href="https://cad.onshape.com/documents/786fefdef357fb6860b54650/w/33fb9222a6752311e4f08c8b/e/da99fedbaeebf1422d4cb0d3">open the Onshape document</a> and spin it in your browser — no install required.
+        The <code>step</code> extra is opt-in — the OpenCascade wheel is ~180 MB. You'll need Python 3.11+, <a href="https://openscad.org/">OpenSCAD</a> on your <code>$PATH</code>, and <a href="https://docs.astral.sh/uv/"><code>uv</code></a>. Or just <a href="https://cad.onshape.com/documents/786fefdef357fb6860b54650/w/33fb9222a6752311e4f08c8b/e/da99fedbaeebf1422d4cb0d3">open the Onshape doc</a> and spin it in your browser — no install required.
       </p>
     </section>
 
     <section class="section" id="why">
-      <header class="section-head">
-        <span class="section-no">§ 04</span>
-        <h2>Why I'm bringing this to PyCon</h2>
-      </header>
-
-      <p class="dropquote">
-        The card is a conversation device, <em>not a product</em>. I made it so I'd have something concrete to talk about with people at the conference.
-      </p>
+      <h2>Why I'm bringing this to PyCon</h2>
 
       <p class="prose">
-        If you got here from a Hacker News post — hi. Find me on the floor at PyCon, or open an issue in the repo. Here's the laundry list I'm hoping to talk about:
+        Mostly: I wanted something concrete to put in someone's hand and have a conversation about. A printed card with little gears inside is a much better opener than "hi, I work in software." If you got here from a Hacker News post — hi too. Find me on the floor at PyCon, or open an issue on the repo. Here's the laundry list of things I'd love to talk about:
       </p>
 
       <ul class="prose chat-list">
-        <li><strong>Open-source licensing for physical 3D files.</strong> I picked <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> for the geometry and MIT for the code (see the <a href="https://github.com/jmcpheron/pycon2026/blob/main/LICENSE-3D-FILES">notice</a>). Was that the right call? Copyright on mechanical designs is fuzzy; <a href="https://cern.ch/cern-ohl">CERN OHL</a> exists; CC's applicability to STEP/STL is debated. Would love to hear from people who've thought harder about this.</li>
+        <li><strong>Open-source licensing for physical 3D files.</strong> I picked <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> for the geometry and MIT for the code (see the <a href="https://github.com/jmcpheron/pycon2026/blob/main/LICENSE-3D-FILES">notice</a>). Was that the right call? Copyright on mechanical designs is fuzzy; <a href="https://cern.ch/cern-ohl">CERN OHL</a> exists; whether CC even applies cleanly to STEP / STL is debated. I'd love to hear from people who've thought harder about this.</li>
         <li><strong>Sharing STEP files through open source.</strong> Who owns the canonical export when the source is a hosted Onshape doc? What does long-term custodianship look like for a file format that's already shifted through AP203 → AP214 → AP242?</li>
         <li><strong>3D design in general.</strong> What tools, what workflows, what makes the experience suck for someone walking in cold from a software background?</li>
-        <li><strong>Python tools for exploring STEP programmatically.</strong> <a href="https://github.com/gumyr/build123d"><code>build123d</code></a> for new construction, <a href="https://github.com/trimesh/cascadio"><code>cascadio</code></a> for colored GLB export, FFT-decoding tooth counts from an STL slice — the "geometry doesn't carry its own design intent" problem.</li>
-        <li><strong>Onshape → other platforms.</strong> Is there a viable OSS / on-prem path for hobbyists? <a href="https://www.freecad.org/">FreeCAD</a>, <a href="https://solvespace.com/">Solvespace</a>, build123d-as-source. What does "exportable design intent" mean when the source tool is the cloud?</li>
-        <li><strong>Gear ratios as a teaching tool.</strong> The math is fun and the thumb-travel intuition — ~20 metres of finger motion per output rotation — is the kind of fact that makes someone curious about the rest.</li>
+        <li><strong>Python for poking at STEP files.</strong> <a href="https://github.com/gumyr/build123d"><code>build123d</code></a> for new construction, <a href="https://github.com/trimesh/cascadio"><code>cascadio</code></a> for colored GLB export, FFT-decoding tooth counts from an STL slice — the "geometry doesn't carry its own design intent" problem.</li>
+        <li><strong>Onshape → other platforms.</strong> Is there a viable OSS / on-prem path for hobbyists? <a href="https://www.freecad.org/">FreeCAD</a>, <a href="https://solvespace.com/">Solvespace</a>, build123d-as-source. What does "exportable design intent" even mean when the source tool is the cloud?</li>
+        <li><strong>Gear ratios as a teaching tool.</strong> The math is fun, and the thumb-travel intuition — about 20 metres of finger motion per output rotation — is the kind of fact that makes someone curious about the rest.</li>
         <li><strong>Print-in-place mechanisms.</strong> Geometry tricks for things that survive a bed-slinger. Clearance budgets, sacrificial layers, the dance between bridging and overhangs.</li>
         <li><strong>Defensive disclosure vs. license clauses</strong> for patent-troll protection. Public Onshape + dated commits is probably doing most of the work; share-alike does the rest. Or does it?</li>
       </ul>
     </section>
 
     <section class="section" id="thanks">
-      <header class="section-head">
-        <span class="section-no">§ 05</span>
-        <h2>Built on the shoulders of</h2>
-      </header>
+      <h2>Built on the shoulders of</h2>
 
-      <p class="dropquote">
-        This card is glued together from a stack of OSS. <em>In rough order of how much I'd miss them:</em>
+      <p class="prose">
+        This card is glued together from a stack of OSS. In rough order of how much I'd miss them:
       </p>
 
       <table class="ack-list">
@@ -211,7 +166,7 @@
           <tr>
             <td class="pkg"><a href="https://github.com/gumyr/build123d"><code>build123d</code></a></td>
             <td class="license">Apache 2.0</td>
-            <td>Geometry kernel on top of OpenCascade. Every <code>stepforge</code> subcommand sits on this.</td>
+            <td>Geometry kernel on top of OpenCascade. Every <code>cardlab</code> subcommand sits on this.</td>
           </tr>
           <tr>
             <td class="pkg"><a href="https://github.com/trimesh/cascadio"><code>cascadio</code></a></td>
@@ -221,7 +176,7 @@
           <tr>
             <td class="pkg"><a href="https://github.com/mikedh/trimesh"><code>trimesh</code></a></td>
             <td class="license">MIT</td>
-            <td>STL slicing, FFT-decode of tooth counts, mesh roundtrips, the bounding-box math behind every render.</td>
+            <td>STL slicing, FFT-decoding of tooth counts, mesh roundtrips, the bounding-box math behind every render.</td>
           </tr>
           <tr>
             <td class="pkg"><a href="https://openscad.org/"><code>OpenSCAD</code></a></td>
@@ -236,12 +191,12 @@
           <tr>
             <td class="pkg"><a href="https://click.palletsprojects.com/"><code>Click</code></a></td>
             <td class="license">BSD-3</td>
-            <td>CLI plumbing for both <code>stepforge</code> and <code>explainers</code>.</td>
+            <td>CLI plumbing for both <code>cardlab</code> and <code>explainers</code>.</td>
           </tr>
           <tr>
             <td class="pkg"><a href="https://github.com/cduck/drawsvg"><code>drawsvg</code></a></td>
             <td class="license">MIT</td>
-            <td>SVG diagrams in the explainer pages — the gear chain you saw up in §01.</td>
+            <td>SVG diagrams in the explainer pages — the gear chain you saw up above.</td>
           </tr>
           <tr>
             <td class="pkg"><a href="https://docs.astral.sh/uv/"><code>uv</code></a></td>
@@ -256,38 +211,26 @@
           <tr>
             <td class="pkg"><a href="https://fonts.google.com/specimen/Fraunces">Fraunces</a></td>
             <td class="license">OFL 1.1</td>
-            <td>The serif you're reading. Variable-axis everything; the headline weight here is custom-tuned per heading.</td>
+            <td>The serif you're reading. Variable axis everything; the headline weight is custom-tuned per heading.</td>
           </tr>
         </tbody>
       </table>
 
       <p class="prose">
-        Canonical dep list: <a href="https://github.com/jmcpheron/pycon2026/blob/main/pyproject.toml"><code>pyproject.toml</code></a>. Geometry license: <a href="https://github.com/jmcpheron/pycon2026/blob/main/LICENSE-3D-FILES"><code>LICENSE-3D-FILES</code></a> (CC BY-SA 4.0). Code license: <a href="https://github.com/jmcpheron/pycon2026/blob/main/LICENSE"><code>LICENSE</code></a> (MIT).
+        Full dep list: <a href="https://github.com/jmcpheron/pycon2026/blob/main/pyproject.toml"><code>pyproject.toml</code></a>. Geometry license: <a href="https://github.com/jmcpheron/pycon2026/blob/main/LICENSE-3D-FILES"><code>LICENSE-3D-FILES</code></a> (CC BY-SA 4.0). Code license: <a href="https://github.com/jmcpheron/pycon2026/blob/main/LICENSE"><code>LICENSE</code></a> (MIT).
       </p>
     </section>
 
-  </main>
+    <footer class="page-footer">
+      <p>
+        <a href="https://github.com/jmcpheron/pycon2026">github.com/jmcpheron/pycon2026</a>
+        · PyCon US · Long Beach · May 14–17, 2026
+        · Code: <a href="https://github.com/jmcpheron/pycon2026/blob/main/LICENSE">MIT</a>
+        · 3D files: <a href="https://github.com/jmcpheron/pycon2026/blob/main/LICENSE-3D-FILES">CC BY-SA 4.0</a>
+      </p>
+    </footer>
 
-  <footer class="signoff" aria-label="Document signoff">
-    <div class="signoff-grid">
-      <div>
-        <p class="kicker">Source</p>
-        <p><a href="https://github.com/jmcpheron/pycon2026">github.com/jmcpheron/pycon2026</a></p>
-      </div>
-      <div>
-        <p class="kicker">Venue</p>
-        <p>PyCon US · Long Beach<br>May 14–17, 2026</p>
-      </div>
-      <div>
-        <p class="kicker">License</p>
-        <p>Code: <a href="https://github.com/jmcpheron/pycon2026/blob/main/LICENSE">MIT</a><br>3D files: <a href="https://github.com/jmcpheron/pycon2026/blob/main/LICENSE-3D-FILES">CC BY-SA 4.0</a></p>
-      </div>
-      <div>
-        <p class="kicker">Stamp</p>
-        <p class="signoff-stamp">CARD‑001 · v1.0</p>
-      </div>
-    </div>
-  </footer>
+  </main>
 
 </body>
 </html>

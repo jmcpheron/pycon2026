@@ -17,7 +17,7 @@ root_diameter  = pitch_diameter − 2.5 × module
 center_distance = (pitch_dia_a + pitch_dia_b) / 2
 ```
 
-For our canonical 40t / 10t pair at module 0.6 mm:
+For the 40t / 10t pair used in this card at module 0.6 mm:
 
 | Feature | Big gear | Pinion |
 |---------|---------:|-------:|
