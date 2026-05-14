@@ -30,8 +30,9 @@ POST_HOLE_MM: float = 2.2
 
 # --- Assembly counts -------------------------------------------------------
 N_STAGES: int = 5
-"""Stages in the chain. Each pinion-to-big mesh contributes one ratio
-multiplication. Five stages = 4^4 = 256:1; six stages = 1024:1."""
+"""Gears in the chain. Each pinion-to-big mesh between consecutive gears
+contributes one ratio multiplication, so N gears = N-1 meshes.
+5 gears → 4 meshes → 4^4 = 256:1; 6 gears → 5 meshes → 4^5 = 1024:1."""
 LEVELS: int = 3
 """Vertical bands the gears occupy. Three is the minimum that lets the
 'two standard parts then one tall part' cycle keep card thickness bounded
@@ -59,7 +60,7 @@ RATIO_PER_STAGE: float = BIG_TEETH / PINION_TEETH
 """Reduction at each pinion-to-big mesh. 4.0 at the canonical numbers."""
 
 TOTAL_RATIO: float = RATIO_PER_STAGE ** (N_STAGES - 1)
-"""Compound ratio across the whole chain. (N stages = N-1 meshes — gear 1
+"""Compound ratio across the whole chain. (N gears = N-1 meshes — gear 1
 is the input, the meshes are between adjacent gears.)"""
 
 # --- Hub variants (for the 3-level cycle) ---------------------------------

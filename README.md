@@ -1,6 +1,6 @@
 # pycon2026 — a 256:1 reduction-gear card
 
-> A credit-card-sized object with a five-stage compound reduction-gear chain. Designed in Onshape, deconstructed by Python.
+> A credit-card-sized object with a five-gear compound reduction chain — 256:1 from input to output. Designed in Onshape, deconstructed by Python.
 
 [![CI](https://github.com/jmcpheron/pycon2026/actions/workflows/ci.yml/badge.svg)](https://github.com/jmcpheron/pycon2026/actions/workflows/ci.yml)
 [![Build Card](https://github.com/jmcpheron/pycon2026/actions/workflows/build-card.yml/badge.svg)](https://github.com/jmcpheron/pycon2026/actions/workflows/build-card.yml)
@@ -30,7 +30,7 @@
 <sub><strong>Standard compound gear</strong><br/>40-tooth driven disc + 10-tooth pinion on a short hub.</sub>
 </td>
 <td align="center" valign="top" width="33%">
-<img src="docs/assets/card/parts/Spur_gear_40_teeth_4.png" alt="Render of a 40-tooth spur gear with a tall 10-tooth pinion hub — the tall-hub variant used in alternating stages of the compound chain." />
+<img src="docs/assets/card/parts/Spur_gear_40_teeth_4.png" alt="Render of a 40-tooth spur gear with a tall 10-tooth pinion hub — the tall-hub variant used in alternating positions of the compound chain." />
 <br/>
 <sub><strong>Tall-hub variant</strong><br/>Same 40 / 10 teeth, taller hub. Interleaved with short-hub gears so the discs don't collide.</sub>
 </td>
@@ -43,7 +43,9 @@ Long Beach, May 14–17. If you found this repo from a 3D-printed card I gave yo
 
 ## How it works
 
-Five gear stages, 4:1 each, multiplied together: **256:1**. Spin the input gear with your thumb; the output gear moves a quarter-degree.
+Five compound gears in a chain. Four 4:1 meshes between them, multiplied together: **256:1**. Spin the input gear with your thumb; the output gear moves a quarter-degree.
+
+*(Five gears, four reductions — an idler chain of the same gears would still only reduce 4:1.)*
 
 The story is told across six short Python-generated explainers:
 

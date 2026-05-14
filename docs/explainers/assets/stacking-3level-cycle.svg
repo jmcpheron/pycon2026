@@ -36,5 +36,5 @@
 <rect x="220" y="78" width="4" height="14" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
 <rect x="217" y="75.5" width="10" height="5" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
 <text x="222" y="107.5" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937">G5</text>
-<text x="28" y="144" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280" font-style="italic">Tall variants (darker) carry their pinion two levels down so it lands at L0 again, returning the chain to its starting configuration. Card thickness stays at 3 levels regardless of stage count.</text>
+<text x="28" y="144" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280" font-style="italic">Tall variants (darker) carry their pinion two levels down so it lands at L0 again, returning the chain to its starting configuration. Card thickness stays at 3 levels regardless of gear count.</text>
 </svg>

@@ -76,9 +76,9 @@ def _hero_chain(out: Path) -> Path:
 
 
 def _ratio_bar_chart(out: Path) -> Path:
-    """Cumulative ratio for stage counts 1..6."""
+    """Cumulative ratio for gear counts 1..6."""
     stages = list(range(1, 7))
-    # ratios: stage count 1 → ratio 1 (just the input gear, no meshes)
+    # ratios: 1 gear → ratio 1 (just the input gear, no meshes)
     ratios = [card.RATIO_PER_STAGE ** (n - 1) for n in stages]
 
     fig, ax = plt.subplots(figsize=(6.5, 3.4))
@@ -89,7 +89,7 @@ def _ratio_bar_chart(out: Path) -> Path:
     ax.set_yscale("log")
     ax.set_xlabel("compound gears in chain")
     ax.set_ylabel("input rotations per output rotation")
-    ax.set_title(f"Each {card.RATIO_PER_STAGE:g}:1 stage multiplies the previous total",
+    ax.set_title(f"Each added gear adds a {card.RATIO_PER_STAGE:g}:1 mesh and multiplies the total",
                  fontsize=11)
     ax.grid(axis="y", which="both", color=S.LEVEL_LINE,
             linestyle="--", linewidth=0.5)
@@ -107,7 +107,7 @@ def _ratio_bar_chart(out: Path) -> Path:
 
 
 def _thumb_travel_chart(out: Path) -> Path:
-    """Thumb travel distance per output rotation, vs stage count."""
+    """Thumb travel distance per output rotation, vs gear count."""
     stages = list(range(1, 7))
     big_circumference_mm = math.pi * card.OUTER_DIA_BIG
     travels_m = [(card.RATIO_PER_STAGE ** (n - 1)) * big_circumference_mm / 1000
@@ -177,14 +177,14 @@ Each gear in the chain is one printed part: a **big disc** ({card.BIG_TEETH} tee
 ## The math, in three lines
 
 ```text
-ratio_per_stage = big_teeth / pinion_teeth = {card.BIG_TEETH} / {card.PINION_TEETH} = {card.RATIO_PER_STAGE:g}
-total_ratio     = ratio_per_stage ^ (N_gears − 1)
-                = {card.RATIO_PER_STAGE:g}^{n_meshes} = {int(card.TOTAL_RATIO):,}:1
+ratio_per_mesh = big_teeth / pinion_teeth = {card.BIG_TEETH} / {card.PINION_TEETH} = {card.RATIO_PER_STAGE:g}
+total_ratio    = ratio_per_mesh ^ (N_gears − 1)
+               = {card.RATIO_PER_STAGE:g}^{n_meshes} = {int(card.TOTAL_RATIO):,}:1
 ```
 
 The `−1` is because *N* gears have *N−1* meshes — the input gear isn't being driven by anything, it just provides the entrance to the chain.
 
-![cumulative ratio per stage](assets/{bar_path.name})
+![cumulative ratio as gears are added](assets/{bar_path.name})
 
 A linear add of one gear *multiplies* the cumulative ratio. Log scale on the y-axis is the only reason all six bars fit on one chart.
 
@@ -194,9 +194,9 @@ The fun framing isn't "input rotations per output rotation" — it's how far you
 
 ![thumb travel per output rotation](assets/{travel_path.name})
 
-At {card.N_STAGES} stages ({int(card.TOTAL_RATIO):,}:1) that's roughly **{_format_thumb_distance(thumb_at_n)} of thumb arc per output click**. At one comfortable thumb-flick per second, you'd be flicking the input for ≈ {int(card.TOTAL_RATIO) // 60} minutes to make the output disc complete a single revolution.
+With our {card.N_STAGES}-gear chain ({int(card.TOTAL_RATIO):,}:1), that's roughly **{_format_thumb_distance(thumb_at_n)} of thumb arc per output click**. At one comfortable thumb-flick per second, you'd be flicking the input for ≈ {int(card.TOTAL_RATIO) // 60} minutes to make the output disc complete a single revolution.
 
-## Why we picked {card.N_STAGES} stages
+## Why we picked {card.N_STAGES} gears
 
 | Stages | Ratio | Thumb travel | Footprint (post-to-post) |
 |--------|-------|--------------|--------------------------|
