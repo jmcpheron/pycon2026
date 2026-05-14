@@ -22,7 +22,7 @@ The brute-force fix: put every gear one level lower than the previous one. No tw
 
 ![descending staircase: each gear one level lower](assets/stacking-staircase.svg)
 
-This works, but **5 gears now need 6 levels of vertical space** — every additional gear thickens the card. At the canonical 1 mm gear plate plus 0.3 mm gap, that's 7.8 mm just for the stack. The card has to be thicker than the chain plus floor and cap. Six gears overshoots a 5 mm card.
+This works, but **5 gears now need 6 levels of vertical space** — every additional gear thickens the card. At 1 mm per gear plate plus 0.3 mm of clearance, that's 7.8 mm just for the stack. The card has to be thicker than the chain plus floor and cap. Six gears overshoots a 5 mm card.
 
 ## (C) Three-level cycle — two standard parts, one tall — works *and* doesn't grow
 

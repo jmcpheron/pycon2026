@@ -210,7 +210,7 @@ The brute-force fix: put every gear one level lower than the previous one. No tw
 
 ![descending staircase: each gear one level lower](assets/{stair_path.name})
 
-This works, but **{card.N_STAGES} gears now need {card.N_STAGES + 1} levels of vertical space** — every additional gear thickens the card. At the canonical {card.GEAR_THICKNESS_MM:g} mm gear plate plus {card.LAYER_GAP_MM:g} mm gap, that's {(card.GEAR_THICKNESS_MM + card.LAYER_GAP_MM) * (card.N_STAGES + 1):.1f} mm just for the stack. The card has to be thicker than the chain plus floor and cap. Six gears overshoots a {card.CARD_THICKNESS_MM:g} mm card.
+This works, but **{card.N_STAGES} gears now need {card.N_STAGES + 1} levels of vertical space** — every additional gear thickens the card. At {card.GEAR_THICKNESS_MM:g} mm per gear plate plus {card.LAYER_GAP_MM:g} mm of clearance, that's {(card.GEAR_THICKNESS_MM + card.LAYER_GAP_MM) * (card.N_STAGES + 1):.1f} mm just for the stack. The card has to be thicker than the chain plus floor and cap. Six gears overshoots a {card.CARD_THICKNESS_MM:g} mm card.
 
 ## (C) Three-level cycle — two standard parts, one tall — works *and* doesn't grow
 

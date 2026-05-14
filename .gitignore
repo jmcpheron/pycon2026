@@ -27,5 +27,5 @@ Untitled
 # Playwright MCP scratch (page snapshots, console logs)
 .playwright-mcp/
 
-# stepforge explode debug frames (regenerated each run by CI)
+# cardlab explode debug frames (regenerated each run by CI)
 docs/assets/card/_frames/

@@ -222,7 +222,7 @@ root_diameter  = pitch_diameter − 2.5 × module
 center_distance = (pitch_dia_a + pitch_dia_b) / 2
 ```
 
-For our canonical {card.BIG_TEETH}t / {card.PINION_TEETH}t pair at module {card.MODULE_MM} mm:
+For the {card.BIG_TEETH}t / {card.PINION_TEETH}t pair used in this card at module {card.MODULE_MM} mm:
 
 | Feature | Big gear | Pinion |
 |---------|---------:|-------:|

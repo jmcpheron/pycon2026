@@ -23,9 +23,9 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable
 
-from stepforge._scad import _scad_string
-from stepforge.inspect import load_sidecar
-from stepforge.render import _stl_bbox, render_scad, render_stl
+from cardlab._scad import _scad_string
+from cardlab.inspect import load_sidecar
+from cardlab.render import _stl_bbox, render_scad, render_stl
 
 
 Vec3 = tuple[float, float, float]

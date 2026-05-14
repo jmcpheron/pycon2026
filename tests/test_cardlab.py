@@ -1,4 +1,4 @@
-"""Tests for stepforge — STEP I/O, inspection, and assembly composition.
+"""Tests for cardlab — STEP I/O, inspection, and assembly composition.
 
 All tests skip cleanly when the optional ``step`` extra (build123d / OCP)
 isn't installed, so they don't gate the default ``ci.yml`` matrix.
@@ -24,7 +24,7 @@ def _write_box_step(path: Path, x: float = 10, y: float = 10, z: float = 10) -> 
 
 def test_synthetic_roundtrip(tmp_path: Path) -> None:
     """import_step → bbox should match the box we wrote."""
-    from stepforge.inspect import inspect_step, parse_header
+    from cardlab.inspect import inspect_step, parse_header
 
     src = _write_box_step(tmp_path / "box.step")
 
@@ -39,8 +39,8 @@ def test_synthetic_roundtrip(tmp_path: Path) -> None:
 
 def test_tessellate_box_triangle_count(tmp_path: Path) -> None:
     """A box has 12 triangles regardless of deflection."""
-    from stepforge.build import build
-    from stepforge.inspect import _stl_triangle_count
+    from cardlab.build import build
+    from cardlab.inspect import _stl_triangle_count
 
     src = _write_box_step(tmp_path / "box.step")
     out = tmp_path / "box.stl"
@@ -51,7 +51,7 @@ def test_tessellate_box_triangle_count(tmp_path: Path) -> None:
 
 def test_assemble_manifest(tmp_path: Path) -> None:
     """Manifest with two parts composes into a Compound with two children."""
-    from stepforge.assemble import assemble
+    from cardlab.assemble import assemble
 
     _write_box_step(tmp_path / "a.step", 5, 5, 5)
     _write_box_step(tmp_path / "b.step", 3, 3, 3)
@@ -96,7 +96,7 @@ def test_glb_via_cascadio_preserves_geometry(tmp_path: Path) -> None:
     """
     pytest.importorskip("cascadio")
     trimesh = pytest.importorskip("trimesh")
-    from stepforge.build import build
+    from cardlab.build import build
 
     src = _write_box_step(tmp_path / "box.step", 8, 8, 8)
     out = tmp_path / "box.glb"
@@ -113,7 +113,7 @@ def test_glb_via_cascadio_preserves_geometry(tmp_path: Path) -> None:
 
 def test_inspect_merges_sidecar(tmp_path: Path) -> None:
     """A `<stem>.meta.toml` next to the STEP should appear in inspect output."""
-    from stepforge.inspect import inspect_step
+    from cardlab.inspect import inspect_step
 
     src = _write_box_step(tmp_path / "card.step")
     sidecar = src.with_suffix(".meta.toml")
@@ -145,8 +145,8 @@ def test_explode_smoke(tmp_path: Path) -> None:
     if shutil.which("openscad") is None:
         pytest.skip("openscad not on PATH — explode smoke needs it for PNGs")
 
-    from stepforge.assemble import assemble
-    from stepforge.explode import explode
+    from cardlab.assemble import assemble
+    from cardlab.explode import explode
 
     _write_box_step(tmp_path / "a.step", 8, 8, 4)
     _write_box_step(tmp_path / "b.step", 6, 6, 4)

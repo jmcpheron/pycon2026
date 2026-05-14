@@ -490,7 +490,7 @@ def build(out_dir: Path) -> Path:
     if not GEAR_STL.exists():
         raise FileNotFoundError(
             f"can't decode without the gear STL at {GEAR_STL} — "
-            f"run `stepforge explode` first to generate per-part artifacts"
+            f"run `cardlab explode` first to generate per-part artifacts"
         )
 
     import trimesh
