@@ -20,9 +20,9 @@
 <table>
 <tr>
 <td align="center" valign="top" width="33%">
-<img src="docs/assets/card/parts/Part_1.png" alt="Render of one of the two card halves — a 78 × 44 mm flat body with four square gear pockets, an axle hole, and a curved bottle-opener-style notch on the right." />
+<img src="docs/assets/card/parts/Part_1.png" alt="Render of one of the two card halves — a 78 × 44 mm flat body with five rounded gear pockets, an axle hole, and a curved bottle-opener-style notch on the right." />
 <br/>
-<sub><strong>Card half</strong><br/>78 × 44 mm body, four pockets, axle hole, bottle-opener notch.</sub>
+<sub><strong>Card half</strong><br/>78 × 44 mm body, five pockets, axle hole, bottle-opener notch.</sub>
 </td>
 <td align="center" valign="top" width="33%">
 <img src="docs/assets/card/parts/Spur_gear_40_teeth.png" alt="Render of a 40-tooth spur gear with a short 10-tooth pinion hub fused on top — the standard compound gear." />
