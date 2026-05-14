@@ -17,6 +17,14 @@
   <sub>Onshape AP242 STEP → <a href="src/cardlab"><code>cardlab explode</code></a> → seven parts → animated GIF. The GIF rebuilds itself in CI whenever the STEP changes.</sub>
 </p>
 
+<p align="center">
+  <img src="docs/explainers/assets/gear-ratios-animated.svg" alt="Animated plan view of the five-gear chain. The leftmost gear (INPUT, thumb-spun) rotates clockwise once every two seconds. Each subsequent gear runs at one-quarter the speed of the previous and spins the opposite direction — '4:1' callouts sit between each adjacent pair. By the rightmost gear (OUTPUT) the rotation is 1/256× the input, visibly almost still." width="900" />
+</p>
+
+<p align="center">
+  <sub>Each mesh is a 4:1 reduction. Five gears, four meshes, 4<sup>4</sup> = <strong>256:1</strong>. See <a href="docs/explainers/gear-ratios.md">gear-ratios</a> for the math and thumb-travel intuition. Rebuilt by <a href="src/explainers/ratios.py"><code>explainers build ratios</code></a>.</sub>
+</p>
+
 <table>
 <tr>
 <td align="center" valign="top" width="33%">

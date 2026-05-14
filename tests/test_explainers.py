@@ -44,6 +44,47 @@ def test_each_explainer_builds(name: str, tmp_path: Path) -> None:
     assert svg_count >= 1, f"{name}: no SVG assets generated"
 
 
+def test_animated_hero_speeds_compound_correctly(tmp_path: Path) -> None:
+    """The animated gear-chain hero's SMIL durations must scale by the
+    canonical RATIO_PER_STAGE between adjacent gears, and directions must
+    alternate — or the rendered chain stops matching the gear math.
+    """
+    import re
+    import xml.etree.ElementTree as ET
+
+    from explainers.ratios import build, BASE_PERIOD_S
+
+    build(tmp_path)
+    svg_path = tmp_path / "assets" / "gear-ratios-animated.svg"
+    assert svg_path.exists(), "animated hero SVG was not produced"
+
+    ns = "{http://www.w3.org/2000/svg}"
+    tree = ET.parse(svg_path)
+    transforms = tree.getroot().findall(f".//{ns}animateTransform")
+    assert len(transforms) == card.N_STAGES, (
+        f"expected {card.N_STAGES} animateTransform elements (one per gear), "
+        f"got {len(transforms)}"
+    )
+
+    # Durations: BASE_PERIOD_S × RATIO_PER_STAGE**i for i in 0..N-1.
+    for i, t in enumerate(transforms):
+        dur = t.attrib["dur"]
+        m = re.fullmatch(r"([\d.]+)s", dur)
+        assert m, f"gear {i + 1}: unparseable dur={dur!r}"
+        expected = BASE_PERIOD_S * (card.RATIO_PER_STAGE ** i)
+        assert float(m.group(1)) == pytest.approx(expected), (
+            f"gear {i + 1}: dur {dur} != expected {expected}s"
+        )
+
+    # Direction reversal at each mesh — to-angle sign alternates.
+    for i, t in enumerate(transforms):
+        to_angle = float(t.attrib["to"].split()[0])
+        expected_sign = 1 if i % 2 == 0 else -1
+        assert (to_angle > 0) == (expected_sign > 0), (
+            f"gear {i + 1}: rotation direction wrong (to={to_angle})"
+        )
+
+
 def test_no_drift_between_sections(tmp_path: Path) -> None:
     """The numbers in card.py should appear textually in every explainer.
 

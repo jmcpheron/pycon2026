@@ -4,6 +4,8 @@
 
 ![compound gear chain](assets/gear-ratios-hero.svg)
 
+![the same chain, animated — each gear spins at its physically correct relative speed and direction](assets/gear-ratios-animated.svg)
+
 ## The compound gear, briefly
 
 Each gear in the chain is one printed part: a **big disc** (40 teeth at module 0.6 mm, pitch ⌀ 24 mm) bonded to a smaller **pinion** (10 teeth, pitch ⌀ 6 mm) that rotates with it on a shared post. When the pinion of gear *N* meshes with the big disc of gear *N+1*, gear *N+1* spins 4× slower. Stack 5 of them in a row and the slow-down compounds.

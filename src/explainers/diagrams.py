@@ -30,6 +30,45 @@ def new_drawing(width: float, height: float, *, paper: bool = True) -> dw.Drawin
 
 # --- Plan-view primitives -------------------------------------------------
 
+def _gear_shapes(
+    container,
+    cx: float, cy: float,
+    *,
+    big_r: float,
+    pinion_r: float,
+    hub_r: float,
+    post_r: float,
+    big_color: str,
+    pinion_color: str,
+    show_pinion: bool,
+    big_teeth: int,
+    pinion_teeth: int,
+) -> None:
+    """Append the concentric-annulus shapes of a compound gear to ``container``.
+
+    ``container`` is either a Drawing (static gear) or a Group (animated gear
+    that rotates as a unit). All shapes share the same (cx, cy) origin so a
+    parent rotation about (cx, cy) spins the whole assembly cleanly.
+    """
+    container.append(dw.Circle(cx, cy, big_r,
+                               fill=big_color, stroke=S.INK,
+                               stroke_width=S.STROKE_THIN))
+    if big_teeth:
+        _tooth_ring(container, cx, cy, big_r, big_teeth, S.INK)
+    if show_pinion:
+        container.append(dw.Circle(cx, cy, pinion_r,
+                                   fill=pinion_color, stroke=S.INK,
+                                   stroke_width=S.STROKE_THIN))
+        if pinion_teeth:
+            _tooth_ring(container, cx, cy, pinion_r, pinion_teeth, S.INK)
+    container.append(dw.Circle(cx, cy, hub_r,
+                               fill=S.HUB, stroke=S.INK,
+                               stroke_width=S.STROKE_THIN))
+    container.append(dw.Circle(cx, cy, post_r,
+                               fill=S.PAPER, stroke=S.INK,
+                               stroke_width=S.STROKE_THIN))
+
+
 def compound_gear(
     d: dw.Drawing,
     cx: float, cy: float,
@@ -50,24 +89,11 @@ def compound_gear(
     ``teeth_count`` is given, a ring of small radial nubs is overlaid on
     the big gear so it reads as a gear rather than a disc.
     """
-    # Big gear disc
-    d.append(dw.Circle(cx, cy, big_r,
-                       fill=big_color, stroke=S.INK, stroke_width=S.STROKE_THIN))
-    if teeth_count:
-        _tooth_ring(d, cx, cy, big_r, teeth_count, S.INK)
-
-    # Pinion (concentric, smaller, on top)
-    if show_pinion:
-        d.append(dw.Circle(cx, cy, pinion_r,
-                           fill=pinion_color, stroke=S.INK, stroke_width=S.STROKE_THIN))
-
-    # Hub (smaller still — centered cylinder)
-    d.append(dw.Circle(cx, cy, hub_r,
-                       fill=S.HUB, stroke=S.INK, stroke_width=S.STROKE_THIN))
-
-    # Post hole at center
-    d.append(dw.Circle(cx, cy, post_r,
-                       fill=S.PAPER, stroke=S.INK, stroke_width=S.STROKE_THIN))
+    _gear_shapes(d, cx, cy,
+                 big_r=big_r, pinion_r=pinion_r, hub_r=hub_r, post_r=post_r,
+                 big_color=big_color, pinion_color=pinion_color,
+                 show_pinion=show_pinion,
+                 big_teeth=teeth_count, pinion_teeth=0)
 
     if label:
         d.append(dw.Text(label, S.FONT_SIZE_LABEL,
@@ -76,9 +102,53 @@ def compound_gear(
                          font_family=S.FONT_FAMILY, fill=S.INK))
 
 
-def _tooth_ring(d: dw.Drawing, cx: float, cy: float, r: float,
+def animated_compound_gear(
+    d: dw.Drawing,
+    cx: float, cy: float,
+    *,
+    big_r: float,
+    pinion_r: float,
+    hub_r: float = 1.5,
+    post_r: float = 1.0,
+    big_color: str = S.GEAR_BIG,
+    pinion_color: str = S.GEAR_PINION,
+    big_teeth: int = 0,
+    pinion_teeth: int = 0,
+    period_s: float,
+    clockwise: bool = True,
+) -> None:
+    """Compound gear wrapped in a <g> with SMIL rotation about (cx, cy).
+
+    ``period_s`` is the time for one full revolution. ``clockwise=False``
+    flips the to-angle to -360 so the gear spins the other way — used to
+    show direction reversal at each pinion-to-disc mesh.
+
+    No internal label is rendered (a rotating label would tumble with the
+    gear). Callers draw labels separately in the parent drawing.
+    """
+    g = dw.Group()
+    _gear_shapes(g, cx, cy,
+                 big_r=big_r, pinion_r=pinion_r, hub_r=hub_r, post_r=post_r,
+                 big_color=big_color, pinion_color=pinion_color,
+                 show_pinion=True,
+                 big_teeth=big_teeth, pinion_teeth=pinion_teeth)
+    target_deg = 360 if clockwise else -360
+    g.append(dw.AnimateTransform(
+        type="rotate",
+        dur=f"{period_s}s",
+        from_or_values=f"0 {cx} {cy}",
+        to=f"{target_deg} {cx} {cy}",
+        repeatCount="indefinite",
+    ))
+    d.append(g)
+
+
+def _tooth_ring(d, cx: float, cy: float, r: float,
                 n: int, color: str) -> None:
-    """Draw n short radial tick marks just outside radius r — reads as teeth."""
+    """Draw n short radial tick marks just outside radius r — reads as teeth.
+
+    Accepts either a Drawing or a Group as the container.
+    """
     import math
     tick_in = r - 0.6
     tick_out = r + 0.6
