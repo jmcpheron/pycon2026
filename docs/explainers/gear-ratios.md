@@ -11,14 +11,14 @@ Each gear in the chain is one printed part: a **big disc** (40 teeth at module 0
 ## The math, in three lines
 
 ```text
-ratio_per_stage = big_teeth / pinion_teeth = 40 / 10 = 4
-total_ratio     = ratio_per_stage ^ (N_gears − 1)
-                = 4^4 = 256:1
+ratio_per_mesh = big_teeth / pinion_teeth = 40 / 10 = 4
+total_ratio    = ratio_per_mesh ^ (N_gears − 1)
+               = 4^4 = 256:1
 ```
 
 The `−1` is because *N* gears have *N−1* meshes — the input gear isn't being driven by anything, it just provides the entrance to the chain.
 
-![cumulative ratio per stage](assets/gear-ratios-bars.svg)
+![cumulative ratio as gears are added](assets/gear-ratios-bars.svg)
 
 A linear add of one gear *multiplies* the cumulative ratio. Log scale on the y-axis is the only reason all six bars fit on one chart.
 
@@ -28,9 +28,9 @@ The fun framing isn't "input rotations per output rotation" — it's how far you
 
 ![thumb travel per output rotation](assets/gear-ratios-thumb.svg)
 
-At 5 stages (256:1) that's roughly **20.3 m of thumb arc per output click**. At one comfortable thumb-flick per second, you'd be flicking the input for ≈ 4 minutes to make the output disc complete a single revolution.
+With our 5-gear chain (256:1), that's roughly **20.3 m of thumb arc per output click**. At one comfortable thumb-flick per second, you'd be flicking the input for ≈ 4 minutes to make the output disc complete a single revolution.
 
-## Why we picked 5 stages
+## Why we picked 5 gears
 
 | Stages | Ratio | Thumb travel | Footprint (post-to-post) |
 |--------|-------|--------------|--------------------------|

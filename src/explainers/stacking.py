@@ -73,11 +73,11 @@ def _section_staircase(out: Path) -> Path:
 
     d = diagrams.new_drawing(width, height)
     diagrams.title(d, layout.margin, layout.margin - 4,
-                   "(B) descending staircase — works, but card thickness scales with stage count")
+                   "(B) descending staircase — works, but card thickness scales with gear count")
     diagrams.cross_section(d, 0, 12, gears, layout=layout)
     diagrams.caption(d, layout.margin, height - 8,
                      f"Each gear sits one level below the previous. {n} gears need {n + 1} levels — "
-                     f"every new stage thickens the card by one more gear-plate plus clearance.")
+                     f"every additional gear thickens the card by one more gear-plate plus clearance.")
     d.save_svg(str(out))
     return out
 
@@ -121,7 +121,7 @@ def _section_3level_cycle(out: Path) -> Path:
     diagrams.caption(d, layout.margin, height - 8,
                      "Tall variants (darker) carry their pinion two levels down so it lands at L0 "
                      "again, returning the chain to its starting configuration. "
-                     "Card thickness stays at 3 levels regardless of stage count.")
+                     "Card thickness stays at 3 levels regardless of gear count.")
     d.save_svg(str(out))
     return out
 
@@ -210,7 +210,7 @@ The brute-force fix: put every gear one level lower than the previous one. No tw
 
 ![descending staircase: each gear one level lower](assets/{stair_path.name})
 
-This works, but **{card.N_STAGES} gears now need {card.N_STAGES + 1} levels of vertical space** — every new stage thickens the card. At the canonical {card.GEAR_THICKNESS_MM:g} mm gear plate plus {card.LAYER_GAP_MM:g} mm gap, that's {(card.GEAR_THICKNESS_MM + card.LAYER_GAP_MM) * (card.N_STAGES + 1):.1f} mm just for the stack. The card has to be thicker than the chain plus floor and cap. Six stages overshoots a {card.CARD_THICKNESS_MM:g} mm card.
+This works, but **{card.N_STAGES} gears now need {card.N_STAGES + 1} levels of vertical space** — every additional gear thickens the card. At the canonical {card.GEAR_THICKNESS_MM:g} mm gear plate plus {card.LAYER_GAP_MM:g} mm gap, that's {(card.GEAR_THICKNESS_MM + card.LAYER_GAP_MM) * (card.N_STAGES + 1):.1f} mm just for the stack. The card has to be thicker than the chain plus floor and cap. Six gears overshoots a {card.CARD_THICKNESS_MM:g} mm card.
 
 ## (C) Three-level cycle — two standard parts, one tall — works *and* doesn't grow
 
@@ -226,9 +226,9 @@ The cycle in pictures:
 | 2 (G2, G5, G8…) | L1 | L2 | standard, mounted up one level |
 | 3 (G3, G6, G9…) | L2 | L0 | **tall-hub** (pinion vaults two levels down) |
 
-After three gears you're back at L0, ready to start the next cycle. The card stays at three levels of vertical stack regardless of stage count: {card.N_STAGES} gears, ten gears, twenty gears — same {card.LEVELS}-level card.
+After three gears you're back at L0, ready to start the next cycle. The card stays at three levels of vertical stack regardless of gear count: {card.N_STAGES} gears, ten gears, twenty gears — same {card.LEVELS}-level card.
 
-You only need **two unique printed parts**: the standard one (hub spans 1 clearance) and the tall one (hub spans 2 clearances). For a {card.N_STAGES}-stage chain you print {card.N_STAGES - card.N_STAGES // 3} standard and {card.N_STAGES // 3} tall.
+You only need **two unique printed parts**: the standard one (hub spans 1 clearance) and the tall one (hub spans 2 clearances). For a {card.N_STAGES}-gear chain you print {card.N_STAGES - card.N_STAGES // 3} standard and {card.N_STAGES // 3} tall.
 
 ## Plan view
 

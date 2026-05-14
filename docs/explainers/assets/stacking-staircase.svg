@@ -4,7 +4,7 @@
 <defs>
 </defs>
 <rect x="0" y="0" width="268" height="164" fill="#fafaf9" />
-<text x="28" y="24" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">(B) descending staircase — works, but card thickness scales with stage count</text>
+<text x="28" y="24" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">(B) descending staircase — works, but card thickness scales with gear count</text>
 <path d="M4,40 L264,40" stroke="#d1d5db" stroke-width="0.5" stroke-dasharray="2,2" />
 <text x="2" y="39" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280">L0</text>
 <path d="M4,50 L264,50" stroke="#d1d5db" stroke-width="0.5" stroke-dasharray="2,2" />
@@ -42,5 +42,5 @@
 <rect x="220" y="80" width="4" height="10" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
 <rect x="217" y="88.0" width="10" height="4" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
 <text x="222" y="105.0" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937">G5</text>
-<text x="28" y="156" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280" font-style="italic">Each gear sits one level below the previous. 5 gears need 6 levels — every new stage thickens the card by one more gear-plate plus clearance.</text>
+<text x="28" y="156" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280" font-style="italic">Each gear sits one level below the previous. 5 gears need 6 levels — every additional gear thickens the card by one more gear-plate plus clearance.</text>
 </svg>

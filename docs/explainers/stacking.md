@@ -22,7 +22,7 @@ The brute-force fix: put every gear one level lower than the previous one. No tw
 
 ![descending staircase: each gear one level lower](assets/stacking-staircase.svg)
 
-This works, but **5 gears now need 6 levels of vertical space** — every new stage thickens the card. At the canonical 1 mm gear plate plus 0.3 mm gap, that's 7.8 mm just for the stack. The card has to be thicker than the chain plus floor and cap. Six stages overshoots a 5 mm card.
+This works, but **5 gears now need 6 levels of vertical space** — every additional gear thickens the card. At the canonical 1 mm gear plate plus 0.3 mm gap, that's 7.8 mm just for the stack. The card has to be thicker than the chain plus floor and cap. Six gears overshoots a 5 mm card.
 
 ## (C) Three-level cycle — two standard parts, one tall — works *and* doesn't grow
 
@@ -38,9 +38,9 @@ The cycle in pictures:
 | 2 (G2, G5, G8…) | L1 | L2 | standard, mounted up one level |
 | 3 (G3, G6, G9…) | L2 | L0 | **tall-hub** (pinion vaults two levels down) |
 
-After three gears you're back at L0, ready to start the next cycle. The card stays at three levels of vertical stack regardless of stage count: 5 gears, ten gears, twenty gears — same 3-level card.
+After three gears you're back at L0, ready to start the next cycle. The card stays at three levels of vertical stack regardless of gear count: 5 gears, ten gears, twenty gears — same 3-level card.
 
-You only need **two unique printed parts**: the standard one (hub spans 1 clearance) and the tall one (hub spans 2 clearances). For a 5-stage chain you print 4 standard and 1 tall.
+You only need **two unique printed parts**: the standard one (hub spans 1 clearance) and the tall one (hub spans 2 clearances). For a 5-gear chain you print 4 standard and 1 tall.
 
 ## Plan view
 
