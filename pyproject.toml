@@ -42,6 +42,11 @@ step = [
     "cascadio>=0.0.18rc6",
     # GIF assembly for the exploded-view animation.
     "pillow>=10",
+    # Parametric gear primitives on top of build123d. Drives the vault
+    # mechanism animation in src/vault/mechanism.py — one SpurGear() call
+    # per ring/spur, and the result exports straight to STL for the
+    # OpenSCAD frame renderer to stitch into a GIF.
+    "bd-warehouse>=0.2",
 ]
 
 [build-system]

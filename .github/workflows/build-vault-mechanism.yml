@@ -1,0 +1,111 @@
+name: Build Vault Mechanism GIF
+
+# Heavyweight counterpart to build-vault.yml. The lightweight workflow
+# regenerates the markdown + SVG diagrams (drawsvg only). This one
+# renders the detailed mechanism animation — build123d + bd_warehouse
+# parametric assembly, exported to STL per part, OpenSCAD-rendered
+# frame-by-frame under xvfb, then PIL-stitched into a GIF.
+#
+# The output is auto-committed to docs/vault/assets/vault-hero.gif. The
+# two vault workflows write to disjoint paths, so the standard rebase-
+# and-retry push loop handles any race with each other (or with the
+# parallel build-card / build-explainers / build-step workflows).
+#
+# This is the "auto-install cool Python tools in CI" demo for the
+# PyCon 2026 lightning talk: uv pulls in the entire step extra
+# (build123d + cadquery-ocp + cascadio + bd_warehouse + pillow),
+# apt pulls in OpenSCAD + xvfb, and a single uv-run renders the GIF.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/vault/mechanism.py'
+      - 'src/vault/vault.py'
+      - 'pyproject.toml'
+      - '.github/workflows/build-vault-mechanism.yml'
+  pull_request:
+    paths:
+      - 'src/vault/mechanism.py'
+      - 'src/vault/vault.py'
+      - 'pyproject.toml'
+      - '.github/workflows/build-vault-mechanism.yml'
+
+concurrency:
+  group: build-vault-mechanism-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-vault-mechanism:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Install OpenSCAD + xvfb (PNG rendering needs an X display)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openscad xvfb
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: 'uv.lock'
+
+      - name: Sync dependencies (step extra → build123d + bd_warehouse)
+        run: uv sync --extra step --extra vault
+
+      - name: Render the mechanism GIF
+        run: xvfb-run -a uv run vault build-mechanism
+
+      - name: Verify output
+        run: |
+          ls -la docs/vault/assets/vault-hero.gif
+          file docs/vault/assets/vault-hero.gif
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vault-hero-gif
+          path: docs/vault/assets/vault-hero.gif
+          retention-days: 30
+
+      - name: Commit regenerated GIF
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add docs/vault/assets/vault-hero.gif
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-regenerate vault mechanism GIF from src/vault/mechanism.py
+
+          Generated with GitHub Actions"
+            # Push with rebase-and-retry — peer auto-commit workflows
+            # (build-vault, build-explainers, build-card, build-step)
+            # sometimes race us to main. Each workflow writes to
+            # disjoint paths, so rebasing onto the winner is always
+            # conflict-free.
+            for attempt in 1 2 3 4 5; do
+              if git push; then
+                echo "Pushed on attempt $attempt"
+                break
+              fi
+              echo "Push rejected (attempt $attempt); rebasing onto origin/main..."
+              git fetch origin main
+              git rebase origin/main || { git rebase --abort; exit 1; }
+            done
+          fi

@@ -175,44 +175,15 @@ def test_index_builds(tmp_path: Path) -> None:
     ):
         assert topic_slug in text, f"README.md doesn't link {topic_slug}"
 
-    # The README leads with the animated hero — verify it exists.
-    hero = tmp_path / "assets" / "vault-hero-animated.svg"
-    assert hero.exists(), "README build did not emit the animated hero SVG"
-    assert hero.stat().st_size > 1000
+    # The README leads with the mechanism GIF — verify the markdown
+    # references it. The GIF itself is produced by the separate
+    # ``vault build-mechanism`` workflow, not by build_index().
+    assert "vault-hero.gif" in text, "README.md should reference the mechanism GIF"
 
     # CTA to the live interactive explorer must be present.
     assert "pin-explorer.html" in text
     # Maker-story open: the first-person observation should be there.
     assert "Adam Savage" in text
-
-
-def test_animated_hero_has_smil() -> None:
-    """The hero SVG must contain SMIL <animateTransform> elements — one
-    rotate (cam) and N translate (pins). Mirrors the discipline of
-    test_animated_hero_speeds_compound_correctly in test_explainers.py.
-    """
-    import xml.etree.ElementTree as ET
-    from vault.svg_draw import draw_animated_hero
-    from vault import vault as V
-
-    import tempfile
-    with tempfile.TemporaryDirectory() as td:
-        hero = draw_animated_hero(Path(td) / "hero.svg")
-        ns = "{http://www.w3.org/2000/svg}"
-        root = ET.parse(hero).getroot()
-        transforms = root.findall(f".//{ns}animateTransform")
-        rotates = [t for t in transforms if t.attrib.get("type") == "rotate"]
-        translates = [t for t in transforms if t.attrib.get("type") == "translate"]
-        assert len(rotates) == 1, (
-            f"expected exactly 1 cam-rotate animateTransform, got {len(rotates)}"
-        )
-        assert len(translates) == V.PIN_COUNT, (
-            f"expected {V.PIN_COUNT} pin-translate animateTransforms, "
-            f"got {len(translates)}"
-        )
-        # All animations should loop indefinitely.
-        for t in transforms:
-            assert t.attrib.get("repeatCount") == "indefinite"
 
 
 def test_animated_comparison_has_smil() -> None:

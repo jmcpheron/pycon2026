@@ -68,5 +68,27 @@ def list_cmd() -> None:
         click.echo(n)
 
 
+@main.command("build-mechanism")
+@click.option("--out-dir", type=click.Path(path_type=Path), default=DEFAULT_OUT_DIR,
+              show_default=True,
+              help="Where to write the GIF (under assets/).")
+@click.option("--frames", type=int, default=24, show_default=True,
+              help="Number of animated frames in the lock cycle.")
+@click.option("--hold", type=int, default=4, show_default=True,
+              help="Extra frames held at the closed pose to pad the loop.")
+def build_mechanism_cmd(out_dir: Path, frames: int, hold: int) -> None:
+    """Render the detailed mechanism GIF (build123d + bd_warehouse + OpenSCAD).
+
+    Lives outside ``vault build`` because it pulls in the heavy ``step``
+    extra plus OpenSCAD + xvfb at render time. CI dispatches it from a
+    dedicated workflow; the lightweight topic pages remain drawsvg-only.
+    """
+    from vault.mechanism import build as build_mechanism
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    gif = build_mechanism(out_dir, frames=frames, hold=hold)
+    click.echo(f"wrote {gif}")
+
+
 if __name__ == "__main__":
     main()
