@@ -215,6 +215,39 @@ def test_animated_hero_has_smil() -> None:
             assert t.attrib.get("repeatCount") == "indefinite"
 
 
+def test_animated_comparison_has_smil() -> None:
+    """The 12/13/24 comparison SVG must contain three cam rotations and
+    one pin-translate per pin across all three panels.
+    """
+    import xml.etree.ElementTree as ET
+    from vault.svg_draw import draw_animated_comparison
+    from vault import vault as V
+
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        svg = draw_animated_comparison(Path(td) / "cmp.svg")
+        ns = "{http://www.w3.org/2000/svg}"
+        root = ET.parse(svg).getroot()
+        transforms = root.findall(f".//{ns}animateTransform")
+        rotates = [t for t in transforms if t.attrib.get("type") == "rotate"]
+        translates = [t for t in transforms if t.attrib.get("type") == "translate"]
+        assert len(rotates) == 3, (
+            f"expected 3 cam-rotate animateTransforms (one per panel), "
+            f"got {len(rotates)}"
+        )
+        expected_pins = V.PIN_COUNT + V.PRIME_PIN_COUNT + V.FRIENDLY_PIN_COUNT
+        assert len(translates) == expected_pins, (
+            f"expected {expected_pins} pin-translate animateTransforms "
+            f"({V.PIN_COUNT}+{V.PRIME_PIN_COUNT}+{V.FRIENDLY_PIN_COUNT}), "
+            f"got {len(translates)}"
+        )
+        # All animations share the same loop and run indefinitely.
+        durs = {t.attrib.get("dur") for t in transforms}
+        assert len(durs) == 1, f"animations have mismatched durations: {durs}"
+        for t in transforms:
+            assert t.attrib.get("repeatCount") == "indefinite"
+
+
 def test_pin_explorer_html_exists() -> None:
     """The hand-written interactive explorer must be present and wired.
 

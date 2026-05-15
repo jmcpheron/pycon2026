@@ -32,8 +32,8 @@ def build_index(out_dir: Path) -> Path:
 ![{V.PIN_COUNT}-pin vault door — pins extending and retracting from one cam rotation](assets/{hero.name})
 
 > *A small Python toy for the geometry of rotary vault-door pin mechanisms.
-> Symmetry, gearing, packaging, and why {V.PIN_COUNT} friends are kinder
-> than {V.PRIME_PIN_COUNT}.*
+> Symmetry, gearing, packaging, and what {V.PIN_COUNT} pins share that
+> {V.PRIME_PIN_COUNT} pins can't.*
 
 ## I made this because I got curious
 
@@ -65,7 +65,7 @@ shows the angle step (`360/N`), the divisors of N, whether the count
 has exact opposing pairs, and how thin the rack body has to be at that
 pin count given the canonical {V.CENTRAL_PINION_RADIUS_MM:g} mm pinion.
 
-> {V.PIN_COUNT} reads clean.  {V.PRIME_PIN_COUNT} leaves an orphan.  {V.FRIENDLY_PIN_COUNT} pinches the racks to slivers.
+> {V.PIN_COUNT} reads clean.  {V.PRIME_PIN_COUNT} works but doesn't share.  {V.FRIENDLY_PIN_COUNT} pinches the racks to slivers.
 
 *(Clicking that link from GitHub.com opens the page source. Open it
 through GitHub Pages for the live version — the URL above lands you
@@ -74,7 +74,7 @@ there directly.)*
 ## Five short sections
 
 1. [**Symmetry**](symmetry.md) — why {V.PIN_COUNT} and {V.FRIENDLY_PIN_COUNT} read as obvious and {V.PRIME_PIN_COUNT} doesn't.
-2. [**The {V.PRIME_PIN_COUNT}-pin problem**](thirteen-pin-problem.md) — possible but mechanically awkward, and exactly *why* — no exact opposing pairs, no subgroup structure, no shared linkages.
+2. [**The {V.PRIME_PIN_COUNT}-pin problem**](thirteen-pin-problem.md) — it works mechanically; what it gives up are the *shortcuts* (shared racks, mirrored fixtures, sub-symmetric actuation). Honest framing of where prime hurts.
 3. [**Pin counts**](pin-counts.md) — small-multiples comparison plus the rack-thinning note from watching Adam's video, with the inequality `t ≤ 2π·r_pinion/N − clearance` and a per-N budget table.
 4. [**Motion and travel**](motion-and-travel.md) — what a {V.CAM_ROTATION_DEG:g}° cam rotation actually gets you. `arc = r·θ`, the cam-radius table, and the careful distinction between *arc travel* and *radial pin travel*.
 5. [**Onshape workflow**](onshape-workflow.md) — how the Python parameters in [`vault.py`](../../src/vault/vault.py) map to a parametric CAD model.

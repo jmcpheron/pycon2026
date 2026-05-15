@@ -3,8 +3,8 @@
 ![12-pin vault door — pins extending and retracting from one cam rotation](assets/vault-hero-animated.svg)
 
 > *A small Python toy for the geometry of rotary vault-door pin mechanisms.
-> Symmetry, gearing, packaging, and why 12 friends are kinder
-> than 13.*
+> Symmetry, gearing, packaging, and what 12 pins share that
+> 13 pins can't.*
 
 ## I made this because I got curious
 
@@ -36,7 +36,7 @@ shows the angle step (`360/N`), the divisors of N, whether the count
 has exact opposing pairs, and how thin the rack body has to be at that
 pin count given the canonical 12 mm pinion.
 
-> 12 reads clean.  13 leaves an orphan.  24 pinches the racks to slivers.
+> 12 reads clean.  13 works but doesn't share.  24 pinches the racks to slivers.
 
 *(Clicking that link from GitHub.com opens the page source. Open it
 through GitHub Pages for the live version — the URL above lands you
@@ -45,7 +45,7 @@ there directly.)*
 ## Five short sections
 
 1. [**Symmetry**](symmetry.md) — why 12 and 24 read as obvious and 13 doesn't.
-2. [**The 13-pin problem**](thirteen-pin-problem.md) — possible but mechanically awkward, and exactly *why* — no exact opposing pairs, no subgroup structure, no shared linkages.
+2. [**The 13-pin problem**](thirteen-pin-problem.md) — it works mechanically; what it gives up are the *shortcuts* (shared racks, mirrored fixtures, sub-symmetric actuation). Honest framing of where prime hurts.
 3. [**Pin counts**](pin-counts.md) — small-multiples comparison plus the rack-thinning note from watching Adam's video, with the inequality `t ≤ 2π·r_pinion/N − clearance` and a per-N budget table.
 4. [**Motion and travel**](motion-and-travel.md) — what a 10° cam rotation actually gets you. `arc = r·θ`, the cam-radius table, and the careful distinction between *arc travel* and *radial pin travel*.
 5. [**Onshape workflow**](onshape-workflow.md) — how the Python parameters in [`vault.py`](../../src/vault/vault.py) map to a parametric CAD model.

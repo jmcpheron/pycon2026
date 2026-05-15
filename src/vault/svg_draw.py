@@ -18,7 +18,7 @@ import drawsvg as dw
 from vault import diagrams as D
 from vault import style as S
 from vault import vault as V
-from vault.geometry import opposite_partner_index, pin_angles
+from vault.geometry import opposite_partner_index, pin_angles, polar_to_cartesian
 
 
 # Shared canvas geometry — keeps all single-door SVGs at the same scale so
@@ -219,91 +219,361 @@ def draw_animated_hero(filename: str | Path,
                        *, pin_count: int | None = None,
                        cam_rotation_deg: float | None = None,
                        loop_seconds: float = 5.0) -> Path:
-    """Animated hero SVG — pins lock/unlock in sync with cam rotation.
+    """Detailed mechanical hero — pinion + racks + shafts + pin heads.
 
-    Uses SMIL ``<animateTransform>`` (the same pattern as
-    ``explainers.diagrams.animated_compound_gear``). GitHub renders this
-    via its camo proxy, so the animation plays inline in the rendered
-    README on both github.com and Pages.
+    Replaces the earlier minimal hero with a properly geared illustration:
 
-    One full ``loop_seconds`` cycle:
+    * Central **pinion** drawn with visible tooth ticks around the
+      perimeter, animated to rotate ±``cam_rotation_deg``.
+    * **Hub** disc on top of the pinion showing the drive-shaft
+      cross-section.
+    * Per pin: a **rack** body with a small tooth comb on its inner
+      end (facing the pinion), a thinner **shaft** section, and a
+      chamfered **pin head** at the outer end.
+    * **Door rim** with N small radial bores — the pin heads slide
+      into them when the mechanism extends, into the rim cavity when
+      it retracts.
 
-        0.0 → 0.4 · pins extend, cam rotates +cam_rotation_deg
-        0.4 → 0.6 · dwell extended (locked)
-        0.6 → 0.9 · pins retract, cam rotates back to 0°
-        0.9 → 1.0 · dwell retracted (unlocked)
+    Animation: all N pin assemblies translate radially outward during
+    the lock half of the cycle and back in during the unlock half,
+    synced to the pinion's rotation via shared SMIL keyTimes.
+
+    The geometry is *illustrative* rather than strictly physically
+    accurate — the visual reads as a rack-and-pinion drive (the most
+    natural mental model for what's happening in builds like Adam
+    Savage's mini vault) without committing to one specific topology.
     """
+    import math
+
     if pin_count is None:
         pin_count = V.PIN_COUNT
     if cam_rotation_deg is None:
         cam_rotation_deg = V.CAM_ROTATION_DEG
 
-    d = D.new_drawing(CANVAS, CANVAS + 40)
-    cx, cy = CENTER, CENTER + 20
+    W = 480
+    H = 520
+    cx = W / 2
+    cy = H / 2 + 18  # leave room for the title block above
 
-    # Static scenery — door + faint clock-face overlay so motion reads as
-    # snapping between two discrete positions.
-    D.door_outline(d, cx, cy, DOOR_R)
-    if pin_count in (12, 24):
-        D.clock_overlay(d, cx, cy, DOOR_R)
+    # Radii / sizes — units are SVG pixels.
+    DOOR_OUTER_R = 210
+    DOOR_INNER_R = 178      # rim thickness ≈ 32 px so a pin head sinks into it nicely
+    PINION_R = 38
+    PINION_TICK_TEETH = 20
+    HUB_R = 12
 
-    # --- Cam wheel (rotates in sync with pin motion) ---------------------
-    cam_group = dw.Group()
-    cam_group.append(dw.Circle(cx, cy, WHEEL_R,
-                               fill=S.GEAR_PINION, stroke=S.INK,
-                               stroke_width=S.STROKE_THIN))
-    cam_group.append(dw.Line(cx, cy, cx + WHEEL_R, cy,
-                             stroke=S.INK, stroke_width=S.STROKE_NORMAL))
-    cam_group.append(dw.AnimateTransform(
-        "rotate",
-        f"{loop_seconds}s",
-        (
-            f"0 {cx} {cy};"
-            f"{cam_rotation_deg} {cx} {cy};"
-            f"{cam_rotation_deg} {cx} {cy};"
-            f"0 {cx} {cy};"
-            f"0 {cx} {cy}"
-        ),
-        keyTimes="0; 0.4; 0.6; 0.9; 1",
-        repeatCount="indefinite",
-    ))
-    d.append(cam_group)
+    # Per-pin assembly geometry (local frame: +x is radial outward).
+    RACK_INNER_X = PINION_R + 1
+    RACK_BODY_LEN = 42
+    RACK_OUTER_X = RACK_INNER_X + RACK_BODY_LEN
+    RACK_THICKNESS = 10
+    SHAFT_LEN = 60
+    SHAFT_OUTER_X = RACK_OUTER_X + SHAFT_LEN
+    SHAFT_THICKNESS = 5
+    PIN_HEAD_R = 7
+    PIN_HEAD_CENTER_X = SHAFT_OUTER_X + PIN_HEAD_R - 1
 
-    # Hub on top of cam so the cam's spoke disappears under it inside
-    # the hub radius — keeps the eye on the perimeter motion.
-    D.hub(d, cx, cy, HUB_R)
+    TRAVEL_PX = 20   # how far the whole assembly translates outward
+    BORE_HALF_W = 7  # tangential half-width of each door bore slot
 
-    # --- Radial pins (translate radially in/out) ------------------------
-    pin_pitch_r = DOOR_R - 12  # pitch circle the pin centres ride on
-    travel_px = 10             # animation amplitude (purely visual)
+    KEYTIMES = "0; 0.4; 0.6; 0.9; 1"
+    pin_translate_values = (
+        f"0 0;"
+        f"{TRAVEL_PX} 0;"
+        f"{TRAVEL_PX} 0;"
+        f"0 0;"
+        f"0 0"
+    )
+    pinion_rotate_values = (
+        f"0 {cx} {cy};"
+        f"{cam_rotation_deg} {cx} {cy};"
+        f"{cam_rotation_deg} {cx} {cy};"
+        f"0 {cx} {cy};"
+        f"0 {cx} {cy}"
+    )
+
+    d = D.new_drawing(W, H)
+
+    # --- Door rim (annulus) ---------------------------------------------
+    # Outer slab.
+    d.append(dw.Circle(cx, cy, DOOR_OUTER_R,
+                       fill=S.CARD, stroke=S.CARD_EDGE,
+                       stroke_width=S.STROKE_NORMAL))
+    # Cavity (paper-coloured fill cuts the inside out — leaves a ring).
+    d.append(dw.Circle(cx, cy, DOOR_INNER_R,
+                       fill=S.PAPER, stroke=S.CARD_EDGE,
+                       stroke_width=S.STROKE_THIN))
+
+    # Door bores: small radial slots in the rim, one per pin angle.
+    # Drawn as paper-coloured rectangles that "cut" through the rim ring.
     for angle in pin_angles(pin_count):
-        # Each pin lives in its own rotated frame so a translate of (+x,0)
-        # in the inner group moves the pin radially outward.
-        # The rotated group rotates the local +x axis to point along
-        # `angle`; the pin is drawn at (cx + pin_pitch_r, cy) inside.
+        g = dw.Group(transform=f"rotate({angle} {cx} {cy})")
+        g.append(dw.Rectangle(
+            cx + DOOR_INNER_R - 2,
+            cy - BORE_HALF_W,
+            (DOOR_OUTER_R - DOOR_INNER_R) + 4,
+            2 * BORE_HALF_W,
+            fill=S.PAPER,
+            stroke=S.CARD_EDGE,
+            stroke_width=S.STROKE_DIM,
+        ))
+        d.append(g)
+
+    # --- Central pinion (rotates) ---------------------------------------
+    pinion = dw.Group()
+    pinion.append(dw.Circle(cx, cy, PINION_R,
+                            fill=S.GEAR_PINION, stroke=S.INK,
+                            stroke_width=S.STROKE_THIN))
+    # Tooth ticks — small radial lines straddling the pitch circle.
+    for i in range(PINION_TICK_TEETH):
+        theta = 2 * math.pi * i / PINION_TICK_TEETH
+        x1 = cx + (PINION_R - 1.8) * math.cos(theta)
+        y1 = cy + (PINION_R - 1.8) * math.sin(theta)
+        x2 = cx + (PINION_R + 1.8) * math.cos(theta)
+        y2 = cy + (PINION_R + 1.8) * math.sin(theta)
+        pinion.append(dw.Line(x1, y1, x2, y2,
+                              stroke=S.INK, stroke_width=S.STROKE_NORMAL))
+    pinion.append(dw.AnimateTransform(
+        "rotate", f"{loop_seconds}s", pinion_rotate_values,
+        keyTimes=KEYTIMES, repeatCount="indefinite",
+    ))
+    d.append(pinion)
+
+    # Hub on top — cross-section of the drive shaft passing through the
+    # pinion. Sits above the spinning pinion so it doesn't rotate with it.
+    d.append(dw.Circle(cx, cy, HUB_R,
+                       fill=S.POST, stroke=S.INK,
+                       stroke_width=S.STROKE_THIN))
+
+    # --- Animated pin assemblies ----------------------------------------
+    for angle in pin_angles(pin_count):
         outer = dw.Group(transform=f"rotate({angle} {cx} {cy})")
         inner = dw.Group()
         inner.append(dw.AnimateTransform(
-            "translate",
-            f"{loop_seconds}s",
-            (
-                f"0 0;"
-                f"{travel_px} 0;"
-                f"{travel_px} 0;"
-                f"0 0;"
-                f"0 0"
-            ),
-            keyTimes="0; 0.4; 0.6; 0.9; 1",
-            repeatCount="indefinite",
+            "translate", f"{loop_seconds}s", pin_translate_values,
+            keyTimes=KEYTIMES, repeatCount="indefinite",
         ))
-        inner.append(dw.Circle(cx + pin_pitch_r, cy, PIN_R,
-                               fill=S.GEAR_BIG, stroke=S.INK,
-                               stroke_width=S.STROKE_THIN))
+
+        # Rack body — the thick part with the tooth comb.
+        inner.append(dw.Rectangle(
+            cx + RACK_INNER_X, cy - RACK_THICKNESS / 2,
+            RACK_BODY_LEN, RACK_THICKNESS,
+            fill=S.GEAR_BIG, stroke=S.INK,
+            stroke_width=S.STROKE_THIN,
+        ))
+
+        # Tooth comb on the rack's inner end — 3 small triangular teeth
+        # pointing inward (toward the pinion). Reads as "this side mates
+        # with the gear" without committing to a specific tooth pitch.
+        tooth_n = 3
+        tooth_pitch = RACK_THICKNESS / tooth_n
+        tooth_depth = 3.2
+        for ti in range(tooth_n):
+            ty = cy - RACK_THICKNESS / 2 + (ti + 0.5) * tooth_pitch
+            half_w = tooth_pitch * 0.45
+            inner.append(dw.Lines(
+                cx + RACK_INNER_X, ty - half_w,
+                cx + RACK_INNER_X - tooth_depth, ty,
+                cx + RACK_INNER_X, ty + half_w,
+                close=True,
+                fill=S.GEAR_BIG, stroke=S.INK,
+                stroke_width=S.STROKE_THIN,
+            ))
+
+        # Shaft section — thinner cylinder between rack and pin head.
+        inner.append(dw.Rectangle(
+            cx + RACK_OUTER_X, cy - SHAFT_THICKNESS / 2,
+            SHAFT_LEN, SHAFT_THICKNESS,
+            fill=S.HUB, stroke=S.INK,
+            stroke_width=S.STROKE_THIN,
+        ))
+
+        # Pin head — a chamfered cylinder shape: circle body with a
+        # small radial taper on the outer side. Approximated as a
+        # circle (drawn solid) plus a small wedge for the chamfer.
+        inner.append(dw.Circle(
+            cx + PIN_HEAD_CENTER_X, cy, PIN_HEAD_R,
+            fill=S.POST, stroke=S.INK,
+            stroke_width=S.STROKE_THIN,
+        ))
+        # Chamfer wedge — a faint triangular hint on the outer edge.
+        inner.append(dw.Lines(
+            cx + PIN_HEAD_CENTER_X + PIN_HEAD_R - 1.5, cy - PIN_HEAD_R * 0.7,
+            cx + PIN_HEAD_CENTER_X + PIN_HEAD_R + 1.5, cy,
+            cx + PIN_HEAD_CENTER_X + PIN_HEAD_R - 1.5, cy + PIN_HEAD_R * 0.7,
+            close=True,
+            fill=S.HUB, stroke=S.INK,
+            stroke_width=S.STROKE_DIM,
+        ))
+
         outer.append(inner)
         d.append(outer)
 
-    D.title(d, cx, 24,
-            f"{pin_count}-pin vault · one rotation, N coordinated pins")
+    # --- Titles ----------------------------------------------------------
+    D.title(d, cx, 26,
+            f"{pin_count}-pin rack-and-pinion vault drive")
+    D.caption(d, cx, H - 16,
+              "one pinion rotation · all N racks translate · pin heads enter the rim bores")
+
+    out = Path(filename)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    d.save_svg(str(out))
+    return out
+
+
+def draw_animated_comparison(filename: str | Path,
+                             *,
+                             counts: tuple[int, ...] | None = None,
+                             cam_rotation_deg: float | None = None,
+                             loop_seconds: float = 5.0) -> Path:
+    """Three doors side-by-side, all locking/unlocking on the same loop.
+
+    Built for ``thirteen-pin-problem.md`` and the README hero family.
+    All N pins per panel translate radially in unison; the cam wheel
+    in each panel rotates ±``cam_rotation_deg`` synchronized to the same
+    keyTimes. Watching it: 12 lands cleanly, 13 leaves one pin red with
+    no partner across the dashed phantom marker, 24 packs the door.
+
+    Same SMIL pattern as ``draw_animated_hero`` (one ``<animateTransform>``
+    per pin, one per cam). Renders inline in GitHub markdown via the
+    camo proxy, just like ``gear-ratios-animated.svg``.
+    """
+    if counts is None:
+        counts = (V.PIN_COUNT, V.PRIME_PIN_COUNT, V.FRIENDLY_PIN_COUNT)
+    if cam_rotation_deg is None:
+        cam_rotation_deg = V.CAM_ROTATION_DEG
+
+    import math
+
+    # Per-panel layout
+    panel_w = 280
+    panel_h = 280
+    pad = 16
+    title_h = 40
+    subtitle_h = 36
+    width = len(counts) * panel_w + (len(counts) + 1) * pad
+    height = title_h + panel_h + subtitle_h
+
+    door_r_local = 110
+    pin_pitch_r = door_r_local - 12
+    hub_r_local = 22
+    wheel_r_local = 28
+    wheel_teeth = 16
+    pin_r_base = 5
+    travel_px = 8
+
+    keytimes = "0; 0.4; 0.6; 0.9; 1"
+    cam_values_template = (
+        "0 {cx} {cy};"
+        "{rot} {cx} {cy};"
+        "{rot} {cx} {cy};"
+        "0 {cx} {cy};"
+        "0 {cx} {cy}"
+    )
+    pin_values = (
+        f"0 0;"
+        f"{travel_px} 0;"
+        f"{travel_px} 0;"
+        f"0 0;"
+        f"0 0"
+    )
+
+    d = D.new_drawing(width, height)
+
+    for i, n in enumerate(counts):
+        cx = pad + i * (panel_w + pad) + panel_w / 2
+        cy = title_h + panel_h / 2
+
+        # Static scenery — door + clock overlay for friendly counts.
+        D.door_outline(d, cx, cy, door_r_local)
+        if n in (12, 24):
+            D.clock_overlay(d, cx, cy, door_r_local)
+
+        # Cam wheel rotates in sync with the pin lock cycle. Now with
+        # small tooth ticks around its rim so each panel reads as a
+        # gear, matching the main hero's aesthetic.
+        cam_group = dw.Group()
+        cam_group.append(dw.Circle(cx, cy, wheel_r_local,
+                                   fill=S.GEAR_PINION, stroke=S.INK,
+                                   stroke_width=S.STROKE_THIN))
+        for ti in range(wheel_teeth):
+            theta = 2 * math.pi * ti / wheel_teeth
+            x1 = cx + (wheel_r_local - 1.4) * math.cos(theta)
+            y1 = cy + (wheel_r_local - 1.4) * math.sin(theta)
+            x2 = cx + (wheel_r_local + 1.4) * math.cos(theta)
+            y2 = cy + (wheel_r_local + 1.4) * math.sin(theta)
+            cam_group.append(dw.Line(x1, y1, x2, y2,
+                                     stroke=S.INK,
+                                     stroke_width=S.STROKE_THIN))
+        cam_group.append(dw.AnimateTransform(
+            "rotate",
+            f"{loop_seconds}s",
+            cam_values_template.format(cx=cx, cy=cy, rot=cam_rotation_deg),
+            keyTimes=keytimes,
+            repeatCount="indefinite",
+        ))
+        d.append(cam_group)
+
+        D.hub(d, cx, cy, hub_r_local)
+
+        is_odd = n % 2 == 1
+        pin_r = pin_r_base if n <= 16 else max(pin_r_base - 2, 2.5)
+
+        # For odd N, mark the would-be opposite point with a dashed
+        # phantom indicator. Subdued — it's an annotation about
+        # *partnership*, not a flag that anything is broken. The pin
+        # itself moves with the others; the phantom just shows where
+        # its mirror twin would have to sit.
+        if is_odd:
+            angles_local = pin_angles(n)
+            phantom_angle = angles_local[0] + 180
+            ax, ay = polar_to_cartesian(cx, cy, pin_pitch_r, angles_local[0])
+            px, py = polar_to_cartesian(cx, cy, pin_pitch_r, phantom_angle)
+            d.append(dw.Line(ax, ay, px, py,
+                             stroke=S.INK_MUTED,
+                             stroke_width=S.STROKE_DIM,
+                             stroke_dasharray="4,3"))
+            d.append(dw.Circle(px, py, 3.0,
+                               fill="none", stroke=S.INK_MUTED,
+                               stroke_width=S.STROKE_NORMAL,
+                               stroke_dasharray="2,2"))
+
+        # Animated pins — one rotated outer group + one translating inner
+        # group per pin, all synced to the same keyTimes.
+        for k, angle in enumerate(pin_angles(n)):
+            outer = dw.Group(transform=f"rotate({angle} {cx} {cy})")
+            inner = dw.Group()
+            inner.append(dw.AnimateTransform(
+                "translate",
+                f"{loop_seconds}s",
+                pin_values,
+                keyTimes=keytimes,
+                repeatCount="indefinite",
+            ))
+            # "No mirror twin" pin gets a darker brass — distinct from
+            # the others but functioning the same. The animation makes
+            # the point: it locks and unlocks just like the rest.
+            highlight = is_odd and k == 0
+            inner.append(dw.Circle(
+                cx + pin_pitch_r, cy, pin_r,
+                fill=S.GEAR_TALL if highlight else S.GEAR_BIG,
+                stroke=S.INK,
+                stroke_width=S.STROKE_NORMAL if highlight else S.STROKE_THIN,
+            ))
+            outer.append(inner)
+            d.append(outer)
+
+        # Panel title (above) and subtitle (below).
+        D.title(d, cx, 24, f"N = {n}")
+        if is_odd:
+            sub = "all pins lock · no exact mirror pairs"
+        else:
+            sub = f"all pins lock · {n // 2} mirror pairs available"
+        d.append(dw.Text(sub, S.FONT_SIZE_LABEL,
+                         x=cx, y=title_h + panel_h + 22,
+                         text_anchor="middle",
+                         font_family=S.FONT_FAMILY,
+                         fill=S.INK_MUTED))
 
     out = Path(filename)
     out.parent.mkdir(parents=True, exist_ok=True)
