@@ -135,5 +135,27 @@ def assemble_cmd(manifest: Path, out: Path, also_stl: bool, also_png: bool) -> N
     click.echo(f"wrote {result}")
 
 
+@main.command("spin")
+@click.option("--out", "out_dir", required=True,
+              type=click.Path(file_okay=False, path_type=Path),
+              help="Output directory. Receives spin.gif.")
+@click.option("--frames", default=60, show_default=True, type=int,
+              help="Number of frames in the spin GIF.")
+@click.option("--input-turns", default=4.0, show_default=True, type=float,
+              help="How many full revolutions the input gear completes "
+                   "per loop. The output rotates 1/256 of this.")
+def spin_cmd(out_dir: Path, frames: int, input_turns: float) -> None:
+    """Render the 5-gear compound chain rotating (build123d + bd_warehouse).
+
+    Builds the gear chain parametrically from ``src/explainers/card.py``
+    constants — no STEP file needed. Edit ``MODULE_MM``, ``BIG_TEETH``,
+    ``PINION_TEETH``, or ``N_STAGES`` and the GIF re-renders.
+    """
+    from cardlab.spin import spin
+
+    gif = spin(out_dir, frames=frames, input_turns=input_turns)
+    click.echo(f"wrote {gif}")
+
+
 if __name__ == "__main__":
     main()

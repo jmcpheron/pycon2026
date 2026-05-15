@@ -131,6 +131,108 @@ def test_inspect_merges_sidecar(tmp_path: Path) -> None:
     assert "teeth=40" in report
 
 
+def test_spin_part_construction() -> None:
+    """The build123d + bd_warehouse compound gear / axle / plate must
+    construct, union cleanly, and have plausible bboxes for the card's
+    canonical module 0.6 mm geometry."""
+    pytest.importorskip("bd_warehouse")
+    from cardlab import spin
+    from explainers import card as C
+
+    compound = spin._build_compound_gear()
+    axle = spin._build_axle_post()
+    plate = spin._build_card_plate()
+
+    # Compound bbox: footprint == big gear's outer dia ≈ 25.2 mm; height
+    # spans big disc + layer gap + pinion ≈ 2.3 mm.
+    cbb = compound.bounding_box()
+    assert cbb.size.X == pytest.approx(C.OUTER_DIA_BIG, abs=0.5)
+    assert cbb.size.Z == pytest.approx(
+        2 * C.GEAR_THICKNESS_MM + C.LAYER_GAP_MM, abs=0.1
+    )
+
+    # Plate: full card outline.
+    pbb = plate.bounding_box()
+    assert pbb.size.X == pytest.approx(C.CARD_WIDTH_MM)
+    assert pbb.size.Y == pytest.approx(C.CARD_HEIGHT_MM)
+
+    # Axle: matches POST_DIAMETER_MM.
+    abb = axle.bounding_box()
+    assert abb.size.X == pytest.approx(C.POST_DIAMETER_MM)
+
+
+def test_spin_rotation_cascade() -> None:
+    """Each stage must rotate at 1 / RATIO_PER_STAGE the rate of the
+    previous, with alternating direction. Verifies the 256:1 story at
+    the math layer (cheaper than a full render)."""
+    from cardlab.spin import _gear_rotation_deg
+    from explainers import card as C
+
+    t = 1.0  # full loop
+    input_turns = 4.0
+    rotations = [_gear_rotation_deg(k, t, input_turns) for k in range(C.N_STAGES)]
+
+    # Stage 0 is the input: +360° × input_turns.
+    assert rotations[0] == pytest.approx(input_turns * 360.0)
+
+    # Each subsequent stage: magnitude divided by RATIO_PER_STAGE,
+    # direction flipped.
+    for k in range(1, C.N_STAGES):
+        expected = -rotations[k - 1] / C.RATIO_PER_STAGE
+        assert rotations[k] == pytest.approx(expected)
+
+    # Total reduction at the output: 256:1 at the canonical 4 stages of
+    # mesh — verifies the headline number stays true.
+    expected_output = (
+        rotations[0] / (C.RATIO_PER_STAGE ** (C.N_STAGES - 1))
+        * (1 if (C.N_STAGES - 1) % 2 == 0 else -1)
+    )
+    assert rotations[-1] == pytest.approx(expected_output)
+
+
+def test_spin_frame_scad_shape() -> None:
+    """Each frame's SCAD shim should import (N+1) gear parts plus the
+    plate plus N axles — one per stage — and contain a rotation per
+    gear instance.
+
+    Cheap check: ``_frame_scad`` is pure-text generation, no OpenSCAD
+    invocation needed.
+    """
+    from cardlab.spin import _frame_scad
+    from explainers import card as C
+
+    scad = _frame_scad(
+        compound_stl="compound.stl",
+        axle_stl="axle.stl",
+        plate_stl="plate.stl",
+        t=0.5,
+        input_turns=4.0,
+    )
+    # 1 plate + N axles + N compound gears = 1 + 2·N imports.
+    assert scad.count("import(") == 1 + 2 * C.N_STAGES
+    # One rotate per compound-gear instance.
+    assert scad.count("rotate(") == C.N_STAGES
+
+
+def test_spin_smoke(tmp_path: Path) -> None:
+    """End-to-end smoke: build a 2-frame spin GIF and confirm it lands.
+
+    Requires OpenSCAD on PATH — skipped otherwise. Mirrors
+    ``test_explode_smoke``.
+    """
+    pytest.importorskip("bd_warehouse")
+    import shutil
+    if shutil.which("openscad") is None:
+        pytest.skip("openscad not on PATH — needed for PNG rendering")
+
+    from cardlab.spin import spin
+
+    gif = spin(tmp_path, frames=2, input_turns=4.0)
+    assert gif.exists()
+    assert gif.name == "spin.gif"
+    assert gif.stat().st_size > 1000
+
+
 def test_explode_smoke(tmp_path: Path) -> None:
     """End-to-end smoke: explode on a synthetic 2-box assembly STEP.
 

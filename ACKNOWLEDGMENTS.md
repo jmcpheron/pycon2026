@@ -14,8 +14,8 @@ issue or a PR.
 
 | Project | License | Used for |
 |---|---|---|
-| [`build123d`](https://github.com/gumyr/build123d) | [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0) | Parametric CAD modelling — reading the card STEP file in `cardlab`, generating the vault mechanism geometry in `src/vault/mechanism.py`. |
-| [`bd_warehouse`](https://github.com/gumyr/bd_warehouse) | [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0) | Parametric gear primitives (`SpurGear`) on top of `build123d`. Drives the ring gear + spur gears in the vault mechanism animation. |
+| [`build123d`](https://github.com/gumyr/build123d) | [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0) | Parametric CAD modelling — reading the card STEP file in `cardlab`, generating the vault mechanism geometry in `src/vault/mechanism.py`, and the spinning gear chain in `src/cardlab/spin.py`. |
+| [`bd_warehouse`](https://github.com/gumyr/bd_warehouse) | [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0) | Parametric gear primitives (`SpurGear`) on top of `build123d`. Drives the ring gear + spur gears in the vault mechanism animation **and** the 40-tooth driven + 10-tooth pinion compound gears in the card-spinning animation. |
 | [`cadquery-ocp`](https://github.com/CadQuery/OCP) | [Apache-2.0](https://github.com/CadQuery/OCP/blob/master/LICENSE) | Python bindings to the [Open CASCADE Technology](https://dev.opencascade.org/) (OCCT) geometry kernel. Underlies `build123d`. |
 | [`cascadio`](https://github.com/trimesh/cascadio) | [MIT](https://github.com/trimesh/cascadio/blob/main/LICENSE) | STEP → coloured GLB in one OCCT pass. Preserves Onshape's per-part colours through the `cardlab build` pipeline. |
 | [`trimesh`](https://github.com/mikedh/trimesh) | [MIT](https://github.com/mikedh/trimesh/blob/main/LICENSE.md) | Mesh manipulation — used by `cardlab.explode` to enumerate per-part centroids and bboxes, and by the `decoding` explainer to slice the gear STL. |
