@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vault pin explorer — drag the slider · pycon2026 devlog</title>
+  <meta name="description" content="Shipped an interactive HTML page for the vault-door study — drag a slider 3 to 30 and the layout snaps, with live readouts for angle step, divisors, and rack budget.">
+  <meta property="og:title" content="Vault pin explorer — drag the slider">
+  <meta property="og:description" content="Shipped an interactive HTML page for the vault-door study — drag a slider 3 to 30 and the layout snaps, with live readouts for angle step, divisors, and rack budget.">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="devlog.css">
+</head>
+<body>
+
+  <header class="titlebar" aria-label="Document title block">
+    <div class="titlebar-inner">
+      <div class="tb-cell"><span class="tb-label">Doc</span><span class="tb-value">Devlog</span></div>
+      <div class="tb-cell"><span class="tb-label">Project</span><span class="tb-value">pycon2026</span></div>
+      <div class="tb-cell"><span class="tb-label">Author</span><span class="tb-value">jmcpheron</span></div>
+      <div class="tb-cell"><span class="tb-label">Venue</span><span class="tb-value">PyCon US 2026</span></div>
+    </div>
+  </header>
+
+  <div class="page">
+
+    <header class="page-head">
+      <nav class="crumbs"><a href="index.html">← Devlog</a></nav>
+      <p class="kicker">§ Entry · 2026-05-15</p>
+      <h1>Vault pin explorer — drag the slider</h1>
+      <p class="lede">An interactive slider for vault-door pin counts, plus an animated hero on the vault study's landing page. Companion to the Python parametric study; inspired by Adam Savage's mini vault build.</p>
+      <p class="byline">
+        <time datetime="2026-05-15">2026-05-15</time>
+        ·
+        <span class="author">jmcpheron</span>
+      </p>
+    </header>
+
+    <article class="post">
+
+      <section class="entry">
+        <h2>What changed</h2>
+
+        <p>The <a href="../vault/README.md">vault door mechanism study</a> just got a front door. Two new things landed on the same branch:</p>
+
+        <ul>
+          <li>An <strong>animated hero SVG</strong> at the top of <code>docs/vault/README.md</code> — twelve pins extending and retracting in sync with a cam wheel that rotates ±10°. Five-second loop, inline SMIL, no JavaScript. GitHub renders it in the markdown view directly.</li>
+          <li>A <strong>live interactive pin-count explorer</strong> at <a href="https://jmcpheron.github.io/pycon2026/vault/pin-explorer.html"><code>docs/vault/pin-explorer.html</code></a> — drag a slider from 3 to 30, the SVG layout snaps, and a side panel updates the angle step, the divisor list, the opposing-pair count, and the rack-body thickness budget at the canonical 12 mm central pinion.</li>
+        </ul>
+
+        <p>The explorer is a single hand-written HTML file. Vanilla JS, no dependencies, ~30 lines of geometry helpers ported from <code>src/vault/geometry.py</code>. The shared stylesheet (cream paper, gold accents, Fraunces serif) gets it for free — it links the same <code>docs/assets/styles.css</code> the rest of the project uses.</p>
+
+        <pre class="code"><code>// src/vault/geometry.py, ported to JS — kept tiny on purpose
+function angleStep(n) { return 360 / n; }
+function pinAngles(n, start = -90) {
+  const step = angleStep(n);
+  const out = [];
+  for (let i = 0; i &lt; n; i++) out.push(start + i * step);
+  return out;
+}
+function rackBudgetMm(n) {
+  return (2 * Math.PI * PINION_RADIUS_MM / n) - CLEARANCE_MM;
+}</code></pre>
+
+        <p>Slide to 12: 30° step, six clean opposing-pair chords appear through the hub, rack budget reads 5.98 mm. Slide to 13: chords disappear, pin 0 turns red, a dashed phantom marker shows where its missing partner would have sat, rack budget drops to 5.50 mm. Slide to 24: the racks pinch to 2.84 mm — the visual version of the <a href="../vault/pin-counts.md">rack-thinning note</a> I wrote up earlier.</p>
+      </section>
+
+      <section class="entry">
+        <h2>Where this came from</h2>
+
+        <p>The whole vault study started when I was watching Adam Savage's mini vault-door build and got fixated on one detail. Each pin had a section of straight gear teeth cut into it, and the back of that section — the spine, opposite the teeth — was machined surprisingly thin. More material removed than weight savings would justify.</p>
+
+        <p>When the parts went together inside the door it clicked. A single central pinion drives all <em>N</em> racks at once. The racks have to share the perimeter of that one pinion. Each rack's tangential thickness is bounded by</p>
+
+        <pre class="code"><code>t  ≤  (2π · r_pinion / N)  −  clearance</code></pre>
+
+        <p>So the spine of every rack gets machined down to whatever slice it gets. Bigger <em>N</em> → thinner slice. Adam wasn't choosing the shape; the pin count was choosing it for him. That observation kept me up an evening and turned into a Python parametric study about the symmetry, gearing, and packaging trade-offs of radial pin mechanisms.</p>
+
+        <p>The explorer is the version of that idea you can poke at without cloning a repo.</p>
+      </section>
+
+      <section class="entry">
+        <h2>For the Tested community</h2>
+
+        <p>I'm sharing this with the <a href="https://www.tested.com/">Tested</a> Maker Share community. It's a fan-made educational study inspired by Adam's mini-vault build — not affiliated with Tested, not a reproduction of any specific design, just a love-letter to the geometry. If you got here from there: hi. Fork it, riff on it, change the numbers in <code>src/vault/vault.py</code>, run <code>uv run vault build</code>, and every page re-derives with your inputs.</p>
+
+        <aside class="todo">
+          <p>What's next, maybe:</p>
+          <ul>
+            <li>Add a <em>cam rotation</em> slider so you can sweep through 0–45° and see the arc-travel readout update live.</li>
+            <li>Add an animated comparison: 12 vs. 13 vs. 24 side-by-side, all running on the same loop.</li>
+            <li>Wire the explorer to a query string so links can deep-link to a specific pin count.</li>
+            <li>Onshape model — phase 1 (static 12-pin layout) is sketched in <a href="../vault/onshape-workflow.md">onshape-workflow.md</a>; haven't touched the parametric CAD yet.</li>
+          </ul>
+        </aside>
+      </section>
+
+    </article>
+
+    <nav class="post-nav" aria-label="Adjacent posts">
+      <span></span>
+      <span></span>
+    </nav>
+
+    <footer class="signoff">
+      <span><a href="https://github.com/jmcpheron/pycon2026">github.com/jmcpheron/pycon2026</a></span>
+      <span class="stamp">DEVLOG · 2026-05-15</span>
+      <span>MIT</span>
+    </footer>
+
+  </div>
+
+</body>
+</html>
