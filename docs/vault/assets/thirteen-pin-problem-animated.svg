@@ -19,7 +19,22 @@
 <path d="M102.49999999999994,87.3352817950651 L99.49999999999994,82.13912937235847" stroke="#d1d5db" stroke-width="0.5" />
 <g>
 <circle cx="156.0" cy="180.0" r="28" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
-<path d="M156.0,180.0 L184.0,180.0" stroke="#1f2937" stroke-width="1.0" />
+<path d="M182.6,180.0 L185.4,180.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M180.57519556480023,190.1793793009114 L183.16205825583182,191.25089291153364" stroke="#1f2937" stroke-width="0.6" />
+<path d="M174.80904037956216,198.80904037956216 L176.7889393668845,200.7889393668845" stroke="#1f2937" stroke-width="0.6" />
+<path d="M166.1793793009114,204.57519556480023 L167.25089291153364,207.16205825583182" stroke="#1f2937" stroke-width="0.6" />
+<path d="M156.0,206.6 L156.0,209.4" stroke="#1f2937" stroke-width="0.6" />
+<path d="M145.8206206990886,204.57519556480023 L144.74910708846636,207.16205825583182" stroke="#1f2937" stroke-width="0.6" />
+<path d="M137.19095962043784,198.80904037956216 L135.2110606331155,200.7889393668845" stroke="#1f2937" stroke-width="0.6" />
+<path d="M131.42480443519977,190.1793793009114 L128.83794174416818,191.25089291153364" stroke="#1f2937" stroke-width="0.6" />
+<path d="M129.4,180.0 L126.6,180.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M131.42480443519977,169.8206206990886 L128.83794174416818,168.74910708846636" stroke="#1f2937" stroke-width="0.6" />
+<path d="M137.19095962043784,161.19095962043784 L135.2110606331155,159.2110606331155" stroke="#1f2937" stroke-width="0.6" />
+<path d="M145.8206206990886,155.42480443519977 L144.74910708846633,152.83794174416818" stroke="#1f2937" stroke-width="0.6" />
+<path d="M156.0,153.4 L156.0,150.6" stroke="#1f2937" stroke-width="0.6" />
+<path d="M166.1793793009114,155.42480443519977 L167.25089291153364,152.83794174416818" stroke="#1f2937" stroke-width="0.6" />
+<path d="M174.80904037956216,161.19095962043784 L176.7889393668845,159.2110606331155" stroke="#1f2937" stroke-width="0.6" />
+<path d="M180.57519556480023,169.8206206990886 L183.16205825583182,168.74910708846633" stroke="#1f2937" stroke-width="0.6" />
 <animateTransform attributeName="transform" dur="5.0s" values="0 156.0 180.0;10.0 156.0 180.0;10.0 156.0 180.0;0 156.0 180.0;0 156.0 180.0" type="rotate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
 </g>
 <circle cx="156.0" cy="180.0" r="22" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
@@ -96,20 +111,35 @@
 </g>
 </g>
 <text x="156.0" y="24" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">N = 12</text>
-<text x="156.0" y="342" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280">6 clean opposing pairs</text>
+<text x="156.0" y="342" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280">all pins lock · 6 mirror pairs available</text>
 <circle cx="452.0" cy="180.0" r="110" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.0" />
 <g>
 <circle cx="452.0" cy="180.0" r="28" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
-<path d="M452.0,180.0 L480.0,180.0" stroke="#1f2937" stroke-width="1.0" />
+<path d="M478.6,180.0 L481.4,180.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M476.57519556480025,190.1793793009114 L479.1620582558318,191.25089291153364" stroke="#1f2937" stroke-width="0.6" />
+<path d="M470.8090403795622,198.80904037956216 L472.7889393668845,200.7889393668845" stroke="#1f2937" stroke-width="0.6" />
+<path d="M462.17937930091136,204.57519556480023 L463.25089291153364,207.16205825583182" stroke="#1f2937" stroke-width="0.6" />
+<path d="M452.0,206.6 L452.0,209.4" stroke="#1f2937" stroke-width="0.6" />
+<path d="M441.82062069908864,204.57519556480023 L440.74910708846636,207.16205825583182" stroke="#1f2937" stroke-width="0.6" />
+<path d="M433.19095962043787,198.80904037956216 L431.2110606331155,200.7889393668845" stroke="#1f2937" stroke-width="0.6" />
+<path d="M427.42480443519975,190.1793793009114 L424.8379417441682,191.25089291153364" stroke="#1f2937" stroke-width="0.6" />
+<path d="M425.4,180.0 L422.6,180.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M427.42480443519975,169.8206206990886 L424.8379417441682,168.74910708846636" stroke="#1f2937" stroke-width="0.6" />
+<path d="M433.1909596204378,161.19095962043784 L431.2110606331155,159.2110606331155" stroke="#1f2937" stroke-width="0.6" />
+<path d="M441.8206206990886,155.42480443519977 L440.74910708846636,152.83794174416818" stroke="#1f2937" stroke-width="0.6" />
+<path d="M452.0,153.4 L452.0,150.6" stroke="#1f2937" stroke-width="0.6" />
+<path d="M462.1793793009114,155.42480443519977 L463.25089291153364,152.83794174416818" stroke="#1f2937" stroke-width="0.6" />
+<path d="M470.80904037956213,161.19095962043784 L472.7889393668845,159.2110606331155" stroke="#1f2937" stroke-width="0.6" />
+<path d="M476.5751955648002,169.8206206990886 L479.1620582558318,168.74910708846633" stroke="#1f2937" stroke-width="0.6" />
 <animateTransform attributeName="transform" dur="5.0s" values="0 452.0 180.0;10.0 452.0 180.0;10.0 452.0 180.0;0 452.0 180.0;0 452.0 180.0" type="rotate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
 </g>
 <circle cx="452.0" cy="180.0" r="22" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
-<path d="M452.0,82.0 L452.0,278.0" stroke="#2563eb" stroke-width="0.5" stroke-dasharray="3,3" />
-<circle cx="452.0" cy="278.0" r="3.0" fill="none" stroke="#2563eb" stroke-width="1.0" stroke-dasharray="2,2" />
+<path d="M452.0,82.0 L452.0,278.0" stroke="#6b7280" stroke-width="0.5" stroke-dasharray="4,3" />
+<circle cx="452.0" cy="278.0" r="3.0" fill="none" stroke="#6b7280" stroke-width="1.0" stroke-dasharray="2,2" />
 <g transform="rotate(-90.0 452.0 180.0)">
 <g>
 <animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
-<circle cx="550.0" cy="180.0" r="5" fill="#dc2626" stroke="#1f2937" stroke-width="1.0" />
+<circle cx="550.0" cy="180.0" r="5" fill="#9c7c4f" stroke="#1f2937" stroke-width="1.0" />
 </g>
 </g>
 <g transform="rotate(-62.30769230769231 452.0 180.0)">
@@ -185,7 +215,7 @@
 </g>
 </g>
 <text x="452.0" y="24" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">N = 13</text>
-<text x="452.0" y="342" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280">1 orphan, 0 exact pairs</text>
+<text x="452.0" y="342" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280">all pins lock · no exact mirror pairs</text>
 <circle cx="748.0" cy="180.0" r="110" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.0" />
 <path d="M748.0,73.0 L748.0,67.0" stroke="#d1d5db" stroke-width="0.5" />
 <path d="M801.5,87.33528179506507 L804.5,82.13912937235844" stroke="#d1d5db" stroke-width="0.5" />
@@ -201,7 +231,22 @@
 <path d="M694.5,87.3352817950651 L691.5,82.13912937235847" stroke="#d1d5db" stroke-width="0.5" />
 <g>
 <circle cx="748.0" cy="180.0" r="28" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
-<path d="M748.0,180.0 L776.0,180.0" stroke="#1f2937" stroke-width="1.0" />
+<path d="M774.6,180.0 L777.4,180.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M772.5751955648002,190.1793793009114 L775.1620582558319,191.25089291153364" stroke="#1f2937" stroke-width="0.6" />
+<path d="M766.8090403795621,198.80904037956216 L768.7889393668845,200.7889393668845" stroke="#1f2937" stroke-width="0.6" />
+<path d="M758.1793793009114,204.57519556480023 L759.2508929115336,207.16205825583182" stroke="#1f2937" stroke-width="0.6" />
+<path d="M748.0,206.6 L748.0,209.4" stroke="#1f2937" stroke-width="0.6" />
+<path d="M737.8206206990886,204.57519556480023 L736.7491070884664,207.16205825583182" stroke="#1f2937" stroke-width="0.6" />
+<path d="M729.1909596204379,198.80904037956216 L727.2110606331155,200.7889393668845" stroke="#1f2937" stroke-width="0.6" />
+<path d="M723.4248044351998,190.1793793009114 L720.8379417441681,191.25089291153364" stroke="#1f2937" stroke-width="0.6" />
+<path d="M721.4,180.0 L718.6,180.0" stroke="#1f2937" stroke-width="0.6" />
+<path d="M723.4248044351998,169.8206206990886 L720.8379417441681,168.74910708846636" stroke="#1f2937" stroke-width="0.6" />
+<path d="M729.1909596204379,161.19095962043784 L727.2110606331155,159.2110606331155" stroke="#1f2937" stroke-width="0.6" />
+<path d="M737.8206206990886,155.42480443519977 L736.7491070884663,152.83794174416818" stroke="#1f2937" stroke-width="0.6" />
+<path d="M748.0,153.4 L748.0,150.6" stroke="#1f2937" stroke-width="0.6" />
+<path d="M758.1793793009114,155.42480443519977 L759.2508929115337,152.83794174416818" stroke="#1f2937" stroke-width="0.6" />
+<path d="M766.8090403795621,161.19095962043784 L768.7889393668845,159.2110606331155" stroke="#1f2937" stroke-width="0.6" />
+<path d="M772.5751955648002,169.8206206990886 L775.1620582558319,168.74910708846633" stroke="#1f2937" stroke-width="0.6" />
 <animateTransform attributeName="transform" dur="5.0s" values="0 748.0 180.0;10.0 748.0 180.0;10.0 748.0 180.0;0 748.0 180.0;0 748.0 180.0" type="rotate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
 </g>
 <circle cx="748.0" cy="180.0" r="22" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
@@ -350,5 +395,5 @@
 </g>
 </g>
 <text x="748.0" y="24" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">N = 24</text>
-<text x="748.0" y="342" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280">12 clean opposing pairs</text>
+<text x="748.0" y="342" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280">all pins lock · 12 mirror pairs available</text>
 </svg>
