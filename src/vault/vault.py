@@ -101,3 +101,59 @@ exact opposing pairs and no clean quadrants."""
 
 FRIENDLY_PIN_COUNT: int = 24
 """The flexible / highly-divisible counter-example."""
+
+# --- Detailed mechanism (Adam Savage build) -------------------------------
+# The constants above drive the *schematic* SVG diagrams (one central
+# pinion, illustrative). The constants below drive the *detailed*
+# build123d mechanism in ``src/vault/mechanism.py``: a 120-tooth central
+# ring gear driving 12 spur gears (24 teeth each) on a 72 mm BCD, each
+# spur driving one rack-and-pin via rack-and-pinion. Numbers come from
+# the Adam Savage Tested video referenced in the README.
+
+MECH_RING_GEAR_TEETH: int = 60
+"""Tooth count of the central ring gear used for the *rendered* animation.
+
+Adam's real build uses 120 teeth at module 0.5; we render with 60 teeth
+at module 1.0 because ``bd_warehouse``'s involute-profile generator hits
+numerical limits above ~100 teeth. The geometry stays equivalent — same
+72 mm BCD, same 5:1 gear ratio (60 / 12 vs. 120 / 24) — just rendered
+with chunkier teeth that read better at GIF resolution. Editing this
+number re-renders the GIF in CI."""
+
+MECH_GEAR_MODULE_MM: float = 1.0
+"""Gear module for the *rendered* animation. See ``MECH_RING_GEAR_TEETH``
+for why this is 1.0 here even though Adam's real build is 0.5."""
+
+MECH_GEAR_PRESSURE_ANGLE: float = 14.5
+"""Pressure angle (degrees). 14.5° is the older AGMA standard; modern
+practice is 20°, but ``bd_warehouse`` refuses 20° at these tooth counts."""
+
+MECH_SPUR_GEAR_BCD_MM: float = 72.0
+"""Spur-gear centres lie on a 72 mm bolt-circle diameter (Adam's drawing)."""
+
+MECH_SPUR_GEAR_TEETH: int = 12
+"""Derived from the BCD geometry at the rendered module:
+ring pitch radius = module * teeth / 2 = 1.0 * 60 / 2 = 30 mm.
+Spur centres sit at BCD/2 = 36 mm, so spur pitch radius = 36 − 30 = 6 mm,
+which at module 1.0 is 12 teeth. Gear ratio ring:spur = 5:1 — same as
+Adam's actual 120:24."""
+
+MECH_RING_GEAR_ID_MM: float = 50.876
+"""Inner diameter of the ring gear's mounting boss — Adam's measured
+2.003 inches ('two inches plus about three thousandths')."""
+
+MECH_RACK_STOCK_MM: float = 8.0
+"""Square cross-section of the rack stock (8 × 8 mm)."""
+
+MECH_LOCKING_PIN_DIA_MM: float = 12.0
+"""Diameter of the radial locking pins ('M12'). Distinct from
+``PIN_DIAMETER_MM`` above, which sizes the *schematic* decorative pins."""
+
+MECH_LOCKING_PIN_LEN_MM: float = 30.0
+"""Locking pin length (Adam's 'M12 × 30')."""
+
+MECH_DOOR_DIA_MM: float = 152.4
+"""6 inches — outer diameter of the acrylic door body."""
+
+MECH_DOOR_THICKNESS_MM: float = 31.75
+"""1.25 inches — thickness of the acrylic door body."""
