@@ -1,0 +1,45 @@
+{
+  "id": "gen-1778169270-M0TnO9EMhL32wOr7xD3k",
+  "object": "chat.completion",
+  "created": 1778169270,
+  "model": "anthropic/claude-4.5-haiku-20251001",
+  "provider": "Amazon Bedrock",
+  "system_fingerprint": null,
+  "choices": [
+    {
+      "index": 0,
+      "logprobs": null,
+      "finish_reason": "stop",
+      "native_finish_reason": "end_turn",
+      "message": {
+        "role": "assistant",
+        "content": "$fn = 24;\n\nmodule anvil() {\n    // Base\n    cube([50, 30, 8], center = true);\n    \n    // Central body block\n    translate([0, 0, 12])\n        cube([40, 25, 16], center = true);\n    \n    // Horn (tapered cone from one side)\n    translate([22, 0, 12]) {\n        cylinder(h = 16, r1 = 8, r2 = 3, center = true);\n    }\n    \n    // Heel block on opposite side\n    translate([-18, 0, 12])\n        cube([12, 20, 14], center = true);\n}\n\nmodule text_emboss() {\n    // \"PYCON 2026\" embossed on the side\n    translate([-15, -15, 20]) {\n        linear_extrude(height = 1.5) {\n            text(\"PYCON 2026\", size = 6, halign = \"center\", valign = \"center\", font = \"Arial:style=Bold\");\n        }\n    }\n}\n\nmodule anvil_with_text() {\n    difference() {\n        anvil();\n        text_emboss();\n    }\n}\n\nanvil_with_text();",
+        "refusal": null,
+        "reasoning": null
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 304,
+    "completion_tokens": 310,
+    "total_tokens": 614,
+    "cost": 0.001854,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.001854,
+      "upstream_inference_prompt_cost": 0.000304,
+      "upstream_inference_completions_cost": 0.00155
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "gen-1778172847-lZOJZ5fmMlUckaWSTJ6h",
+  "object": "chat.completion",
+  "created": 1778172847,
+  "model": "google/gemma-4-31b-it-20260402",
+  "provider": "DeepInfra",
+  "system_fingerprint": null,
+  "choices": [
+    {
+      "index": 0,
+      "logprobs": null,
+      "finish_reason": "stop",
+      "native_finish_reason": "stop",
+      "message": {
+        "role": "assistant",
+        "content": "$fn = 24;\n\nmodule anvil() {\n    difference() {\n        union() {\n            // Base plate\n            cube([50, 30, 5]);\n            \n            // Central body block\n            translate([10, 0, 5])\n                cube([30, 30, 20]);\n            \n            // Tapered horn (simplified via cylinder)\n            translate([40, 15, 15])\n                rotate([0, 90, 0])\n                cylinder(h=20, r1=8, r2=1);\n            \n            // Heel block\n            translate([0, 0, 5])\n                cube([10, 30, 12]);\n        }\n\n        // Embossed Text\n        translate([12, -0.1, 15])\n            rotate([90, 0, 0])\n            linear_extrude(height = 1)\n                text(\"PYCON 2026\", size = 5, halign = \"left\");\n    }\n}\n\nanvil();",
+        "refusal": null,
+        "reasoning": null
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 297,
+    "completion_tokens": 254,
+    "total_tokens": 551,
+    "cost": 0.00013513,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.00013513,
+      "upstream_inference_prompt_cost": 3.861e-05,
+      "upstream_inference_completions_cost": 9.652e-05
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  }
+}

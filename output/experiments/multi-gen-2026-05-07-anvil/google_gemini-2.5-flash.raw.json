@@ -1,0 +1,45 @@
+{
+  "id": "gen-1778169426-rgV0ge7Nx6YGWv3D6nAa",
+  "object": "chat.completion",
+  "created": 1778169426,
+  "model": "google/gemini-2.5-flash",
+  "provider": "Google",
+  "system_fingerprint": null,
+  "choices": [
+    {
+      "index": 0,
+      "logprobs": null,
+      "finish_reason": "stop",
+      "native_finish_reason": "STOP",
+      "message": {
+        "role": "assistant",
+        "content": "$fn = 60;\n\nmodule anvil_base() {\n    cube([50, 30, 5]);\n}\n\nmodule anvil_body() {\n    translate([10, 5, 5]) {\n        cube([30, 20, 20]);\n    }\n}\n\nmodule anvil_horn() {\n    translate([40, 15, 5]) {\n        rotate([0, -45, 0]) {\n            union() {\n                cylinder(h = 20, r1 = 10, r2 = 2, $fn = 60);\n                translate([0, 0, 10]) {\n                    cube([5, 20, 10]);\n                }\n            }\n        }\n    }\n}\n\nmodule anvil_heel() {\n    translate([0, 5, 5]) {\n        cube([10, 20, 15]);\n    }\n}\n\nmodule anvil_text() {\n    translate([40, -0.1, 15]) { // Adjusted Y for embossing, Z for vertical centering\n        rotate([90, 0, 90]) {\n            linear_extrude(height = 2) {\n                text(\"PYCON 2026\", size = 8, font = \"Sans:style=Bold\");\n            }\n        }\n    }\n}\n\nunion() {\n    anvil_base();\n    anvil_body();\n    anvil_horn();\n    anvil_heel();\n    difference() {\n        anvil_body();\n        anvil_text();\n    }\n}",
+        "refusal": null,
+        "reasoning": null
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 279,
+    "completion_tokens": 373,
+    "total_tokens": 652,
+    "cost": 0.0010162,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.0010162,
+      "upstream_inference_prompt_cost": 8.37e-05,
+      "upstream_inference_completions_cost": 0.0009325
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 0,
+      "audio_tokens": 0
+    }
+  }
+}
