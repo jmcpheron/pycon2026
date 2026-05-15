@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vault pin explorer · pycon2026</title>
+  <meta name="description" content="Drag a slider, watch a vault-door pin layout snap. Educational geometry toy.">
+  <link rel="stylesheet" href="../assets/styles.css">
+  <style>
+    /* ─── explorer-specific layout ────────────────────────────────── */
+    main.explorer {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 64px 32px 96px;
+    }
+    .explorer-header {
+      border-bottom: 1.5px solid var(--ink);
+      padding-bottom: 28px;
+      margin-bottom: 40px;
+    }
+    .explorer-header .kicker {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-deep);
+      margin-bottom: 14px;
+    }
+    .explorer-header h1 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 6vw, 3.4rem);
+      font-variation-settings: "opsz" 96, "SOFT" 30, "wght" 400;
+      line-height: 0.95;
+      letter-spacing: -0.025em;
+      margin-bottom: 14px;
+    }
+    .explorer-header .subtitle {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      color: var(--ink-mid);
+      max-width: 50ch;
+    }
+
+    .explorer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    @media (max-width: 760px) {
+      .explorer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      main.explorer { padding: 36px 18px 64px; }
+    }
+
+    /* canvas */
+    .canvas-pane {
+      background: var(--paper-deep);
+      border: 1.4px solid var(--ink);
+      outline: 1px solid var(--ink);
+      outline-offset: -8px;
+      padding: 18px;
+      filter: drop-shadow(0 8px 16px rgba(36, 25, 8, 0.06));
+    }
+    .canvas-pane svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* controls + readout */
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .slider-block label {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .slider-block label output {
+      font-family: var(--mono);
+      font-size: 1.6rem;
+      color: var(--gold-deep);
+      font-variation-settings: "wght" 500;
+      min-width: 2.5ch;
+      text-align: right;
+    }
+    .slider-block .ticks {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--ink-mid);
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+
+    /* slider styling — gold track, ink thumb */
+    input[type="range"].pin-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: var(--rule);
+      border: 1px solid var(--ink);
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"].pin-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: var(--ink);
+      border: 2px solid var(--paper);
+      box-shadow: 0 0 0 1.4px var(--ink);
+      cursor: grab;
+    }
+    input[type="range"].pin-slider::-webkit-slider-thumb:active { cursor: grabbing; }
+    input[type="range"].pin-slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      background: var(--ink);
+      border: 2px solid var(--paper);
+      box-shadow: 0 0 0 1.4px var(--ink);
+      cursor: grab;
+    }
+    input[type="range"].pin-slider:focus-visible {
+      outline: 2px solid var(--gold-deep);
+      outline-offset: 4px;
+    }
+
+    /* readout */
+    dl.readout {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      column-gap: 22px;
+      row-gap: 12px;
+      margin: 0;
+      padding: 22px 0 0;
+      border-top: 1.2px solid var(--rule);
+    }
+    dl.readout dt {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      align-self: baseline;
+    }
+    dl.readout dd {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: var(--ink);
+      line-height: 1.35;
+      font-variation-settings: "wght" 420;
+    }
+    dl.readout dd.numeric {
+      font-family: var(--mono);
+      font-variation-settings: normal;
+    }
+    dl.readout dd.flag-good { color: var(--ink); }
+    dl.readout dd.flag-warn {
+      color: #9c2a2a; /* matches ACCENT_FAIL in the static SVGs */
+    }
+
+    /* nav at bottom */
+    .nav-links {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1.2px solid var(--rule);
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+    }
+    .nav-links a { color: var(--ink); }
+
+    /* SVG element styling for live updates */
+    #vault-svg .door     { fill: var(--paper); stroke: var(--ink-mid); stroke-width: 1.2; }
+    #vault-svg .wheel    { fill: #d4b876; stroke: var(--ink); stroke-width: 0.6; }
+    #vault-svg .wheel-spoke { stroke: var(--ink); stroke-width: 1.0; fill: none; }
+    #vault-svg .hub      { fill: #8a8a8a; stroke: var(--ink); stroke-width: 0.6; }
+    #vault-svg .pin      { fill: #b8a169; stroke: var(--ink); stroke-width: 0.6; }
+    #vault-svg .pin-orphan { fill: #dc2626; stroke: var(--ink); stroke-width: 1.0; }
+    #vault-svg .travel-arrow { stroke: var(--ink-mid); stroke-width: 0.5; }
+    #vault-svg .clock-tick { stroke: #d1d5db; stroke-width: 0.5; }
+    #vault-svg .chord    { stroke: #2563eb; stroke-width: 0.5; fill: none; }
+    #vault-svg .phantom  {
+      fill: none; stroke: #2563eb; stroke-width: 1.0;
+      stroke-dasharray: 2 2;
+    }
+    #vault-svg .phantom-line {
+      stroke: #2563eb; stroke-width: 0.5;
+      stroke-dasharray: 3 3; fill: none;
+    }
+  </style>
+</head>
+<body>
+  <main class="explorer">
+    <header class="explorer-header">
+      <div class="kicker">vault door mechanism study</div>
+      <h1>Pin explorer</h1>
+      <p class="subtitle">Drag the slider. Watch the layout snap. The numbers
+        to the right are derived live from the pin count.</p>
+    </header>
+
+    <div class="explorer-grid">
+      <section class="canvas-pane" aria-label="Vault door layout">
+        <svg id="vault-svg" viewBox="0 0 360 360"
+             role="img" aria-labelledby="svg-label"></svg>
+        <span id="svg-label" hidden>Vault door with radial locking pins</span>
+      </section>
+
+      <aside class="controls">
+        <div class="slider-block">
+          <label for="pin-count">
+            Pin count
+            <output id="pin-count-out" for="pin-count">12</output>
+          </label>
+          <input type="range" id="pin-count" class="pin-slider"
+                 min="3" max="30" value="12" step="1"
+                 aria-describedby="pin-count-help">
+          <div class="ticks"><span>3</span><span>12</span><span>30</span></div>
+          <p id="pin-count-help" hidden>Number of locking pins arranged
+            around the vault door, 3 to 30.</p>
+        </div>
+
+        <dl class="readout">
+          <dt>angle step</dt>
+          <dd id="angle-step" class="numeric">30.000°</dd>
+
+          <dt>divisors of N</dt>
+          <dd id="divisors" class="numeric">1, 2, 3, 4, 6, 12</dd>
+
+          <dt>opposing pairs</dt>
+          <dd id="pair-count">6</dd>
+
+          <dt>rack budget*</dt>
+          <dd id="rack-budget" class="numeric">5.98 mm</dd>
+
+          <dt>verdict</dt>
+          <dd id="verdict">composite — clean halves, quarters, thirds</dd>
+        </dl>
+        <p style="font-family: var(--mono); font-size: 0.7rem;
+                  color: var(--ink-mid); letter-spacing: 0.04em;
+                  margin: 6px 0 0;">
+          *upper bound on rack-body thickness given the canonical
+          12 mm central pinion radius and 0.3 mm clearance —
+          <code>t ≤ 2π·r / N − clearance</code>.
+        </p>
+      </aside>
+    </div>
+
+    <nav class="nav-links">
+      <a href="README.md">← back to the vault study</a>
+      <a href="thirteen-pin-problem.md">the 13-pin problem →</a>
+      <a href="pin-counts.md">pin-count comparison →</a>
+    </nav>
+  </main>
+
+  <script>
+  // ─── Geometry helpers (mirrored from src/vault/geometry.py) ──────────
+  const CX = 180, CY = 180;
+  const DOOR_R = 130, PIN_PITCH_R = DOOR_R - 12;
+  const HUB_R = 28, WHEEL_R = 36;
+  const BASE_PIN_R = 6;          // shrinks slightly for large N
+
+  // Same constants the Python side uses — must stay in sync with
+  // src/vault/vault.py manually (or paste the values in via build).
+  const PINION_RADIUS_MM = 12;
+  const CLEARANCE_MM = 0.3;
+
+  const NS = "http://www.w3.org/2000/svg";
+
+  function angleStep(n) { return 360 / n; }
+
+  function pinAngles(n, start = -90) {
+    const step = angleStep(n);
+    const out = [];
+    for (let i = 0; i < n; i++) out.push(start + i * step);
+    return out;
+  }
+
+  function polar(cx, cy, r, deg) {
+    const θ = deg * Math.PI / 180;
+    return [cx + r * Math.cos(θ), cy + r * Math.sin(θ)];
+  }
+
+  function divisors(n) {
+    const out = [];
+    for (let i = 1; i * i <= n; i++) {
+      if (n % i === 0) {
+        out.push(i);
+        if (i !== n / i) out.push(n / i);
+      }
+    }
+    return out.sort((a, b) => a - b);
+  }
+
+  function rackBudgetMm(n) {
+    return (2 * Math.PI * PINION_RADIUS_MM / n) - CLEARANCE_MM;
+  }
+
+  // ─── SVG drawing helpers ─────────────────────────────────────────────
+  function svgEl(name, attrs = {}) {
+    const el = document.createElementNS(NS, name);
+    for (const [k, v] of Object.entries(attrs)) {
+      el.setAttribute(k, v);
+    }
+    return el;
+  }
+
+  function drawDoor(svg, hasClock) {
+    svg.appendChild(svgEl("circle", {
+      cx: CX, cy: CY, r: DOOR_R, class: "door"
+    }));
+    if (hasClock) {
+      // Faint 12-position clock face for divisible-by-12 counts.
+      for (let i = 0; i < 12; i++) {
+        const ang = -90 + i * 30;
+        const [x1, y1] = polar(CX, CY, DOOR_R - 3, ang);
+        const [x2, y2] = polar(CX, CY, DOOR_R + 3, ang);
+        svg.appendChild(svgEl("line", {
+          x1, y1, x2, y2, class: "clock-tick"
+        }));
+      }
+    }
+    // Cam wheel (static here — animation lives in the hero SVG).
+    svg.appendChild(svgEl("circle", {
+      cx: CX, cy: CY, r: WHEEL_R, class: "wheel"
+    }));
+    svg.appendChild(svgEl("line", {
+      x1: CX, y1: CY,
+      x2: CX + WHEEL_R, y2: CY,
+      class: "wheel-spoke"
+    }));
+    svg.appendChild(svgEl("circle", {
+      cx: CX, cy: CY, r: HUB_R, class: "hub"
+    }));
+  }
+
+  function drawPins(svg, n) {
+    const angles = pinAngles(n);
+    const pinR = n <= 16 ? BASE_PIN_R : Math.max(BASE_PIN_R - 1.5, 3);
+    const isOdd = n % 2 === 1;
+
+    // For even N, draw faint chord lines through the hub for each
+    // opposing pair (visualises "12 = 6 pairs" without extra controls).
+    if (!isOdd) {
+      const half = n / 2;
+      for (let i = 0; i < half; i++) {
+        const j = (i + half) % n;
+        const [x1, y1] = polar(CX, CY, PIN_PITCH_R, angles[i]);
+        const [x2, y2] = polar(CX, CY, PIN_PITCH_R, angles[j]);
+        svg.appendChild(svgEl("line", {
+          x1, y1, x2, y2, class: "chord"
+        }));
+      }
+    }
+
+    // For odd N, mark where pin 0's would-be partner *would* sit —
+    // makes the "no exact opposite" property visible.
+    if (isOdd) {
+      const phantomAngle = angles[0] + 180;
+      const [ax, ay] = polar(CX, CY, PIN_PITCH_R, angles[0]);
+      const [px, py] = polar(CX, CY, PIN_PITCH_R, phantomAngle);
+      svg.appendChild(svgEl("line", {
+        x1: ax, y1: ay, x2: px, y2: py, class: "phantom-line"
+      }));
+      svg.appendChild(svgEl("circle", {
+        cx: px, cy: py, r: 3, class: "phantom"
+      }));
+    }
+
+    angles.forEach((ang, i) => {
+      const [x, y] = polar(CX, CY, PIN_PITCH_R, ang);
+      // Travel arrow (small radial tick inward) — keeps the "these
+      // move" reading even in the static SVG.
+      const [tx, ty] = polar(CX, CY, PIN_PITCH_R - pinR * 2.5, ang);
+      svg.appendChild(svgEl("line", {
+        x1: x, y1: y, x2: tx, y2: ty, class: "travel-arrow"
+      }));
+      const cls = (isOdd && i === 0) ? "pin-orphan" : "pin";
+      svg.appendChild(svgEl("circle", {
+        cx: x, cy: y, r: pinR, class: cls
+      }));
+    });
+  }
+
+  // ─── Readout ─────────────────────────────────────────────────────────
+  function updateReadout(n) {
+    const step = angleStep(n);
+    document.getElementById("pin-count-out").textContent = n;
+    document.getElementById("angle-step").textContent =
+      step.toFixed(3) + "°";
+    document.getElementById("divisors").textContent =
+      divisors(n).join(", ");
+
+    const pairEl = document.getElementById("pair-count");
+    if (n % 2 === 0) {
+      pairEl.textContent = (n / 2) + " (every pin has an exact partner)";
+      pairEl.classList.remove("flag-warn");
+      pairEl.classList.add("flag-good");
+    } else {
+      pairEl.textContent = "0 — no exact pairs across the diameter";
+      pairEl.classList.remove("flag-good");
+      pairEl.classList.add("flag-warn");
+    }
+
+    document.getElementById("rack-budget").textContent =
+      rackBudgetMm(n).toFixed(2) + " mm";
+
+    const verdictEl = document.getElementById("verdict");
+    const d = divisors(n);
+    const isPrime = d.length === 2 && d[0] === 1 && d[1] === n;
+    if (n === 12) {
+      verdictEl.textContent = "clock-clean — the friendly default";
+    } else if (n === 24) {
+      verdictEl.textContent =
+        "very flexible — 8 divisors, doubles the resolution of 12";
+    } else if (isPrime) {
+      verdictEl.textContent =
+        "prime — no subgroups, rude to mirrored sub-assemblies";
+      verdictEl.classList.add("flag-warn");
+      return;
+    } else if (n % 2 === 1) {
+      verdictEl.textContent =
+        "odd — no exact opposing pairs, fewer mirror options";
+    } else {
+      verdictEl.textContent =
+        "composite — " + d.length + " divisors, mirrored layouts available";
+    }
+    verdictEl.classList.remove("flag-warn");
+  }
+
+  // ─── Main render loop ────────────────────────────────────────────────
+  function render(n) {
+    const svg = document.getElementById("vault-svg");
+    svg.replaceChildren();
+    drawDoor(svg, n === 12 || n === 24);
+    drawPins(svg, n);
+    updateReadout(n);
+  }
+
+  const slider = document.getElementById("pin-count");
+  slider.addEventListener("input", e => render(parseInt(e.target.value, 10)));
+
+  // Initial render
+  render(parseInt(slider.value, 10));
+  </script>
+</body>
+</html>
