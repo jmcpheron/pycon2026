@@ -57,9 +57,9 @@ jobs:
 
       - name: Inspect pounce-a-pult.step
         run: |
-          mkdir -p docs
+          mkdir -p docs/pounce-a-pult
           uv run cardlab inspect step-demo/pounce-a-pult.step \
-            | tee docs/pounce-a-pult-tree.txt
+            | tee docs/pounce-a-pult/inspect.txt
 
       - name: Tessellate STEP -> STL (renders in GitHub's native viewer)
         run: uv run cardlab build
@@ -71,15 +71,23 @@ jobs:
               --in step-demo/pounce-a-pult.step
               --out step-demo/pounce-a-pult.glb
 
-      - name: Render orthographic PNGs
+      - name: Render orthographic PNGs (iso / top / edge)
         run: |
-          mkdir -p docs/assets
+          mkdir -p docs/pounce-a-pult/assets
           for angle in iso top edge; do
             xvfb-run -a uv run cardlab render \
               --in step-demo/pounce-a-pult.step \
               --angle "$angle" \
-              --out "docs/assets/pounce-a-pult-${angle}.png"
+              --out "docs/pounce-a-pult/assets/${angle}.png"
           done
+
+      - name: Decompose into parts + exploded view + GIF
+        run: xvfb-run -a uv run cardlab explode
+              --in step-demo/pounce-a-pult.step
+              --out docs/pounce-a-pult/assets/
+              --strategy radial
+              --factor 1.0
+              --frames 24
 
       - name: Generate example assembly parts (idempotent)
         run: uv run python step-demo/parts/generate.py
@@ -92,9 +100,11 @@ jobs:
 
       - name: Verify outputs
         run: |
-          ls -la step-demo/ step-demo/parts/ docs/assets/
+          ls -la step-demo/ step-demo/parts/ docs/pounce-a-pult/ docs/pounce-a-pult/assets/
           file step-demo/*.stl step-demo/*.glb step-demo/parts/*.stl
-          file docs/assets/pounce-a-pult-*.png
+          file docs/pounce-a-pult/assets/*.png docs/pounce-a-pult/assets/exploded.gif
+          test -f docs/pounce-a-pult/assets/manifest.toml
+          test -f docs/pounce-a-pult/inspect.txt
 
       - name: Upload STEP/STL/GLB artifacts
         uses: actions/upload-artifact@v4
@@ -112,8 +122,9 @@ jobs:
         with:
           name: step-renders
           path: |
-            docs/assets/pounce-a-pult-*.png
-            docs/pounce-a-pult-tree.txt
+            docs/pounce-a-pult/inspect.txt
+            docs/pounce-a-pult/assets/**
+            !docs/pounce-a-pult/assets/_frames/**
           retention-days: 30
 
       - name: Commit regenerated artifacts
@@ -126,8 +137,15 @@ jobs:
             step-demo/pounce-a-pult.glb \
             step-demo/parts/*.step \
             step-demo/parts/*.stl \
-            docs/assets/pounce-a-pult-*.png \
-            docs/pounce-a-pult-tree.txt
+            docs/pounce-a-pult/inspect.txt \
+            docs/pounce-a-pult/assets/iso.png \
+            docs/pounce-a-pult/assets/top.png \
+            docs/pounce-a-pult/assets/edge.png \
+            docs/pounce-a-pult/assets/exploded.gif \
+            docs/pounce-a-pult/assets/exploded.glb \
+            docs/pounce-a-pult/assets/pounce-a-pult.glb \
+            docs/pounce-a-pult/assets/manifest.toml \
+            docs/pounce-a-pult/assets/parts
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else

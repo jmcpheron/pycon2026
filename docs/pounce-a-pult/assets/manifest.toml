@@ -1,0 +1,59 @@
+[[part]]
+label = "Part 1_5"
+slug = "Part_1_5"
+centroid = [-97.5156, -10.2076, 61.9100]
+bbox_size = [85.9135, 1.4891, 85.9135]
+displacement = [-16.3455, -0.1736, 11.5236]
+color_rgba = [202, 202, 202, 255]
+png = "Part_1_5.png"
+glb = "Part_1_5.glb"
+
+[[part]]
+label = "Part 1_4"
+slug = "Part_1_4"
+centroid = [-21.9690, -10.0677, 30.1695]
+bbox_size = [124.6241, 12.0000, 77.8906]
+displacement = [19.8439, -0.1433, -2.4900]
+color_rgba = [239, 62, 0, 255]
+png = "Part_1_4.png"
+glb = "Part_1_4.glb"
+
+[[part]]
+label = "Part 1_3"
+slug = "Part_1_3"
+centroid = [-12.2958, -21.4633, 8.6910]
+bbox_size = [75.0555, 28.0000, 54.9547]
+displacement = [17.0627, -4.2518, -9.5282]
+color_rgba = [14, 17, 19, 255]
+png = "Part_1_3.png"
+glb = "Part_1_3.glb"
+
+[[part]]
+label = "Part 1_2"
+slug = "Part_1_2"
+centroid = [-59.0779, -9.7576, -14.9681]
+bbox_size = [182.0000, 42.0000, 15.9708]
+displacement = [0.0100, 0.0169, -20.0000]
+color_rgba = [14, 17, 19, 255]
+png = "Part_1_2.png"
+glb = "Part_1_2.glb"
+
+[[part]]
+label = "Part 1_1"
+slug = "Part_1_1"
+centroid = [-12.2959, 2.9063, 7.3143]
+bbox_size = [75.0555, 8.0000, 54.9547]
+displacement = [16.7882, 4.5572, -9.8686]
+color_rgba = [14, 17, 19, 255]
+png = "Part_1_1.png"
+glb = "Part_1_1.glb"
+
+[[part]]
+label = "Part 1"
+slug = "Part_1"
+centroid = [-151.4631, -10.2076, 115.8574]
+bbox_size = [24.7487, 9.9271, 24.7487]
+displacement = [-15.0342, -0.0664, 13.1897]
+color_rgba = [239, 62, 0, 255]
+png = "Part_1.png"
+glb = "Part_1.glb"

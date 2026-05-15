@@ -80,6 +80,10 @@ It's a quick lens on circular symmetry: why pin counts that divide cleanly into 
 
 This is a fan-made educational study, not affiliated with any specific show or product. Start at [**docs/vault/**](docs/vault/README.md), or jump to [**the 13-pin problem**](docs/vault/thirteen-pin-problem.md) if you just want the punchline.
 
+## A third asset — Pounce-a-Pult (an external CC-BY STEP file)
+
+To prove the same pipeline works on someone else's CAD, we point it at an unrelated STEP file: a [Pounce-a-Pult spiral cat toy](docs/pounce-a-pult/README.md) (an [upstream MakerWorld design](https://makerworld.com/en/models/2138778-pounce-a-pult-spiral-cat-toy#profileId-2316710), shared under CC BY 4.0). Drop the file at [`step-demo/pounce-a-pult.step`](step-demo/pounce-a-pult.step); `cardlab inspect` reads its AP242 tree, `cardlab render` produces orthographic hero PNGs, and `cardlab explode` decomposes it into six per-part STL/GLB/PNG renders plus an animated exploded GIF — the same five-function chain the gear card uses, no toy-specific code. Per-page write-up at [**docs/pounce-a-pult/**](docs/pounce-a-pult/README.md).
+
 ## How it gets built
 
 The card itself lives in Onshape. The STEP export is committed at the repo root. A little Click CLI called `cardlab` (in [`src/cardlab/`](src/cardlab/)) does five small things to it, leaning on [`build123d`](https://github.com/gumyr/build123d) and [`cascadio`](https://github.com/trimesh/cascadio):

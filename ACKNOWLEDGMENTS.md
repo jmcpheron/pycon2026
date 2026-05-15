@@ -39,6 +39,10 @@ issue or a PR.
 
 - **Adam Savage's mini vault-door build** on [Tested](https://www.tested.com/). The vault-door study under [`docs/vault/`](docs/vault/) is a love-letter to the *geometry* of his mechanism — a fan study, not a clone, not affiliated with Tested.com or Adam Savage. No private plans or assets from the show are used.
 
+## External 3D assets
+
+- **Pounce-a-Pult spiral cat toy** ([`step-demo/pounce-a-pult.step`](step-demo/pounce-a-pult.step) and every render under [`docs/pounce-a-pult/assets/`](docs/pounce-a-pult/assets/)): design by a [MakerWorld designer (profile 2316710)](https://makerworld.com/en/models/2138778-pounce-a-pult-spiral-cat-toy#profileId-2316710), shared under [Creative Commons Attribution 4.0 (CC BY)](https://creativecommons.org/licenses/by/4.0/). The STEP file is redistributed here unchanged; our derived renders (PNGs, GIF, GLB, per-part STLs) are derivative works and inherit CC BY 4.0 with the same attribution. This is distinct from the repo's own 3D files (the gear card and vault diagrams), which are CC BY-**SA** 4.0 under [`LICENSE-3D-FILES`](LICENSE-3D-FILES).
+
 ## How the licenses interact with this repo
 
 * **Our code** under `src/`, `tests/`, and the GitHub workflows is **MIT** ([`LICENSE`](LICENSE)).
