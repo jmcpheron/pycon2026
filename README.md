@@ -129,6 +129,14 @@ If you scanned this from the card I handed you, here's what I'm hoping to talk a
 
 **Code** (`src/`, `tests/`, workflows): **MIT** — see [`LICENSE`](LICENSE).
 
-**3D files** ([`jmcpheron-card.step`](jmcpheron-card.step), the generated STL / GLB / PNG / GIF under `docs/assets/card/`, and the [public Onshape document](https://cad.onshape.com/documents/786fefdef357fb6860b54650/w/33fb9222a6752311e4f08c8b/e/da99fedbaeebf1422d4cb0d3)): **CC BY-SA 4.0** — see [`LICENSE-3D-FILES`](LICENSE-3D-FILES).
+**3D files** ([`jmcpheron-card.step`](jmcpheron-card.step), the generated STL / GLB / PNG / GIF under `docs/assets/card/` and `docs/vault/assets/`, and the [public Onshape document](https://cad.onshape.com/documents/786fefdef357fb6860b54650/w/33fb9222a6752311e4f08c8b/e/da99fedbaeebf1422d4cb0d3)): **CC BY-SA 4.0** — see [`LICENSE-3D-FILES`](LICENSE-3D-FILES).
 
 Print it, fork it, remix the gears. If you publish a derivative — a different layout, a coin-sized version, whatever — it needs to be CC BY-SA 4.0 too, and please credit `pycon2026` by jmcpheron with a link back here.
+
+## Acknowledgments
+
+This project is a thin glue layer on top of a lot of other open-source
+work — `build123d`, `bd_warehouse`, `cadquery-ocp` (OCCT), `cascadio`,
+`trimesh`, `Pillow`, `drawsvg`, `matplotlib`, `click`, plus OpenSCAD
+and `uv` outside Python. See [`ACKNOWLEDGMENTS.md`](ACKNOWLEDGMENTS.md)
+for the full list with licenses and links.

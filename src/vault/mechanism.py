@@ -1,5 +1,13 @@
 """Detailed mechanism renderer — ring gear + 12 spurs + 12 racks + 12 pins.
 
+Third-party libraries used here (full credits in ACKNOWLEDGMENTS.md):
+  * ``build123d`` (Apache-2.0) — parametric Part / Box / Cylinder / Sketch.
+  * ``bd_warehouse.gear.SpurGear`` (Apache-2.0) — involute gear primitive
+    used for both the ring gear and the satellite spurs.
+  * OpenSCAD (GPL-2.0-or-later, invoked as a subprocess) — frame PNG
+    rendering, reached via ``cardlab.render.render_scad``.
+  * Pillow (MIT-CMU) — PNG → animated GIF stitching.
+
 Pipeline (mirrors ``src/cardlab/explode.py``):
 
   1. Build each canonical part once with build123d / bd_warehouse:
