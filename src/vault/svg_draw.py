@@ -10,8 +10,10 @@ during tests or to ``docs/vault/assets/`` during the real build.
 
 from __future__ import annotations
 
-from math import radians
+from math import pi, radians
 from pathlib import Path
+
+import drawsvg as dw
 
 from vault import diagrams as D
 from vault import style as S
@@ -126,6 +128,87 @@ def draw_cam_rotation(radius: float, angle_degrees: float,
               "Arc travel ≠ pin travel — a cam slot or linkage converts this.")
     # Centre the caption manually (drawsvg doesn't honor text-anchor for
     # later-set positions — pass anchor through via raw text)
+    out = Path(filename)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    d.save_svg(str(out))
+    return out
+
+
+def draw_rack_packing(filename: str | Path,
+                      *,
+                      counts: tuple[int, ...] = (6, 12, 24),
+                      pinion_radius_mm: float | None = None,
+                      clearance_mm: float | None = None) -> Path:
+    """Side-by-side panels showing the rack-and-pinion packing constraint.
+
+    For each ``N`` in ``counts``, draws the central pinion with its
+    ``N`` rack bodies arranged tangentially around it. The rack bodies'
+    tangential thickness is set by the constraint
+    ``t = 2π·r_pinion/N - clearance``, so the comparison makes the budget
+    shrinkage visible as the pin count grows.
+    """
+    if pinion_radius_mm is None:
+        pinion_radius_mm = V.CENTRAL_PINION_RADIUS_MM
+    if clearance_mm is None:
+        clearance_mm = V.CLEARANCE_MM
+
+    panel = 200
+    pad = 16
+    title_h = 32
+    width = len(counts) * panel + (len(counts) + 1) * pad
+    height = panel + title_h + 40
+
+    d = D.new_drawing(width, height)
+
+    # Display scale: fix the pinion radius in pixels so panels compare 1:1.
+    px_per_mm = 3.0
+    pinion_px = pinion_radius_mm * px_per_mm
+    rack_len_px = 56  # purely cosmetic — pin bodies aren't drawn
+
+    for i, n in enumerate(counts):
+        cx = pad + i * (panel + pad) + panel / 2
+        cy = title_h + panel / 2
+
+        # Available tangential thickness (mm and px).
+        t_mm = max(2 * pi * pinion_radius_mm / n - clearance_mm, 0.2)
+        t_px = t_mm * px_per_mm
+
+        # Faint construction circle showing the pinion pitch circle.
+        d.append(dw.Circle(cx, cy, pinion_px,
+                           fill=S.GEAR_PINION,
+                           stroke=S.INK, stroke_width=S.STROKE_NORMAL))
+
+        # N rack bodies arranged tangentially around the pinion.
+        for k in range(n):
+            angle = -90 + k * 360 / n
+            g = dw.Group(
+                transform=f"translate({cx} {cy}) rotate({angle})"
+            )
+            # Rectangle: inner edge at pinion pitch radius, length outward,
+            # tangential width = t_px (centred about the radial line).
+            g.append(dw.Rectangle(
+                pinion_px, -t_px / 2,
+                rack_len_px, t_px,
+                fill=S.GEAR_BIG, stroke=S.INK,
+                stroke_width=S.STROKE_THIN))
+            d.append(g)
+
+        # Panel title.
+        d.append(dw.Text(
+            f"N = {n}",
+            S.FONT_SIZE_TITLE,
+            x=cx, y=title_h - 12,
+            text_anchor="middle",
+            font_family=S.FONT_FAMILY,
+            fill=S.INK, font_weight="bold"))
+        d.append(dw.Text(
+            f"t ≤ {t_mm:.2f} mm",
+            S.FONT_SIZE_LABEL,
+            x=cx, y=title_h + panel + 18,
+            text_anchor="middle",
+            font_family=S.FONT_FAMILY,
+            fill=S.INK_MUTED))
+
     out = Path(filename)
     out.parent.mkdir(parents=True, exist_ok=True)
     d.save_svg(str(out))

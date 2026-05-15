@@ -46,6 +46,12 @@ HUB_DIAMETER_MM: float = 35.0
 WHEEL_DIAMETER_MM: float = 45.0
 """Cam-wheel / drive-disc diameter."""
 
+CENTRAL_PINION_RADIUS_MM: float = 12.0
+"""Pitch radius of the central pinion that engages all N racks in the
+rack-and-pinion central drive variant. Sits inside the hub. Together with
+``PIN_COUNT`` this sets the per-rack tangential budget — see
+``RACK_BUDGET_PER_PIN_MM`` below."""
+
 CAM_ROTATION_DEG: float = 10.0
 """Working stroke of the central cam rotation. A small input rotation that
 must produce useful radial pin travel via the cam slots / linkages."""
@@ -67,6 +73,23 @@ ARC_AT_10DEG_MM: float = PIN_RADIUS_MM * radians(CAM_ROTATION_DEG)
 """Arc length swept at the pin radius for one CAM_ROTATION_DEG of input.
 Note: this is *arc travel*, not necessarily linear pin travel — that
 depends on the actuator (cam slot, rack, linkage)."""
+
+# --- Rack-and-pinion packing constraint -----------------------------------
+RACK_BUDGET_PER_PIN_MM: float = 2 * pi * CENTRAL_PINION_RADIUS_MM / PIN_COUNT
+"""Tangential perimeter each rack gets at the central pinion's pitch circle.
+The N rack bodies must fit side-by-side around the pinion without
+colliding, so each rack's tangential thickness must not exceed this
+(minus clearance). See ``MAX_RACK_TANGENTIAL_THICKNESS_MM``."""
+
+MAX_RACK_TANGENTIAL_THICKNESS_MM: float = RACK_BUDGET_PER_PIN_MM - CLEARANCE_MM
+"""Upper bound on rack body tangential thickness:
+
+    t  ≤  (2π · r_pinion / N)  −  clearance
+
+This is the packing constraint that forces the 'thinned spine' geometry
+visible in miniature rack-and-pinion vault builds — every rack gets a
+fixed slice of the pinion's perimeter and the spine is machined down to
+fit its slice."""
 
 # --- Pin counts to compare in the study -----------------------------------
 COMPARED_PIN_COUNTS: tuple[int, ...] = (6, 8, 12, 13, 24)

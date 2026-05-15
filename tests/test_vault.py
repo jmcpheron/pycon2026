@@ -34,6 +34,16 @@ def test_vault_constants_consistent() -> None:
     assert V.ARC_AT_10DEG_MM == pytest.approx(
         V.PIN_RADIUS_MM * radians(V.CAM_ROTATION_DEG)
     )
+    # Rack-and-pinion packing constraint:
+    assert V.RACK_BUDGET_PER_PIN_MM == pytest.approx(
+        2 * pi * V.CENTRAL_PINION_RADIUS_MM / V.PIN_COUNT
+    )
+    assert V.MAX_RACK_TANGENTIAL_THICKNESS_MM == pytest.approx(
+        V.RACK_BUDGET_PER_PIN_MM - V.CLEARANCE_MM
+    )
+    # Sanity: must be positive — otherwise the pin count exceeds what the
+    # pinion can physically accommodate.
+    assert V.MAX_RACK_TANGENTIAL_THICKNESS_MM > 0
 
 
 def test_angle_step() -> None:
@@ -196,6 +206,8 @@ def test_no_drift_between_sections(tmp_path: Path) -> None:
             str(V.PIN_COUNT),
             str(V.PRIME_PIN_COUNT),
             str(V.FRIENDLY_PIN_COUNT),
+            # Rack-packing note must reference the central pinion radius.
+            f"{V.CENTRAL_PINION_RADIUS_MM:g}",
         ),
         "motion": (
             str(int(V.PIN_RADIUS_MM)),
