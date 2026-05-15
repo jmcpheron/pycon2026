@@ -6,13 +6,13 @@ The story is in three parts.
 
 ## 1 · Inspect a real STEP file
 
-`pounce-a-pult.step` is an Onshape AP242 export (a small toy trebuchet model). Even before we tessellate anything, Python can read its product structure:
+`pounce-a-pult.step` is an Onshape AP242 export of the *Pounce-a-Pult spiral cat toy* — flat spiral spring on a base plate, redistributed here under its upstream [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) licence. The toy's own page (renders, assembly, printing notes, full attribution to the upstream designer) lives at [`docs/pounce-a-pult/`](../docs/pounce-a-pult/README.md). Even before we tessellate anything, Python can read its product structure:
 
 ```bash
 uv run cardlab inspect step-demo/pounce-a-pult.step
 ```
 
-You get the schema, originating system, units, bounding box, triangle count at the default tessellation, and the assembly tree with each part's position. CI captures this as [`docs/pounce-a-pult-tree.txt`](../docs/pounce-a-pult-tree.txt) on every push.
+You get the schema, originating system, units, bounding box, triangle count at the default tessellation, and the assembly tree with each part's position. CI captures this as [`docs/pounce-a-pult/inspect.txt`](../docs/pounce-a-pult/inspect.txt) on every push.
 
 ## 2 · Convert it to formats GitHub *can* render
 
@@ -29,7 +29,7 @@ For the README hero images:
 xvfb-run -a uv run cardlab render \
   --in step-demo/pounce-a-pult.step \
   --angle iso \
-  --out docs/assets/pounce-a-pult-iso.png
+  --out docs/pounce-a-pult/assets/iso.png
 ```
 
 `cardlab render` is small and a little clever: it tessellates to STL, writes a one-line `.scad` shim that `import()`s the STL, then hands the whole thing to OpenSCAD — reusing the exact xvfb + Cornfield pipeline `badgeforge` already proved out. So the STEP renders share the badge's visual style for free.
