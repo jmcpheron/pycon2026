@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="904" height="356" viewBox="0 0 904 356">
+<defs>
+</defs>
+<rect x="0" y="0" width="904" height="356" fill="#fafaf9" />
+<circle cx="156.0" cy="180.0" r="110" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.0" />
+<path d="M156.0,73.0 L156.0,67.0" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M209.5,87.33528179506507 L212.5,82.13912937235844" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M248.66471820493496,126.5 L253.8608706276416,123.5" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M263.0,180.0 L269.0,180.0" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M248.66471820493496,233.5 L253.8608706276416,236.5" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M209.5,272.66471820493496 L212.5,277.8608706276416" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M156.0,287.0 L156.0,293.0" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M102.50000000000003,272.66471820493496 L99.50000000000003,277.8608706276416" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M63.33528179506506,233.5 L58.139129372358425,236.5" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M49.0,180.0 L43.0,180.0" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M63.33528179506507,126.49999999999999 L58.13912937235844,123.49999999999999" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M102.49999999999994,87.3352817950651 L99.49999999999994,82.13912937235847" stroke="#d1d5db" stroke-width="0.5" />
+<g>
+<circle cx="156.0" cy="180.0" r="28" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
+<path d="M156.0,180.0 L184.0,180.0" stroke="#1f2937" stroke-width="1.0" />
+<animateTransform attributeName="transform" dur="5.0s" values="0 156.0 180.0;10.0 156.0 180.0;10.0 156.0 180.0;0 156.0 180.0;0 156.0 180.0" type="rotate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+</g>
+<circle cx="156.0" cy="180.0" r="22" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
+<g transform="rotate(-90.0 156.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="254.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(-60.0 156.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="254.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(-30.0 156.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="254.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(0.0 156.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="254.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(30.0 156.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="254.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(60.0 156.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="254.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(90.0 156.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="254.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(120.0 156.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="254.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(150.0 156.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="254.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(180.0 156.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="254.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(210.0 156.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="254.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(240.0 156.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="254.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<text x="156.0" y="24" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">N = 12</text>
+<text x="156.0" y="342" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280">6 clean opposing pairs</text>
+<circle cx="452.0" cy="180.0" r="110" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.0" />
+<g>
+<circle cx="452.0" cy="180.0" r="28" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
+<path d="M452.0,180.0 L480.0,180.0" stroke="#1f2937" stroke-width="1.0" />
+<animateTransform attributeName="transform" dur="5.0s" values="0 452.0 180.0;10.0 452.0 180.0;10.0 452.0 180.0;0 452.0 180.0;0 452.0 180.0" type="rotate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+</g>
+<circle cx="452.0" cy="180.0" r="22" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
+<path d="M452.0,82.0 L452.0,278.0" stroke="#2563eb" stroke-width="0.5" stroke-dasharray="3,3" />
+<circle cx="452.0" cy="278.0" r="3.0" fill="none" stroke="#2563eb" stroke-width="1.0" stroke-dasharray="2,2" />
+<g transform="rotate(-90.0 452.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="550.0" cy="180.0" r="5" fill="#dc2626" stroke="#1f2937" stroke-width="1.0" />
+</g>
+</g>
+<g transform="rotate(-62.30769230769231 452.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="550.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(-34.61538461538461 452.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="550.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(-6.92307692307692 452.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="550.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(20.769230769230774 452.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="550.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(48.46153846153845 452.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="550.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(76.15384615384616 452.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="550.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(103.84615384615387 452.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="550.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(131.53846153846155 452.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="550.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(159.23076923076923 452.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="550.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(186.9230769230769 452.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="550.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(214.61538461538464 452.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="550.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(242.30769230769232 452.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="550.0" cy="180.0" r="5" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<text x="452.0" y="24" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">N = 13</text>
+<text x="452.0" y="342" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280">1 orphan, 0 exact pairs</text>
+<circle cx="748.0" cy="180.0" r="110" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.0" />
+<path d="M748.0,73.0 L748.0,67.0" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M801.5,87.33528179506507 L804.5,82.13912937235844" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M840.664718204935,126.5 L845.8608706276416,123.5" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M855.0,180.0 L861.0,180.0" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M840.664718204935,233.5 L845.8608706276416,236.5" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M801.5,272.66471820493496 L804.5,277.8608706276416" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M748.0,287.0 L748.0,293.0" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M694.5,272.66471820493496 L691.5,277.8608706276416" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M655.335281795065,233.5 L650.1391293723584,236.5" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M641.0,180.0 L635.0,180.0" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M655.335281795065,126.49999999999999 L650.1391293723584,123.49999999999999" stroke="#d1d5db" stroke-width="0.5" />
+<path d="M694.5,87.3352817950651 L691.5,82.13912937235847" stroke="#d1d5db" stroke-width="0.5" />
+<g>
+<circle cx="748.0" cy="180.0" r="28" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
+<path d="M748.0,180.0 L776.0,180.0" stroke="#1f2937" stroke-width="1.0" />
+<animateTransform attributeName="transform" dur="5.0s" values="0 748.0 180.0;10.0 748.0 180.0;10.0 748.0 180.0;0 748.0 180.0;0 748.0 180.0" type="rotate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+</g>
+<circle cx="748.0" cy="180.0" r="22" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
+<g transform="rotate(-90.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(-75.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(-60.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(-45.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(-30.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(-15.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(0.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(15.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(30.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(45.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(60.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(75.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(90.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(105.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(120.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(135.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(150.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(165.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(180.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(195.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(210.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(225.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(240.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<g transform="rotate(255.0 748.0 180.0)">
+<g>
+<animateTransform attributeName="transform" dur="5.0s" values="0 0;8 0;8 0;0 0;0 0" type="translate" keyTimes="0; 0.4; 0.6; 0.9; 1" repeatCount="indefinite" />
+<circle cx="846.0" cy="180.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+</g>
+</g>
+<text x="748.0" y="24" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">N = 24</text>
+<text x="748.0" y="342" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280">12 clean opposing pairs</text>
+</svg>

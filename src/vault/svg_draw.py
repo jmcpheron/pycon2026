@@ -18,7 +18,7 @@ import drawsvg as dw
 from vault import diagrams as D
 from vault import style as S
 from vault import vault as V
-from vault.geometry import opposite_partner_index, pin_angles
+from vault.geometry import opposite_partner_index, pin_angles, polar_to_cartesian
 
 
 # Shared canvas geometry — keeps all single-door SVGs at the same scale so
@@ -304,6 +304,145 @@ def draw_animated_hero(filename: str | Path,
 
     D.title(d, cx, 24,
             f"{pin_count}-pin vault · one rotation, N coordinated pins")
+
+    out = Path(filename)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    d.save_svg(str(out))
+    return out
+
+
+def draw_animated_comparison(filename: str | Path,
+                             *,
+                             counts: tuple[int, ...] | None = None,
+                             cam_rotation_deg: float | None = None,
+                             loop_seconds: float = 5.0) -> Path:
+    """Three doors side-by-side, all locking/unlocking on the same loop.
+
+    Built for ``thirteen-pin-problem.md`` and the README hero family.
+    All N pins per panel translate radially in unison; the cam wheel
+    in each panel rotates ±``cam_rotation_deg`` synchronized to the same
+    keyTimes. Watching it: 12 lands cleanly, 13 leaves one pin red with
+    no partner across the dashed phantom marker, 24 packs the door.
+
+    Same SMIL pattern as ``draw_animated_hero`` (one ``<animateTransform>``
+    per pin, one per cam). Renders inline in GitHub markdown via the
+    camo proxy, just like ``gear-ratios-animated.svg``.
+    """
+    if counts is None:
+        counts = (V.PIN_COUNT, V.PRIME_PIN_COUNT, V.FRIENDLY_PIN_COUNT)
+    if cam_rotation_deg is None:
+        cam_rotation_deg = V.CAM_ROTATION_DEG
+
+    # Per-panel layout
+    panel_w = 280
+    panel_h = 280
+    pad = 16
+    title_h = 40
+    subtitle_h = 36
+    width = len(counts) * panel_w + (len(counts) + 1) * pad
+    height = title_h + panel_h + subtitle_h
+
+    door_r_local = 110
+    pin_pitch_r = door_r_local - 12
+    hub_r_local = 22
+    wheel_r_local = 28
+    pin_r_base = 5
+    travel_px = 8
+
+    keytimes = "0; 0.4; 0.6; 0.9; 1"
+    cam_values_template = (
+        "0 {cx} {cy};"
+        "{rot} {cx} {cy};"
+        "{rot} {cx} {cy};"
+        "0 {cx} {cy};"
+        "0 {cx} {cy}"
+    )
+    pin_values = (
+        f"0 0;"
+        f"{travel_px} 0;"
+        f"{travel_px} 0;"
+        f"0 0;"
+        f"0 0"
+    )
+
+    d = D.new_drawing(width, height)
+
+    for i, n in enumerate(counts):
+        cx = pad + i * (panel_w + pad) + panel_w / 2
+        cy = title_h + panel_h / 2
+
+        # Static scenery — door + clock overlay for friendly counts.
+        D.door_outline(d, cx, cy, door_r_local)
+        if n in (12, 24):
+            D.clock_overlay(d, cx, cy, door_r_local)
+
+        # Cam wheel rotates in sync with the pin lock cycle.
+        cam_group = dw.Group()
+        cam_group.append(dw.Circle(cx, cy, wheel_r_local,
+                                   fill=S.GEAR_PINION, stroke=S.INK,
+                                   stroke_width=S.STROKE_THIN))
+        cam_group.append(dw.Line(cx, cy, cx + wheel_r_local, cy,
+                                 stroke=S.INK, stroke_width=S.STROKE_NORMAL))
+        cam_group.append(dw.AnimateTransform(
+            "rotate",
+            f"{loop_seconds}s",
+            cam_values_template.format(cx=cx, cy=cy, rot=cam_rotation_deg),
+            keyTimes=keytimes,
+            repeatCount="indefinite",
+        ))
+        d.append(cam_group)
+
+        D.hub(d, cx, cy, hub_r_local)
+
+        is_odd = n % 2 == 1
+        pin_r = pin_r_base if n <= 16 else max(pin_r_base - 2, 2.5)
+
+        # For odd N, mark the would-be opposite point with a dashed
+        # phantom indicator. Static — only the real pins move.
+        if is_odd:
+            angles_local = pin_angles(n)
+            phantom_angle = angles_local[0] + 180
+            ax, ay = polar_to_cartesian(cx, cy, pin_pitch_r, angles_local[0])
+            px, py = polar_to_cartesian(cx, cy, pin_pitch_r, phantom_angle)
+            d.append(dw.Line(ax, ay, px, py,
+                             stroke=S.ACCENT_HILITE,
+                             stroke_width=S.STROKE_DIM,
+                             stroke_dasharray="3,3"))
+            d.append(dw.Circle(px, py, 3.0,
+                               fill="none", stroke=S.ACCENT_HILITE,
+                               stroke_width=S.STROKE_NORMAL,
+                               stroke_dasharray="2,2"))
+
+        # Animated pins — one rotated outer group + one translating inner
+        # group per pin, all synced to the same keyTimes.
+        for k, angle in enumerate(pin_angles(n)):
+            outer = dw.Group(transform=f"rotate({angle} {cx} {cy})")
+            inner = dw.Group()
+            inner.append(dw.AnimateTransform(
+                "translate",
+                f"{loop_seconds}s",
+                pin_values,
+                keyTimes=keytimes,
+                repeatCount="indefinite",
+            ))
+            highlight = is_odd and k == 0
+            inner.append(dw.Circle(
+                cx + pin_pitch_r, cy, pin_r,
+                fill=S.ACCENT_FAIL if highlight else S.GEAR_BIG,
+                stroke=S.INK,
+                stroke_width=S.STROKE_NORMAL if highlight else S.STROKE_THIN,
+            ))
+            outer.append(inner)
+            d.append(outer)
+
+        # Panel title (above) and subtitle (below).
+        D.title(d, cx, 24, f"N = {n}")
+        sub = "1 orphan, 0 exact pairs" if is_odd else f"{n // 2} clean opposing pairs"
+        d.append(dw.Text(sub, S.FONT_SIZE_LABEL,
+                         x=cx, y=title_h + panel_h + 22,
+                         text_anchor="middle",
+                         font_family=S.FONT_FAMILY,
+                         fill=S.INK_MUTED))
 
     out = Path(filename)
     out.parent.mkdir(parents=True, exist_ok=True)

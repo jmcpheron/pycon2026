@@ -8,6 +8,7 @@ from vault import vault as V
 from vault.geometry import angle_step, divisors
 from vault.svg_draw import (
     draw_13_pin_problem,
+    draw_animated_comparison,
     draw_opposing_pairs,
     draw_vault_pin_layout,
 )
@@ -19,6 +20,7 @@ def build(out_dir: Path) -> Path:
     assets = out_dir / "assets"
     assets.mkdir(parents=True, exist_ok=True)
 
+    animated = draw_animated_comparison(assets / f"{SLUG}-animated.svg")
     layout = draw_vault_pin_layout(V.PRIME_PIN_COUNT,
                                    assets / f"{SLUG}-layout.svg")
     orphan = draw_opposing_pairs(V.PRIME_PIN_COUNT,
@@ -31,6 +33,12 @@ def build(out_dir: Path) -> Path:
 
     md_path = out_dir / f"{SLUG}.md"
     md_path.write_text(f"""# The {V.PRIME_PIN_COUNT}-pin vault problem
+
+![animated comparison — {V.PIN_COUNT}, {V.PRIME_PIN_COUNT}, {V.FRIENDLY_PIN_COUNT} pins all locking and unlocking on the same loop](assets/{animated.name})
+
+> *Three doors, one cycle. Watch the middle panel: pin 0 is red because
+> it has no partner across the diameter. The dashed marker shows where
+> its missing partner would have to sit.*
 
 A {V.PRIME_PIN_COUNT}-pin vault door is not impossible. In CAD, placing
 {V.PRIME_PIN_COUNT} equally spaced pins around a circle is one circular

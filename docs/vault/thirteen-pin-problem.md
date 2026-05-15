@@ -1,5 +1,11 @@
 # The 13-pin vault problem
 
+![animated comparison — 12, 13, 24 pins all locking and unlocking on the same loop](assets/thirteen-pin-problem-animated.svg)
+
+> *Three doors, one cycle. Watch the middle panel: pin 0 is red because
+> it has no partner across the diameter. The dashed marker shows where
+> its missing partner would have to sit.*
+
 A 13-pin vault door is not impossible. In CAD, placing
 13 equally spaced pins around a circle is one circular
 pattern away.
