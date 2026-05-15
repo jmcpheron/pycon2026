@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="664" height="380" viewBox="0 0 664 380">
+<defs>
+</defs>
+<rect x="0" y="0" width="664" height="380" fill="#fafaf9" />
+<circle cx="160.0" cy="180.0" r="130" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.0" />
+<g transform="rotate(0.0 160.0 180.0)">
+<circle cx="160.0" cy="180.0" r="36" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
+<path d="M160.0,180.0 L196.0,180.0" stroke="#1f2937" stroke-width="1.0" />
+</g>
+<circle cx="160.0" cy="180.0" r="28" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
+<path d="M160.0,62.0 L160.0,298.0" stroke="#2563eb" stroke-width="0.5" />
+<path d="M219.0,77.80900235343624 L101.00000000000003,282.1909976465638" stroke="#2563eb" stroke-width="0.5" />
+<path d="M262.1909976465638,121.0 L57.80900235343623,239.0" stroke="#2563eb" stroke-width="0.5" />
+<path d="M278.0,180.0 L42.0,180.00000000000003" stroke="#2563eb" stroke-width="0.5" />
+<path d="M262.1909976465638,239.0 L57.80900235343624,120.99999999999999" stroke="#2563eb" stroke-width="0.5" />
+<path d="M219.0,282.19099764656374 L100.99999999999994,77.80900235343627" stroke="#2563eb" stroke-width="0.5" />
+<circle cx="160.0" cy="62.0" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="219.0" cy="77.80900235343624" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="262.1909976465638" cy="121.0" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="278.0" cy="180.0" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="262.1909976465638" cy="239.0" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="219.0" cy="282.19099764656374" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="160.0" cy="298.0" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="101.00000000000003" cy="282.1909976465638" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="57.80900235343623" cy="239.0" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="42.0" cy="180.00000000000003" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="57.80900235343624" cy="120.99999999999999" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="100.99999999999994" cy="77.80900235343627" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<text x="160.0" y="24" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">12 pins  ·  6 clean pairs</text>
+<circle cx="504.0" cy="180.0" r="130" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.0" />
+<g transform="rotate(0.0 504.0 180.0)">
+<circle cx="504.0" cy="180.0" r="36" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
+<path d="M504.0,180.0 L540.0,180.0" stroke="#1f2937" stroke-width="1.0" />
+</g>
+<circle cx="504.0" cy="180.0" r="28" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="504.0" cy="62.0" r="6" fill="#dc2626" stroke="#1f2937" stroke-width="1.0" />
+<circle cx="558.8373343011647" cy="75.51618897292123" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="601.1120961754515" cy="112.96835988572363" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="621.1396471435704" cy="165.77667172987188" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="614.331916636879" cy="221.8433766710192" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="582.2484736724139" cy="268.3242682841899" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="532.2392483859318" cy="294.57113445627414" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="475.7607516140681" cy="294.57113445627414" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="425.75152632758613" cy="268.3242682841899" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="393.66808336312107" cy="221.84337667101923" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="386.86035285642964" cy="165.7766717298719" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="406.8879038245486" cy="112.96835988572359" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="449.1626656988353" cy="75.51618897292121" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="504.0" cy="298.0" r="3.0" fill="none" stroke="#2563eb" stroke-width="1.0" stroke-dasharray="2,2" />
+<path d="M504.0,62.0 L504.0,298.0" stroke="#2563eb" stroke-width="0.5" stroke-dasharray="3,3" />
+<text x="504.0" y="292.0" font-size="9" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#2563eb">no pin here</text>
+<text x="504.0" y="24" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">13 pins  ·  1 orphan, 0 exact pairs</text>
+<text x="332" y="370" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280" font-style="italic">Same math — different mechanical consequences.</text>
+</svg>

@@ -64,6 +64,14 @@ There are six short explainer pages if you want the longer version:
 - [**Terminology**](docs/explainers/terminology.md) — pinion, module, pitch circle, addendum. The 90 seconds of vocabulary the other pages assume.
 - [**Printing considerations**](docs/explainers/printing.md) — orientation, chamfers, why each post is its own part.
 
+## A side study — the rotary vault door
+
+A separate Python-driven design study lives in [`src/vault/`](src/vault/) and [`docs/vault/`](docs/vault/). The gear card is about **reduction** — one input rotation becomes a much slower output rotation. The vault door study is about **coordination** — one input rotation moves many locking pins around a circular door.
+
+It's a quick lens on circular symmetry: why pin counts that divide cleanly into pairs and quadrants (12, 24) read better mechanically than primes (13 leaves one pin orphaned across the diameter), and how a 10° cam rotation translates to ~12 mm of arc travel at a 70 mm pin radius. Same pattern as the explainers: one parameter file ([`vault.py`](src/vault/vault.py)) drives every diagram and markdown page; `uv run vault build` regenerates everything; CI auto-commits the result.
+
+This is a fan-made educational study, not affiliated with any specific show or product. Start at [**docs/vault/**](docs/vault/README.md), or jump to [**the 13-pin problem**](docs/vault/thirteen-pin-problem.md) if you just want the punchline.
+
 ## How it gets built
 
 The card itself lives in Onshape. The STEP export is committed at the repo root. A little Click CLI called `cardlab` (in [`src/cardlab/`](src/cardlab/)) does five small things to it, leaning on [`build123d`](https://github.com/gumyr/build123d) and [`cascadio`](https://github.com/trimesh/cascadio):

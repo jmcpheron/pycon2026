@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="320" height="360" viewBox="0 0 320 360">
+<defs>
+</defs>
+<rect x="0" y="0" width="320" height="360" fill="#fafaf9" />
+<circle cx="160.0" cy="180.0" r="130" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.0" />
+<g transform="rotate(0.0 160.0 180.0)">
+<circle cx="160.0" cy="180.0" r="36" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
+<path d="M160.0,180.0 L196.0,180.0" stroke="#1f2937" stroke-width="1.0" />
+</g>
+<circle cx="160.0" cy="180.0" r="28" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
+<path d="M160.0,62.0 L160.0,298.0" stroke="#2563eb" stroke-width="0.5" />
+<path d="M219.0,77.80900235343624 L101.00000000000003,282.1909976465638" stroke="#2563eb" stroke-width="0.5" />
+<path d="M262.1909976465638,121.0 L57.80900235343623,239.0" stroke="#2563eb" stroke-width="0.5" />
+<path d="M278.0,180.0 L42.0,180.00000000000003" stroke="#2563eb" stroke-width="0.5" />
+<path d="M262.1909976465638,239.0 L57.80900235343624,120.99999999999999" stroke="#2563eb" stroke-width="0.5" />
+<path d="M219.0,282.19099764656374 L100.99999999999994,77.80900235343627" stroke="#2563eb" stroke-width="0.5" />
+<circle cx="160.0" cy="62.0" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="219.0" cy="77.80900235343624" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="262.1909976465638" cy="121.0" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="278.0" cy="180.0" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="262.1909976465638" cy="239.0" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="219.0" cy="282.19099764656374" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="160.0" cy="298.0" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="101.00000000000003" cy="282.1909976465638" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="57.80900235343623" cy="239.0" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="42.0" cy="180.00000000000003" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="57.80900235343624" cy="120.99999999999999" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="100.99999999999994" cy="77.80900235343627" r="6" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<text x="160.0" y="24" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">12 pins = 6 opposing pairs</text>
+</svg>

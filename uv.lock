@@ -894,6 +894,9 @@ step = [
     { name = "pillow" },
     { name = "trimesh" },
 ]
+vault = [
+    { name = "drawsvg" },
+]
 
 [package.metadata]
 requires-dist = [
@@ -902,13 +905,14 @@ requires-dist = [
     { name = "cascadio", marker = "extra == 'step'", specifier = ">=0.0.18rc6" },
     { name = "click", specifier = ">=8.1.0" },
     { name = "drawsvg", marker = "extra == 'explainers'", specifier = ">=2.4" },
+    { name = "drawsvg", marker = "extra == 'vault'", specifier = ">=2.4" },
     { name = "matplotlib", marker = "extra == 'explainers'", specifier = ">=3.9" },
     { name = "pillow", marker = "extra == 'step'", specifier = ">=10" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0.0" },
     { name = "trimesh", marker = "extra == 'explainers'", specifier = ">=4" },
     { name = "trimesh", marker = "extra == 'step'", specifier = ">=4" },
 ]
-provides-extras = ["dev", "explainers", "step"]
+provides-extras = ["dev", "explainers", "vault", "step"]
 
 [[package]]
 name = "pygments"
