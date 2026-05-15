@@ -175,6 +175,80 @@ def test_index_builds(tmp_path: Path) -> None:
     ):
         assert topic_slug in text, f"README.md doesn't link {topic_slug}"
 
+    # The README leads with the animated hero — verify it exists.
+    hero = tmp_path / "assets" / "vault-hero-animated.svg"
+    assert hero.exists(), "README build did not emit the animated hero SVG"
+    assert hero.stat().st_size > 1000
+
+    # CTA to the live interactive explorer must be present.
+    assert "pin-explorer.html" in text
+    # Maker-story open: the first-person observation should be there.
+    assert "Adam Savage" in text
+
+
+def test_animated_hero_has_smil() -> None:
+    """The hero SVG must contain SMIL <animateTransform> elements — one
+    rotate (cam) and N translate (pins). Mirrors the discipline of
+    test_animated_hero_speeds_compound_correctly in test_explainers.py.
+    """
+    import xml.etree.ElementTree as ET
+    from vault.svg_draw import draw_animated_hero
+    from vault import vault as V
+
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        hero = draw_animated_hero(Path(td) / "hero.svg")
+        ns = "{http://www.w3.org/2000/svg}"
+        root = ET.parse(hero).getroot()
+        transforms = root.findall(f".//{ns}animateTransform")
+        rotates = [t for t in transforms if t.attrib.get("type") == "rotate"]
+        translates = [t for t in transforms if t.attrib.get("type") == "translate"]
+        assert len(rotates) == 1, (
+            f"expected exactly 1 cam-rotate animateTransform, got {len(rotates)}"
+        )
+        assert len(translates) == V.PIN_COUNT, (
+            f"expected {V.PIN_COUNT} pin-translate animateTransforms, "
+            f"got {len(translates)}"
+        )
+        # All animations should loop indefinitely.
+        for t in transforms:
+            assert t.attrib.get("repeatCount") == "indefinite"
+
+
+def test_pin_explorer_html_exists() -> None:
+    """The hand-written interactive explorer must be present and wired.
+
+    Checks structure rather than implementation: required IDs, the
+    geometry helpers that drive the live updates, and the link back
+    into the docs.
+    """
+    explorer = Path(__file__).resolve().parents[1] / "docs" / "vault" / "pin-explorer.html"
+    assert explorer.exists(), "docs/vault/pin-explorer.html is missing"
+    html = explorer.read_text()
+
+    # Slider + output + readout fields the JS depends on.
+    for needle in (
+        'id="pin-count"',
+        'id="pin-count-out"',
+        'id="angle-step"',
+        'id="divisors"',
+        'id="pair-count"',
+        'id="rack-budget"',
+        'id="verdict"',
+        'id="vault-svg"',
+    ):
+        assert needle in html, f"explorer is missing {needle}"
+
+    # Geometry helpers — these must stay in sync with src/vault/geometry.py.
+    for fn in ("function angleStep", "function pinAngles",
+               "function polar", "function divisors", "function rackBudgetMm"):
+        assert fn in html, f"explorer is missing geometry helper {fn!r}"
+
+    # Style integration with the rest of the site.
+    assert 'href="../assets/styles.css"' in html
+    # Navigation back into the study.
+    assert 'href="README.md"' in html
+
 
 def test_no_drift_between_sections(tmp_path: Path) -> None:
     """Vault constants should appear textually in every topic markdown that
@@ -220,6 +294,24 @@ def test_no_drift_between_sections(tmp_path: Path) -> None:
             str(int(V.DOOR_DIAMETER_MM)),
         ),
     }
+
+    # Also enforce no-drift on the README — it mentions multiple
+    # source-of-truth values in its parameters block.
+    from vault.index import build_index
+    readme_text = build_index(tmp_path).read_text()
+    for needle in (
+        str(V.PIN_COUNT),
+        str(V.PRIME_PIN_COUNT),
+        str(V.FRIENDLY_PIN_COUNT),
+        f"{V.CENTRAL_PINION_RADIUS_MM:g}",
+        str(int(V.DOOR_DIAMETER_MM)),
+        str(int(V.PIN_RADIUS_MM)),
+        f"{V.CAM_ROTATION_DEG:g}",
+    ):
+        assert needle in readme_text, (
+            f"README.md: expected {needle!r} (a vault.py-derived value) "
+            f"somewhere in the rendered landing page"
+        )
 
     for name in VAULT_TOPICS:
         module = importlib.import_module(f"vault.{name}")

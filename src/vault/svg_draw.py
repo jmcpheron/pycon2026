@@ -215,6 +215,102 @@ def draw_rack_packing(filename: str | Path,
     return out
 
 
+def draw_animated_hero(filename: str | Path,
+                       *, pin_count: int | None = None,
+                       cam_rotation_deg: float | None = None,
+                       loop_seconds: float = 5.0) -> Path:
+    """Animated hero SVG — pins lock/unlock in sync with cam rotation.
+
+    Uses SMIL ``<animateTransform>`` (the same pattern as
+    ``explainers.diagrams.animated_compound_gear``). GitHub renders this
+    via its camo proxy, so the animation plays inline in the rendered
+    README on both github.com and Pages.
+
+    One full ``loop_seconds`` cycle:
+
+        0.0 → 0.4 · pins extend, cam rotates +cam_rotation_deg
+        0.4 → 0.6 · dwell extended (locked)
+        0.6 → 0.9 · pins retract, cam rotates back to 0°
+        0.9 → 1.0 · dwell retracted (unlocked)
+    """
+    if pin_count is None:
+        pin_count = V.PIN_COUNT
+    if cam_rotation_deg is None:
+        cam_rotation_deg = V.CAM_ROTATION_DEG
+
+    d = D.new_drawing(CANVAS, CANVAS + 40)
+    cx, cy = CENTER, CENTER + 20
+
+    # Static scenery — door + faint clock-face overlay so motion reads as
+    # snapping between two discrete positions.
+    D.door_outline(d, cx, cy, DOOR_R)
+    if pin_count in (12, 24):
+        D.clock_overlay(d, cx, cy, DOOR_R)
+
+    # --- Cam wheel (rotates in sync with pin motion) ---------------------
+    cam_group = dw.Group()
+    cam_group.append(dw.Circle(cx, cy, WHEEL_R,
+                               fill=S.GEAR_PINION, stroke=S.INK,
+                               stroke_width=S.STROKE_THIN))
+    cam_group.append(dw.Line(cx, cy, cx + WHEEL_R, cy,
+                             stroke=S.INK, stroke_width=S.STROKE_NORMAL))
+    cam_group.append(dw.AnimateTransform(
+        "rotate",
+        f"{loop_seconds}s",
+        (
+            f"0 {cx} {cy};"
+            f"{cam_rotation_deg} {cx} {cy};"
+            f"{cam_rotation_deg} {cx} {cy};"
+            f"0 {cx} {cy};"
+            f"0 {cx} {cy}"
+        ),
+        keyTimes="0; 0.4; 0.6; 0.9; 1",
+        repeatCount="indefinite",
+    ))
+    d.append(cam_group)
+
+    # Hub on top of cam so the cam's spoke disappears under it inside
+    # the hub radius — keeps the eye on the perimeter motion.
+    D.hub(d, cx, cy, HUB_R)
+
+    # --- Radial pins (translate radially in/out) ------------------------
+    pin_pitch_r = DOOR_R - 12  # pitch circle the pin centres ride on
+    travel_px = 10             # animation amplitude (purely visual)
+    for angle in pin_angles(pin_count):
+        # Each pin lives in its own rotated frame so a translate of (+x,0)
+        # in the inner group moves the pin radially outward.
+        # The rotated group rotates the local +x axis to point along
+        # `angle`; the pin is drawn at (cx + pin_pitch_r, cy) inside.
+        outer = dw.Group(transform=f"rotate({angle} {cx} {cy})")
+        inner = dw.Group()
+        inner.append(dw.AnimateTransform(
+            "translate",
+            f"{loop_seconds}s",
+            (
+                f"0 0;"
+                f"{travel_px} 0;"
+                f"{travel_px} 0;"
+                f"0 0;"
+                f"0 0"
+            ),
+            keyTimes="0; 0.4; 0.6; 0.9; 1",
+            repeatCount="indefinite",
+        ))
+        inner.append(dw.Circle(cx + pin_pitch_r, cy, PIN_R,
+                               fill=S.GEAR_BIG, stroke=S.INK,
+                               stroke_width=S.STROKE_THIN))
+        outer.append(inner)
+        d.append(outer)
+
+    D.title(d, cx, 24,
+            f"{pin_count}-pin vault · one rotation, N coordinated pins")
+
+    out = Path(filename)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    d.save_svg(str(out))
+    return out
+
+
 def draw_13_pin_problem(filename: str | Path) -> Path:
     """Side-by-side 12-pin clean vs. 13-pin orphan illustration.
 

@@ -1,80 +1,104 @@
 # Vault Door Mechanism Study
 
-This section extends the PyCon 2026 gear-ratio project into a vault-door
-mechanism study.
+![12-pin vault door — pins extending and retracting from one cam rotation](assets/vault-hero-animated.svg)
 
-The original gear card explores **reduction**: one input rotation becomes
-a much slower output rotation. The vault door study explores
-**coordination**: one input rotation moves many locking pins around a
-circular door.
+> *A small Python toy for the geometry of rotary vault-door pin mechanisms.
+> Symmetry, gearing, packaging, and why 12 friends are kinder
+> than 13.*
 
-The model is inspired by miniature vault-door builds, but it is not an
-official model or a replica of any specific design. It is an educational
-CAD and geometry project about symmetry, gearing, pin motion, and
-parametric design.
+## I made this because I got curious
 
-> Prime numbers aren't impossible in CAD. They're just rude to symmetry.
+Watching Adam Savage's mini vault-door build, I kept staring at one
+detail I didn't understand at first: each pin had a section of straight
+gear teeth cut into it, and the back of that section — the spine,
+opposite the teeth — was machined surprisingly thin. More material
+removed than weight savings would justify. When the parts went together
+inside the door it clicked. **The pin count was forcing the geometry.**
 
-## The default door (all numbers live in [`vault.py`](../../src/vault/vault.py))
+A single central pinion has to drive all N racks at once, the racks
+share the perimeter of that one pinion, and each rack's spine gets
+machined down to whatever slice it gets. Bigger N → thinner slice.
+Adam wasn't choosing the shape; the pin count was choosing it for him.
+
+That observation kept me up an evening. This repo is what came out — a
+Python parametric study of how pin count, symmetry, gearing, and
+packaging interact on a circular vault door. Every diagram below is
+generated from one parameter file
+([`vault.py`](../../src/vault/vault.py)); change a number, every page
+re-derives.
+
+## Play with it
+
+**[→ Open the live pin-count explorer](https://jmcpheron.github.io/pycon2026/vault/pin-explorer.html)**
+
+Drag the slider from 3 to 30 pins. The layout snaps. The readout panel
+shows the angle step (`360/N`), the divisors of N, whether the count
+has exact opposing pairs, and how thin the rack body has to be at that
+pin count given the canonical 12 mm pinion.
+
+> 12 reads clean.  13 leaves an orphan.  24 pinches the racks to slivers.
+
+*(Clicking that link from GitHub.com opens the page source. Open it
+through GitHub Pages for the live version — the URL above lands you
+there directly.)*
+
+## Five short sections
+
+1. [**Symmetry**](symmetry.md) — why 12 and 24 read as obvious and 13 doesn't.
+2. [**The 13-pin problem**](thirteen-pin-problem.md) — possible but mechanically awkward, and exactly *why* — no exact opposing pairs, no subgroup structure, no shared linkages.
+3. [**Pin counts**](pin-counts.md) — small-multiples comparison plus the rack-thinning note from watching Adam's video, with the inequality `t ≤ 2π·r_pinion/N − clearance` and a per-N budget table.
+4. [**Motion and travel**](motion-and-travel.md) — what a 10° cam rotation actually gets you. `arc = r·θ`, the cam-radius table, and the careful distinction between *arc travel* and *radial pin travel*.
+5. [**Onshape workflow**](onshape-workflow.md) — how the Python parameters in [`vault.py`](../../src/vault/vault.py) map to a parametric CAD model.
+
+## For the Tested community
+
+If you got here via the Tested Maker Share: hi. Adam's mini vault-door
+build sparked this study; it is a love-letter to the geometry, not a
+clone of his mechanism. Fork it, remix it, riff on it — change the pin
+count in [`vault.py`](../../src/vault/vault.py), run `uv run vault build`,
+and every page above re-derives with your numbers. The interactive
+explorer takes the same input live in your browser. Send me what you
+find.
+
+## Default door parameters
 
 * Door diameter: **160 mm**, thickness **8 mm**
-* Pin count: **12**, on a pitch circle of radius **70 mm**
+* Pin count: **12** on a pitch circle of radius **70 mm**
 * Pin travel: **8 mm** radial
 * Central cam rotation: **10°** (sweeps **12.22 mm** of arc at the pin radius)
+* Central pinion radius: **12 mm** (bounds rack-body thickness to **5.98 mm** at N = 12)
 
-Change a number in [`vault.py`](../../src/vault/vault.py) and every page
-below re-derives on the next `uv run vault build`.
+Change any of these in [`vault.py`](../../src/vault/vault.py) and the
+explainer pages, hero animation, and budget tables all re-derive on the
+next `uv run vault build`.
 
-## The four sections
-
-### 1. [Symmetry — why circles love friendly numbers](symmetry.md)
-
-The angle-step table for 12, 24, and
-their friends. Why a clock-face layout reads as obvious. How opposing
-pairs collapse N pins into N/2 mirrored parts.
-
-### 2. [The 13-pin problem](thirteen-pin-problem.md)
-
-A 13-pin layout is mathematically clean and mechanically
-awkward. Where the orphan pin lands, why no shared rack works, and what
-you give up by picking a prime.
-
-### 3. [Pin counts — comparing 6, 8, 12, 13, 24](pin-counts.md)
-
-A small-multiples grid. Divisor chips. The mechanical case for composite
-counts, in one image.
-
-### 4. [Motion and travel — what 10° gets you](motion-and-travel.md)
-
-`arc = r·θ`, the cam-radius table, and the careful distinction between
-*arc travel* and *radial pin travel*.
-
-### 5. [Onshape workflow](onshape-workflow.md)
-
-How the Python parameters in [`vault.py`](../../src/vault/vault.py) map to
-Onshape variables, and a phased plan for building the parametric CAD
-model alongside the SVG study.
-
-## Generated, like the explainers
-
-Every SVG and table on these pages is produced by a Python script in
-[`src/vault/`](../../src/vault). The maths and visuals come from one
-parameter file ([`vault.py`](../../src/vault/vault.py)). CI rebuilds the
-pages on every push that touches `src/vault/` and auto-commits the
-regenerated markdown + SVGs.
+## How it gets built
 
 ```
 src/vault/<topic>.py  ─►  uv run vault build <topic>  ─►  docs/vault/<topic>.md (+ assets/*.svg)
 ```
 
-## Disclaimer
+The pages are regenerated by [`.github/workflows/build-vault.yml`](../../.github/workflows/build-vault.yml)
+on every push that touches `src/vault/` and auto-committed back to
+`main`, alongside the parallel auto-commit workflows for the gear card
+and the engineering explainers.
+
+The interactive [`pin-explorer.html`](pin-explorer.html) is *not*
+regenerated — it's hand-written, self-contained, deployed by
+[`.github/workflows/pages.yml`](../../.github/workflows/pages.yml).
+
+## Disclaimer · licenses
 
 This is a fan-made educational mechanism study inspired by public maker
-videos and general vault-door mechanisms. It is not an official Tested
-project and does not reproduce any private plans. Code is MIT; diagrams
-and any 3D files released under this directory are CC BY-SA 4.0
-([see the repo licenses](../../LICENSE)).
+videos and general vault-door mechanisms. It is **not** an official
+Tested project, does not reproduce any private plans, and is not
+affiliated with Adam Savage's Tested.com.
+
+Code: MIT.
+Diagrams + 3D files under this directory: CC BY-SA 4.0.
+See [`LICENSE`](../../LICENSE) and [`LICENSE-3D-FILES`](../../LICENSE-3D-FILES).
 
 ---
 
-*Generated by `src/vault/index.py`.*
+*Generated by `src/vault/index.py`. Source-of-truth parameters live in
+[`src/vault/vault.py`](../../src/vault/vault.py).*
