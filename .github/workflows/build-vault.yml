@@ -1,0 +1,100 @@
+name: Build Vault Door Study
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/vault/**'
+      - 'pyproject.toml'
+      - '.github/workflows/build-vault.yml'
+  pull_request:
+    paths:
+      - 'src/vault/**'
+      - 'pyproject.toml'
+      - '.github/workflows/build-vault.yml'
+
+# Cancel any in-flight run for the same branch when a new push arrives.
+concurrency:
+  group: build-vault-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-vault:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: 'uv.lock'
+
+      - name: Sync dependencies (vault extra is fast — drawsvg only)
+        run: uv sync --extra vault
+
+      - name: Build all vault topic pages
+        run: uv run vault build
+
+      - name: Verify outputs
+        run: |
+          ls -la docs/vault/ docs/vault/assets/
+          test -f docs/vault/README.md
+          test -f docs/vault/symmetry.md
+          test -f docs/vault/thirteen-pin-problem.md
+          test -f docs/vault/pin-counts.md
+          test -f docs/vault/motion-and-travel.md
+          test -f docs/vault/onshape-workflow.md
+          # Each non-onshape topic emits at least one SVG.
+          ls docs/vault/assets/symmetry-*.svg
+          ls docs/vault/assets/thirteen-pin-problem-*.svg
+          ls docs/vault/assets/pin-counts-*.svg
+          ls docs/vault/assets/motion-and-travel-*.svg
+
+      - name: Upload generated docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: vault-docs
+          path: |
+            docs/vault/*.md
+            docs/vault/assets/*.svg
+          retention-days: 30
+
+      - name: Commit regenerated vault pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add docs/vault/*.md docs/vault/assets/*.svg
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-regenerate vault pages from src/vault/
+
+          Generated with GitHub Actions"
+            # Push with rebase-and-retry — peer auto-commit workflows
+            # (build-explainers, build-card, build-step) sometimes race
+            # us to main. Each workflow writes to disjoint paths, so
+            # rebasing onto the winner is always conflict-free.
+            for attempt in 1 2 3 4 5; do
+              if git push; then
+                echo "Pushed on attempt $attempt"
+                break
+              fi
+              echo "Push rejected (attempt $attempt); rebasing onto origin/main..."
+              git fetch origin main
+              git rebase origin/main || { git rebase --abort; exit 1; }
+            done
+          fi

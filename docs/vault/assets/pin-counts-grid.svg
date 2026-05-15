@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="480" height="344" viewBox="0 0 480 344">
+<defs>
+</defs>
+<rect x="0" y="0" width="480" height="344" fill="#fafaf9" />
+<circle cx="80.0" cy="96.0" r="56.0" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.0" />
+<g transform="rotate(0.0 80.0 96.0)">
+<circle cx="80.0" cy="96.0" r="11" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
+<path d="M80.0,96.0 L91.0,96.0" stroke="#1f2937" stroke-width="1.0" />
+</g>
+<circle cx="80.0" cy="96.0" r="8" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="80.0" cy="46.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="123.30127018922194" cy="71.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="123.30127018922194" cy="121.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="80.0" cy="146.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="36.69872981077806" cy="121.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="36.69872981077807" cy="71.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<text x="80.0" y="16" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">6 pins  ·  60.00°</text>
+<circle cx="240.0" cy="96.0" r="56.0" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.0" />
+<g transform="rotate(0.0 240.0 96.0)">
+<circle cx="240.0" cy="96.0" r="11" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
+<path d="M240.0,96.0 L251.0,96.0" stroke="#1f2937" stroke-width="1.0" />
+</g>
+<circle cx="240.0" cy="96.0" r="8" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="240.0" cy="46.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="275.3553390593274" cy="60.64466094067263" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="290.0" cy="96.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="275.3553390593274" cy="131.35533905932738" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="240.0" cy="146.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="204.64466094067262" cy="131.35533905932738" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="190.0" cy="96.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="204.64466094067262" cy="60.64466094067263" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<text x="240.0" y="16" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">8 pins  ·  45.00°</text>
+<circle cx="400.0" cy="96.0" r="56.0" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.0" />
+<g transform="rotate(0.0 400.0 96.0)">
+<circle cx="400.0" cy="96.0" r="11" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
+<path d="M400.0,96.0 L411.0,96.0" stroke="#1f2937" stroke-width="1.0" />
+</g>
+<circle cx="400.0" cy="96.0" r="8" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="400.0" cy="46.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="425.0" cy="52.69872981077807" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="443.30127018922195" cy="71.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="450.0" cy="96.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="443.30127018922195" cy="121.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="425.0" cy="139.30127018922192" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="400.0" cy="146.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="375.0" cy="139.30127018922195" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="356.69872981077805" cy="121.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="350.0" cy="96.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="356.69872981077805" cy="71.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="375.0" cy="52.69872981077808" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<text x="400.0" y="16" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">12 pins  ·  30.00°</text>
+<circle cx="80.0" cy="256.0" r="56.0" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.0" />
+<g transform="rotate(0.0 80.0 256.0)">
+<circle cx="80.0" cy="256.0" r="11" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
+<path d="M80.0,256.0 L91.0,256.0" stroke="#1f2937" stroke-width="1.0" />
+</g>
+<circle cx="80.0" cy="256.0" r="8" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="80.0" cy="206.0" r="3" fill="#dc2626" stroke="#1f2937" stroke-width="1.0" />
+<circle cx="103.23615860218842" cy="211.7271987173395" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="121.14919329468282" cy="227.5967626634422" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="129.63544370490268" cy="249.97316598723384" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="126.75081213427075" cy="273.73024435212676" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="113.15613291203977" cy="293.42553740855504" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="91.96578321437788" cy="304.5470908713026" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="68.03421678562209" cy="304.5470908713026" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="46.843867087960234" cy="293.42553740855504" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="33.24918786572926" cy="273.7302443521268" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="30.3645562950973" cy="249.97316598723387" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="38.85080670531719" cy="227.5967626634422" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="56.76384139781158" cy="211.7271987173395" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<text x="80.0" y="176" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">13 pins  ·  27.69°</text>
+<circle cx="240.0" cy="256.0" r="56.0" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.0" />
+<g transform="rotate(0.0 240.0 256.0)">
+<circle cx="240.0" cy="256.0" r="11" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
+<path d="M240.0,256.0 L251.0,256.0" stroke="#1f2937" stroke-width="1.0" />
+</g>
+<circle cx="240.0" cy="256.0" r="8" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="240.0" cy="206.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="252.94095225512604" cy="207.7037086855466" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="265.0" cy="212.69872981077808" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="275.3553390593274" cy="220.64466094067262" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="283.30127018922195" cy="231.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="288.2962913144534" cy="243.05904774487396" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="290.0" cy="256.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="288.2962913144534" cy="268.94095225512604" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="283.30127018922195" cy="281.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="275.3553390593274" cy="291.3553390593274" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="265.0" cy="299.30127018922195" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="252.94095225512604" cy="304.2962913144534" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="240.0" cy="306.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="227.05904774487396" cy="304.2962913144534" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="215.0" cy="299.30127018922195" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="204.64466094067262" cy="291.3553390593274" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="196.69872981077805" cy="281.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="191.7037086855466" cy="268.94095225512604" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="190.0" cy="256.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="191.7037086855466" cy="243.05904774487396" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="196.69872981077808" cy="231.0" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="204.64466094067262" cy="220.64466094067262" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="214.99999999999997" cy="212.69872981077808" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="227.05904774487396" cy="207.7037086855466" r="3" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<text x="240.0" y="176" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">24 pins  ·  15.00°</text>
+</svg>
