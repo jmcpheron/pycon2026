@@ -21,6 +21,18 @@ Pipeline (mirrors ``src/cardlab/explode.py``):
        * write a SCAD shim that imports each STL with the right
          ``translate(...) rotate(...)`` wrappers,
        * render one PNG with OpenSCAD (xvfb-wrapped in CI).
+
+  Each rack sits **coplanar with its spur** and **tangentially offset
+  by ``spur_pitch_r + rack_stock/2``** so the rack-and-pinion mesh is
+  a real geometric mesh (the spur's tangentially-topmost tooth meets
+  the rack's −y face). Each rack's +y face — the spine, opposite the
+  tooth-bearing face — is boolean-subtracted down to
+  ``MAX_RACK_TANGENTIAL_THICKNESS_MM`` (≈ 5.98 mm), which is the
+  per-pin tangential budget that ``docs/vault/pin-counts.md``'s table
+  is built from. The pin centreline is colinear with the rack
+  centreline (also at +y offset), so the 12 pins ride on a circle that
+  is rotated by ≈ ``atan2(rack_y_offset, R_pin)`` ≈ 8.7° relative to
+  the spurs — same offset as a real rack-and-pinion central drive.
   4. Stitch the PNGs into a GIF with PIL using the same 80 ms / loop=0 /
      adaptive-palette knobs ``cardlab`` already uses.
 
@@ -97,9 +109,14 @@ _RING_Z = _DOOR_Z + _DOOR_THICKNESS + 0.1
 _RING_THICKNESS = 4.0
 _SPUR_Z = _RING_Z
 _SPUR_THICKNESS = _RING_THICKNESS
-_RACK_Z = _RING_Z + _RING_THICKNESS + 0.1
+# Rack is coplanar with the spur in z so the rack-and-pinion mesh is a
+# real mesh. The spur is 4 mm thick and the rack stock is 8 mm thick;
+# they overlap in z over the spur's full thickness, with the rack
+# extending 2 mm above and below the spur — gives a strong visual read
+# of "this thick square bar is being driven by that gear".
 _RACK_THICKNESS = V.MECH_RACK_STOCK_MM  # 8 mm cube cross-section
-_PIN_Z = _RACK_Z + _RACK_THICKNESS / 2  # pin axis through rack centreline
+_RACK_Z_CENTER = _SPUR_Z + _SPUR_THICKNESS / 2  # 5.1 mm — same as spur centre
+_PIN_Z = _RACK_Z_CENTER  # pin axis through rack centreline
 
 # Rack length: from just outside the spur gear's tip out to the door rim,
 # scaled so the rack stays inside the door in both lock states.
@@ -126,6 +143,28 @@ def _pin_travel_mm() -> float:
     to read as 'a pin extending into a lock bore' on a 24-frame GIF.
     The README's 'study, not a clone' disclaimer covers this scaling."""
     return V.PIN_TRAVEL_MM
+
+
+def _rack_y_offset() -> float:
+    """Tangential offset (in the spur's local frame) of the rack centreline
+    from the spur's radial axis.
+
+    The spur's tangentially-topmost tooth meets the rack's −y face, so the
+    rack centreline sits at +y = (spur pitch radius + half rack stock)
+    above the spur centre. This is what makes the mesh a real
+    rack-and-pinion rather than two parts sharing a radius.
+    """
+    return _spur_pitch_r() + V.MECH_RACK_STOCK_MM / 2
+
+
+def _pin_angular_offset_deg() -> float:
+    """Angular offset (degrees) between a spur's radial line and the
+    pin its rack pushes. The rack/pin sit at +y = ``_rack_y_offset()``
+    in the spur's local frame; the pin centre therefore lands at
+    ``atan2(y_offset, R_pin)`` of arc relative to the spur. For
+    R_pin ≈ 65 mm and y_offset = 10 mm this is ≈ 8.7°.
+    """
+    return math.degrees(math.atan2(_rack_y_offset(), _pin_rest_r()))
 
 
 # --- Part builders ---------------------------------------------------------
@@ -181,17 +220,38 @@ def _build_spur_gear():
 
 
 def _build_rack():
-    """8×8 mm square stock, length = ``_rack_length()``. The teeth on the
-    real part live on one long tangential face; for a small inline GIF
-    they wouldn't be resolvable, so we draw the rack as a smooth bar and
-    let the *position* (sliding under the spur gear) tell the story."""
+    """8 × L × 8 mm square stock with a milled spine on one long face.
+
+    Canonical orientation: rack's long axis is +x, square cross-section
+    spans y and z, centred at origin. The −y face is the tooth-bearing
+    face (meets the spur's tangentially-topmost tooth at install time).
+    The +y face — the spine — is boolean-subtracted down to
+    ``MAX_RACK_TANGENTIAL_THICKNESS_MM`` so the rack body fits its
+    per-pin tangential allotment (the design tax that
+    ``docs/vault/pin-counts.md`` is built around: each rack gets
+    ``2π·r_pinion/N − clearance`` of tangential meat, no more).
+    """
     from build123d import Box
 
-    length = _rack_length()
-    # Canonical orientation: rack's long axis is +x, square cross-section
-    # spans y and z. Centred at origin so a Pos() at placement time lands
-    # the inner end of the rack at the supplied location.
-    return Box(length, V.MECH_RACK_STOCK_MM, V.MECH_RACK_STOCK_MM)
+    L = _rack_length()
+    T = V.MECH_RACK_STOCK_MM                          # 8 mm full stock
+    spine = V.MAX_RACK_TANGENTIAL_THICKNESS_MM        # 5.98 mm at N=12
+    spine_cut = max(T - spine, 0.0)                   # ≈ 2.02 mm removed
+
+    rack = Box(L, T, T)
+    if spine_cut <= 0.0:
+        # Pin count so low that the budget is wider than the stock —
+        # nothing to mill. (At N=6 the budget is 12.27 mm > 8 mm stock.)
+        return rack
+
+    # Slab covering the +y face of the rack: full length, full height,
+    # depth = spine_cut. The 0.05 mm extension on each face is just to
+    # avoid coplanar boolean fragility; it gets trimmed off at the
+    # outer surfaces by the rack body's own bounds.
+    cut = Box(L + 0.2, spine_cut + 0.1, T + 0.2).translate(
+        (0, T / 2 - spine_cut / 2 + 0.05, 0)
+    )
+    return rack - cut
 
 
 def _build_pin():
@@ -245,6 +305,8 @@ def _frame_scad(
     spur_r = _spur_center_r()
     rack_inner_r = _rack_inner_r()
     pin_rest_r = _pin_rest_r()
+    rack_y = _rack_y_offset()                # +y offset of rack centreline
+    pin_angle_offset = _pin_angular_offset_deg()  # ≈ 8.7° at canonical params
 
     # ring → ring stack at z = _RING_Z, rotated by +theta.
     # The bd_warehouse SpurGear is centred about z=0 by default; lift it
@@ -256,7 +318,8 @@ def _frame_scad(
         f'translate([0,0,{_DOOR_Z:.4f}]) import("{door_stl}");',
     ]
 
-    # Spur gears: rotate by −5θ about their own axis, placed at BCD radius.
+    # Spur gears: rotate by −5θ about their own axis, placed at BCD radius
+    # along the spur radial line (no y-offset).
     spur_rotation = -theta_deg * (V.MECH_RING_GEAR_TEETH / V.MECH_SPUR_GEAR_TEETH)
     for k in range(n):
         phi = 360.0 * k / n
@@ -267,26 +330,28 @@ def _frame_scad(
             f'import("{spur_stl}");'
         )
 
-    # Racks: translated radially outward by the current pin extension.
-    # The canonical rack is centred at origin, so to land its inner end at
-    # rack_inner_r along +x, translate by (rack_inner_r + length/2, 0, z).
+    # Racks: tangentially offset by +rack_y from the spur radial line so
+    # the spur's tangentially-topmost tooth meets the rack's −y face
+    # (real rack-and-pinion mesh). Translated outward along +x by the
+    # current pin extension. Coplanar with the spur in z.
     rack_center_offset = rack_inner_r + _rack_length() / 2 + pin_extension_mm
     for k in range(n):
         phi = 360.0 * k / n
         lines.append(
             f'rotate([0,0,{phi:.4f}]) '
-            f'translate([{rack_center_offset:.4f},0,{_RACK_Z + _RACK_THICKNESS / 2:.4f}]) '
+            f'translate([{rack_center_offset:.4f},{rack_y:.4f},'
+            f'{_RACK_Z_CENTER:.4f}]) '
             f'import("{rack_stl}");'
         )
 
-    # Pins: same radial slide as the racks. Pin's canonical orientation is
-    # along +x with centre at origin.
+    # Pins: colinear with the racks, also at +y = rack_y. Same radial
+    # slide as the racks.
     pin_center_r = pin_rest_r + pin_extension_mm
     for k in range(n):
         phi = 360.0 * k / n
         lines.append(
             f'rotate([0,0,{phi:.4f}]) '
-            f'translate([{pin_center_r:.4f},0,{_PIN_Z:.4f}]) '
+            f'translate([{pin_center_r:.4f},{rack_y:.4f},{_PIN_Z:.4f}]) '
             f'import("{pin_stl}");'
         )
 
