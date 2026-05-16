@@ -41,7 +41,11 @@ issue or a PR.
 
 ## External 3D assets
 
-- **Pounce-a-Pult spiral cat toy** ([`step-demo/pounce-a-pult.step`](step-demo/pounce-a-pult.step) and every render under [`docs/pounce-a-pult/assets/`](docs/pounce-a-pult/assets/)): design by a [MakerWorld designer (profile 2316710)](https://makerworld.com/en/models/2138778-pounce-a-pult-spiral-cat-toy#profileId-2316710), shared under [Creative Commons Attribution 4.0 (CC BY)](https://creativecommons.org/licenses/by/4.0/). The STEP file is redistributed here unchanged; our derived renders (PNGs, GIF, GLB, per-part STLs) are derivative works and inherit CC BY 4.0 with the same attribution. This is distinct from the repo's own 3D files (the gear card and vault diagrams), which are CC BY-**SA** 4.0 under [`LICENSE-3D-FILES`](LICENSE-3D-FILES).
+- **Pounce-a-Pult spiral cat toy** ([`step-demo/pounce-a-pult.step`](step-demo/pounce-a-pult.step) and every render under [`docs/pounce-a-pult/assets/`](docs/pounce-a-pult/assets/)): design by a MakerWorld designer (profile 2316710), shared under [Creative Commons Attribution 4.0 (CC BY)](https://creativecommons.org/licenses/by/4.0/). Two upstream locations:
+  - Parametric CAD source: [public Onshape document](https://cad.onshape.com/documents/01739d2a63dc91eaf28c2c62/w/a7c671d651186a5272cc789f/e/fdb2542c5ccec8040d59912a). This is where the geometry actually *lives* — open it in a browser to inspect, fork it into a free Onshape account to remix.
+  - Printable bundle: [MakerWorld model page](https://makerworld.com/en/models/2138778-pounce-a-pult-spiral-cat-toy#profileId-2316710). Slicer profile, photos, assembly tips.
+
+  The STEP file is redistributed here unchanged; our derived renders (PNGs, GIF, GLB, per-part STLs) are derivative works and inherit CC BY 4.0 with the same attribution. This is distinct from the repo's own 3D files (the gear card and vault diagrams), which are CC BY-**SA** 4.0 under [`LICENSE-3D-FILES`](LICENSE-3D-FILES).
 
 ## How the licenses interact with this repo
 

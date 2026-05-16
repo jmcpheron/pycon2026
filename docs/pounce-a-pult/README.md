@@ -16,6 +16,26 @@ self-resetting swatting target that moves in a way cats seem to find
 endlessly interesting. The base is a long flat plate and two triangular
 support brackets that hold the spring vertical.
 
+## Where to get one
+
+The pounce-a-pult is meant to be shared, printed, and remixed. Two
+entry points live upstream of this repo:
+
+- **Print one.** The published bundle on MakerWorld has the slicer
+  profile, photos in the wild, and remix notes — the easiest path to a
+  working toy:
+  [makerworld.com/en/models/2138778-pounce-a-pult-spiral-cat-toy](https://makerworld.com/en/models/2138778-pounce-a-pult-spiral-cat-toy#profileId-2316710).
+- **Remix the CAD.** The design lives in a public Onshape document —
+  open it in any browser to spin it around, then click "Make a copy"
+  into a free Onshape account to change the geometry directly (a
+  longer base, taller brackets, a different polygon on the spring
+  socket):
+  [cad.onshape.com/documents/01739d2a63dc91eaf28c2c62](https://cad.onshape.com/documents/01739d2a63dc91eaf28c2c62/w/a7c671d651186a5272cc789f/e/fdb2542c5ccec8040d59912a).
+
+Both are upstream of this repo. The files under
+[`step-demo/`](../../step-demo/) are just the exported STEP plus
+everything [`cardlab`](../../src/cardlab/) derives from it.
+
 ## Hero renders
 
 | Iso | Top | Edge |
@@ -112,16 +132,21 @@ and auto-commits the regenerated artefacts back to `main`.
 
 ## Source · license
 
-The pounce-a-pult design is **not mine**. It comes from MakerWorld:
+The pounce-a-pult design is **not mine**. It comes from upstream:
 
 > **Pounce-a-Pult — Spiral Cat Toy**, by a
 > [MakerWorld designer (profile 2316710)](https://makerworld.com/en/models/2138778-pounce-a-pult-spiral-cat-toy#profileId-2316710),
 > shared under the
 > [Creative Commons Attribution 4.0 (CC BY) licence](https://creativecommons.org/licenses/by/4.0/).
 
-The `step-demo/pounce-a-pult.step` file in this repo is the upstream
-designer's Onshape export, redistributed under that same CC BY
-licence. Every render in this folder
+Two upstream locations are canonical and worth crediting separately:
+
+- The **parametric CAD source** is a [public Onshape document](https://cad.onshape.com/documents/01739d2a63dc91eaf28c2c62/w/a7c671d651186a5272cc789f/e/fdb2542c5ccec8040d59912a) — this is where the geometry actually *lives* (sketches, features, parameters). Fork it there if you want to change the shape of anything.
+- The **printable bundle** is the [MakerWorld page](https://makerworld.com/en/models/2138778-pounce-a-pult-spiral-cat-toy#profileId-2316710) — slicer profile, photos, assembly tips, and a place to leave the designer a like.
+
+The `step-demo/pounce-a-pult.step` file in this repo is the
+designer's STEP export from that Onshape document, redistributed
+under the same CC BY licence. Every render in this folder
 (`docs/pounce-a-pult/assets/*.{png,gif,glb}` and `parts/*`) is a
 derivative work of that STEP file, so it inherits **CC BY 4.0** with
 attribution to the upstream designer — distinct from the rest of this
