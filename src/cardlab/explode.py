@@ -25,7 +25,13 @@ from typing import Callable
 
 from cardlab._scad import _scad_string
 from cardlab.inspect import load_sidecar
+from cardlab.palette import STAGE_COLORS, scad_color
 from cardlab.render import _stl_bbox, render_scad, render_stl
+
+# Width threshold used to distinguish flat card halves from gears. Matches
+# the heuristic in ``_strategy_card_layered`` so the coloring and the
+# displacement strategy classify parts the same way.
+CARD_PART_X_THRESHOLD_MM: float = 40.0
 
 
 Vec3 = tuple[float, float, float]
@@ -95,12 +101,12 @@ def _strategy_axial_z(parts: list[ExplodedPart], factor: float) -> None:
 def _strategy_card_layered(parts: list[ExplodedPart], factor: float) -> None:
     """Card halves go to +Z/-Z extremes; gears stagger between, sorted by X.
 
-    Heuristic: any part with bbox X span > 40 mm is a card half. Card
-    halves get pushed apart on Z to reveal the gear train; gears get a
-    smaller Z lift staggered by their X position so the train remains
-    readable as a "chain".
+    Heuristic: any part with bbox X span > ``CARD_PART_X_THRESHOLD_MM`` is
+    a card half. Card halves get pushed apart on Z to reveal the gear
+    train; gears get a smaller Z lift staggered by their X position so the
+    train remains readable as a "chain".
     """
-    card_halves = [p for p in parts if p.bbox_size[0] > 40.0]
+    card_halves = [p for p in parts if p.bbox_size[0] > CARD_PART_X_THRESHOLD_MM]
     gears = [p for p in parts if p not in card_halves]
     card_lift = 25.0 * factor
     gear_lift = 6.0 * factor
@@ -320,6 +326,26 @@ def _write_exploded_glb(parts: list[ExplodedPart], out: Path) -> None:
     scene.export(str(out))
 
 
+def _assign_part_colors(parts: list[ExplodedPart]) -> dict[str, str]:
+    """Map each part slug to its OpenSCAD ``color([...])`` prefix.
+
+    Card halves (bbox X span > ``CARD_PART_X_THRESHOLD_MM``) map to an
+    empty prefix so they render in the default Cornfield yellow — the
+    printed-card body color. Everything else is treated as a gear and
+    gets ``STAGE_COLORS`` assigned by ascending X centroid, so the chain
+    reads left-to-right as crimson → orange → emerald → azure → violet,
+    mirroring ``spin.gif``.
+    """
+    gears = sorted(
+        (p for p in parts if p.bbox_size[0] <= CARD_PART_X_THRESHOLD_MM),
+        key=lambda p: p.centroid[0],
+    )
+    out: dict[str, str] = {}
+    for rank, p in enumerate(gears):
+        out[p.slug] = scad_color(STAGE_COLORS[rank % len(STAGE_COLORS)])
+    return out
+
+
 def _animate_explode(
     parts: list[ExplodedPart], frames: int, size: str, angle: str,
     frames_dir: Path, out_gif: Path,
@@ -354,6 +380,12 @@ def _animate_explode(
 
     frame_paths: list[Path] = []
 
+    # Stable per-part color: gears get the cascading STAGE_COLORS palette
+    # in X-rank order (matches the rainbow in spin.gif so both animations
+    # read as the same five-stage chain); card halves stay uncolored so
+    # the default Cornfield yellow keeps reading as the printed card body.
+    color_by_slug = _assign_part_colors(parts)
+
     # Ease-in-out for a smoother visual rhythm than a pure linear lerp.
     def ease(t: float) -> float:
         return 3 * t * t - 2 * t * t * t  # smoothstep
@@ -375,9 +407,10 @@ def _animate_explode(
             tx = p.centroid[0] + t * p.displacement[0] - cx
             ty = p.centroid[1] + t * p.displacement[1] - cy
             tz = p.centroid[2] + t * p.displacement[2] - cz
+            color_prefix = color_by_slug.get(p.slug, "")
             scad_lines.append(
-                f"translate([{tx:.4f},{ty:.4f},{tz:.4f}]) "
-                f"import({_scad_string(p.stl_path.name)});"
+                f"{color_prefix} translate([{tx:.4f},{ty:.4f},{tz:.4f}]) "
+                f"import({_scad_string(p.stl_path.name)});".lstrip()
             )
             extra_files[p.stl_path.name] = p.stl_path
         scad_source = "\n".join(scad_lines) + "\n"

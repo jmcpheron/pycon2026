@@ -241,6 +241,49 @@ def test_spin_smoke(tmp_path: Path) -> None:
     assert gif.stat().st_size > 1000
 
 
+def test_assign_part_colors_card_layered() -> None:
+    """Gears get the STAGE_COLORS palette in X-rank order; card halves
+    (bbox X > threshold) stay uncolored so the default Cornfield yellow
+    keeps reading as the card body. Pure-logic test — no build123d /
+    cascadio / openscad needed."""
+    from cardlab.explode import (
+        CARD_PART_X_THRESHOLD_MM,
+        ExplodedPart,
+        _assign_part_colors,
+    )
+    from cardlab.palette import STAGE_COLORS, scad_color
+
+    def make(slug: str, cx: float, x_span: float) -> ExplodedPart:
+        return ExplodedPart(
+            label=slug, slug=slug, centroid=(cx, 0.0, 0.0),
+            bbox_size=(x_span, 10.0, 10.0), color_rgba=None,
+            stl_path=Path(f"{slug}.stl"),
+            glb_path=Path(f"{slug}.glb"),
+            png_path=Path(f"{slug}.png"),
+        )
+
+    card_top = make("card_top", 0.0, CARD_PART_X_THRESHOLD_MM + 30.0)
+    card_bot = make("card_bot", 0.0, CARD_PART_X_THRESHOLD_MM + 30.0)
+    # Gears intentionally out of X order to exercise the sort.
+    g2 = make("g2", 0.0, 25.0)
+    g0 = make("g0", -30.0, 25.0)
+    g4 = make("g4", 30.0, 25.0)
+    g1 = make("g1", -15.0, 25.0)
+    g3 = make("g3", 15.0, 25.0)
+
+    colors = _assign_part_colors([card_top, g2, g0, g4, g1, g3, card_bot])
+
+    # Card halves: not in the color map → render default Cornfield yellow.
+    assert "card_top" not in colors
+    assert "card_bot" not in colors
+    # Gears: leftmost gets STAGE_COLORS[0], rightmost STAGE_COLORS[4].
+    assert colors["g0"] == scad_color(STAGE_COLORS[0])
+    assert colors["g1"] == scad_color(STAGE_COLORS[1])
+    assert colors["g2"] == scad_color(STAGE_COLORS[2])
+    assert colors["g3"] == scad_color(STAGE_COLORS[3])
+    assert colors["g4"] == scad_color(STAGE_COLORS[4])
+
+
 def test_explode_smoke(tmp_path: Path) -> None:
     """End-to-end smoke: explode on a synthetic 2-box assembly STEP.
 
