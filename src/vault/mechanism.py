@@ -433,6 +433,47 @@ def _stitch_gif(frame_paths: list[Path], out_gif: Path) -> Path:
 
 # --- Public API ------------------------------------------------------------
 
+# The five canonical parts. Each is built once via build123d / bd_warehouse
+# and reused as N instances at render / export time. Keep this in module
+# scope so both ``build()`` and ``export_parts()`` use the same recipe and
+# the STL the user downloads is byte-identical to the one we ship to
+# OpenSCAD.
+_PART_BUILDERS = {
+    "ring-gear": _build_ring_gear,
+    "spur-gear": _build_spur_gear,
+    "rack":      _build_rack,
+    "pin":       _build_pin,
+    "door-rim":  _build_door_rim,
+}
+
+
+def export_parts(out_dir: Path) -> dict[str, Path]:
+    """Build every canonical part once and write each as a standalone STL.
+
+    Writes ``out_dir/<name>.stl`` for each part in ``_PART_BUILDERS`` and
+    returns ``{name: path}``. Use this when you want the geometry without
+    rendering the animation — e.g. to pull a single gear into Bambu Studio
+    or a different CAD tool.
+
+    Does NOT require OpenSCAD or xvfb (build123d / bd_warehouse only).
+
+    Reproducing the full vault: print 1× ring-gear, 1× door-rim, and
+    ``PIN_COUNT`` (= 12) each of spur-gear, rack, and pin. The rack is
+    already pre-milled on its +y face to the per-pin tangential budget
+    (``MAX_RACK_TANGENTIAL_THICKNESS_MM``) — print 12 identical copies.
+    """
+    out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    paths: dict[str, Path] = {}
+    for name, builder in _PART_BUILDERS.items():
+        part = builder()
+        path = out_dir / f"{name}.stl"
+        _export_stl(part, path)
+        paths[name] = path
+    return paths
+
+
 def build(
     out_dir: Path,
     *,
@@ -441,9 +482,14 @@ def build(
 ) -> Path:
     """Render the detailed mechanism animation.
 
-    Writes ``out_dir/assets/vault-hero.gif`` and returns its path. The
-    public ``build(out_dir)`` signature mirrors every other vault module
-    so a future dispatch in ``cli.py`` can call us the same way.
+    Writes ``out_dir/assets/vault-hero.gif`` and returns its path. Also
+    writes the five canonical STLs to ``out_dir/assets/parts/*.stl`` as
+    a side effect — they're built anyway as inputs to the renderer, so
+    we keep them around for download / remixing rather than throwing
+    them away when the tempdir clears.
+
+    The public ``build(out_dir)`` signature mirrors every other vault
+    module so a future dispatch in ``cli.py`` can call us the same way.
     """
     if shutil.which("openscad") is None:
         raise RuntimeError(
@@ -455,25 +501,27 @@ def build(
     assets.mkdir(parents=True, exist_ok=True)
     out_gif = assets / OUT_GIF_NAME
 
+    # Export the canonical parts to the public assets/parts/ folder so
+    # they ride along with the GIF in the auto-committed artefacts.
+    parts_dir = assets / "parts"
+    public_stl_paths = export_parts(parts_dir)
+
     with tempfile.TemporaryDirectory(prefix="vault-mechanism-") as td:
         tmp = Path(td)
 
-        # 1. Build canonical parts.
-        parts = {
-            "door": _build_door_rim(),
-            "ring": _build_ring_gear(),
-            "spur": _build_spur_gear(),
-            "rack": _build_rack(),
-            "pin": _build_pin(),
-        }
+        # The renderer wants the STLs alongside the SCAD shim in the same
+        # tempdir (OpenSCAD resolves ``import()`` relative to the .scad
+        # file). Copy the public STLs in rather than re-exporting.
+        stl_paths: dict[str, Path] = {}
+        for name, public_path in public_stl_paths.items():
+            # Map "ring-gear" -> "ring", "spur-gear" -> "spur", etc., so
+            # the SCAD shim's basename references stay stable.
+            short = name.replace("-gear", "").replace("-rim", "")
+            local = tmp / f"{short}.stl"
+            local.write_bytes(public_path.read_bytes())
+            stl_paths[short] = local
 
-        # 2. Export each canonical part once.
-        stl_paths = {
-            name: _export_stl(part, tmp / f"{name}.stl")
-            for name, part in parts.items()
-        }
-
-        # 3. Render frames.
+        # Render frames.
         frame_paths = _render_frames(
             canonical_stls=stl_paths,
             frames=frames,
@@ -481,7 +529,7 @@ def build(
             tmpdir=tmp,
         )
 
-        # 4. Stitch.
+        # Stitch.
         _stitch_gif(frame_paths, out_gif)
 
     return out_gif
