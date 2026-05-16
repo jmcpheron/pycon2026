@@ -64,24 +64,15 @@ Something I could hand someone that was more interesting than just saying, "Here
 
 # So I made a 3D printed business card.
 
-<div class="two-col">
-<div>
-
 It has my GitHub project on it.
 
 It also has a **tiny gear mechanism** built into it.
 
 You can spin one gear with your thumb, and the motion moves through the card.
 
-<p class="big-quote">Part business card.<br>Part fidget toy.<br>Part tiny mechanical demo.</p>
+<p class="big-quote">Part business card. Part fidget toy. Part tiny mechanical demo.</p>
 
-</div>
-<div>
-
-![w:420](../assets/card/exploded.gif)
-
-</div>
-</div>
+At first, that was the whole project. Make a cool little object. Print it. Bring it to PyCon.
 
 <!--
 It has my GitHub project on it, but it also has a tiny gear mechanism built into it. You can spin one gear with your thumb, and the motion moves through the card.
@@ -89,15 +80,28 @@ It has my GitHub project on it, but it also has a tiny gear mechanism built into
 It is part business card, part fidget toy, and part tiny mechanical demo.
 
 At first, that was the whole project. Make a cool little object. Print it. Bring it to PyCon. Use it as an excuse to talk to people.
+-->
 
-But then I had the thought that probably gets a lot of us into trouble: How can I make this a Python project?
+---
+
+# This is where it got complicated.
+
+![w:860 center](../assets/card/photos/onshape-assembly.png)
+
+<!--
+The design started in Onshape. I'm still new enough to Onshape that a lot of this was just me learning how to build parts, assemble them, line things up, and think about whether a design would actually print and move.
+
+Once I had the card assembled and I was looking at it right here — I exported it as a STEP file.
+
+And that was the moment I had the thought that probably gets a lot of us into trouble: How can I make this a Python project?
 -->
 
 ---
 
 # The moment the project changed.
 
-The design started in Onshape.
+<div class="two-col">
+<div>
 
 Once I had the card assembled, I exported it as a **STEP file**.
 
@@ -107,15 +111,19 @@ Onshape assembly &nbsp;→&nbsp; STEP export &nbsp;→&nbsp; GitHub repo
 
 </div>
 
-That was the moment.
-
-Because now I had **a single file** that represented the assembled physical object.
+Now I had **a single file** that represented the assembled physical object.
 
 I could put it in a repo. Version it. Run tools against it. Treat the physical object a little more **like a software project**.
 
-<!--
-The design itself started in Onshape. I'm still new enough to Onshape that a lot of this was just me learning how to build parts, assemble them, line things up, and think about whether a design would actually print and move.
+</div>
+<div>
 
+![w:380](../assets/card/exploded.gif)
+
+</div>
+</div>
+
+<!--
 Once I had the card assembled, I exported it as a STEP file.
 
 That was the moment where the project changed for me. Because now I had a single file that represented the assembled physical object. I could put that file in a GitHub repo. I could version it. I could run tools against it. I could start treating the physical object a little more like a software project.
