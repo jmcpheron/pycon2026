@@ -86,18 +86,20 @@ def _hero_chain_animated(out: Path) -> Path:
     """Same plan-view as ``_hero_chain``, but each gear rotates at its
     physically correct relative speed and direction.
 
-    Layout widens centre-distance vs the static hero to fit the per-mesh
-    4:1 callouts above the row and the INPUT/OUTPUT bookends below
-    without label collisions.
+    cd/big_r = 15mm/12mm = 1.25 matches the physical post-to-post spacing so
+    adjacent large gears overlap in plan view, just like the real card. Gears
+    are drawn in reverse z-order so the input (thumb wheel, i=0) sits on top.
+    Speed labels stagger vertically by parity to avoid collision in the
+    tighter layout.
     """
     n = card.N_STAGES
-    big_r = 18.0
-    pinion_r = 5.0
-    hub_r = 2.0
-    cd = 64.0          # px between centres (wider than static hero for labels)
-    pad = 24.0
-    top_extra = 24.0   # space for "4:1" mesh callouts above the gear row
-    bottom_extra = 60.0  # space for speed / role / caption rows
+    big_r = 32.0
+    pinion_r = 9.0
+    hub_r = 3.0
+    cd = 40.0          # px — cd/big_r = 1.25 matches physical gear proportions
+    pad = 16.0
+    top_extra = 26.0   # space for "4:1" mesh callouts above the gear row
+    bottom_extra = 46.0  # space for speed / role / caption rows
 
     width = 2 * pad + (n - 1) * cd + 2 * big_r
     height = 2 * pad + 2 * big_r + top_extra + bottom_extra
@@ -105,7 +107,7 @@ def _hero_chain_animated(out: Path) -> Path:
 
     d = diagrams.new_drawing(width, height)
 
-    # --- Per-mesh 4:1 callouts (between gears, above the row) ---------------
+    # --- Per-mesh 4:1 callouts (above the overlap contact points) ------------
     mesh_y = cy - big_r - 8
     for i in range(n - 1):
         mx = pad + big_r + i * cd + cd / 2
@@ -116,13 +118,11 @@ def _hero_chain_animated(out: Path) -> Path:
                          font_family=S.FONT_FAMILY,
                          fill=S.ACCENT_HILITE, font_weight="bold"))
 
-    # --- Gears + speed/role labels ------------------------------------------
-    for i in range(n):
+    # --- Gears in reverse z-order so the input gear (i=0) sits on top -------
+    for i in reversed(range(n)):
         cx = pad + big_r + i * cd
-        cumulative = card.RATIO_PER_STAGE ** i
         period = BASE_PERIOD_S * (card.RATIO_PER_STAGE ** i)
         clockwise = (i % 2 == 0)
-
         diagrams.animated_compound_gear(
             d, cx, cy,
             big_r=big_r, pinion_r=pinion_r, hub_r=hub_r,
@@ -132,10 +132,16 @@ def _hero_chain_animated(out: Path) -> Path:
             clockwise=clockwise,
         )
 
-        # Speed (large blue, primary visual weight): 1×, 1/4×, 1/16×, ...
+    # --- Speed / role labels (separate pass so text is always on top) --------
+    for i in range(n):
+        cx = pad + big_r + i * cd
+        cumulative = card.RATIO_PER_STAGE ** i
+
+        # Stagger even/odd gears to prevent label collision in tight layout
+        speed_y = cy + big_r + (16 if i % 2 == 0 else 28)
         speed_label = "1×" if i == 0 else f"1/{int(cumulative):,}×"
         d.append(dw.Text(speed_label, S.FONT_SIZE_LABEL,
-                         x=cx, y=cy + big_r + 16,
+                         x=cx, y=speed_y,
                          text_anchor="middle",
                          font_family=S.FONT_FAMILY,
                          fill=S.ACCENT_HILITE, font_weight="bold"))
