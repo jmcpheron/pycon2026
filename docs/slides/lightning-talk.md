@@ -156,11 +156,15 @@ Not replacing CAD.
 
 ![w:380](../assets/card/spin.gif)
 
+<p class="soft" style="text-align:center;">Yes, the gears clip through each other. <br>If that bothers you — <em>stay tuned.</em></p>
+
 </div>
 </div>
 
 <!--
 So the Python part became less about replacing CAD, and more about building tooling around the CAD export. The design still happens in Onshape. But once the STEP file is in the repo, Python can start doing useful things around it.
+
+Quick aside on this GIF: yes, the gears are clipping through each other. The render does not know about the mesh ratios, so each gear just spins at the same rate. If that bothers you, hang on — I'll come back to it in a minute.
 
 It can inspect the file. It can help take the assembly apart. It can generate renders. It can make exploded views. It can create animated GIFs that show the mechanism moving.
 
@@ -220,10 +224,14 @@ Push a change to the STEP file or the gear constants. A workflow regenerates the
 
 <p class="big-quote">A README can quietly start lying about its object.<br>An auto-commit loop makes that a lot harder.</p>
 
+**Remember the clipping gears?** Fork the repo, fix the spin renderer so each gear turns at its real ratio, push, and the workflow will rebuild the GIF for you. **PR welcome.**
+
 <!--
 Here is the part I actually like about using GitHub Actions for this. It is not that Python can make renders and exploded views and diagrams. We already saw that. It is that I almost never run any of it.
 
 When I push a change to the STEP file, a workflow runs in the cloud, regenerates the exploded GIF and the spinning GIF, and commits the new files back to main. When I push a change to the gear constants in card.py, a different workflow rebuilds every explainer page and every SVG, and commits those back too.
+
+And here is the open invitation. Remember the spin GIF where the gears clip through each other? That is a real, small, fixable bug in the renderer. Fork the repo, fix it so each gear turns at its own ratio, push it up, and the workflow will rebuild the GIF on its own. I would genuinely love a PR.
 
 Screenshots get stale. Documentation gets stale. A repo can quietly start lying about the object it contains. An auto-commit loop is my attempt to make that a little harder.
 -->
