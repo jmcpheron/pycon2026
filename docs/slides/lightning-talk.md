@@ -156,11 +156,15 @@ Not replacing CAD.
 
 ![w:380](../assets/card/spin.gif)
 
+<p class="soft" style="text-align:center;">Yes, the gears clip through each other. <br>If that bothers you — <em>stay tuned.</em></p>
+
 </div>
 </div>
 
 <!--
 So the Python part became less about replacing CAD, and more about building tooling around the CAD export. The design still happens in Onshape. But once the STEP file is in the repo, Python can start doing useful things around it.
+
+Quick aside on this GIF: yes, the gears are clipping through each other. The render does not know about the mesh ratios, so each gear just spins at the same rate. If that bothers you, hang on — I'll come back to it in a minute.
 
 It can inspect the file. It can help take the assembly apart. It can generate renders. It can make exploded views. It can create animated GIFs that show the mechanism moving.
 
@@ -173,56 +177,63 @@ That became the real project. Not just the card itself, but the workflow around 
 
 # A STEP file is not an explanation.
 
-A lot of 3D printing projects end up as a pile of files.
+GIFs show *what* the object does. They don't say *why* it's shaped that way.
 
-STL. Maybe a screenshot. Maybe a README. Maybe some notes.
+So the repo also writes **explainer pages** — short prose with diagrams:
 
-But it can be hard to understand what the object is, how it works, what changed, and which files matter.
+<div class="two-col">
+<div>
 
-<p class="big-quote">So I started thinking about the repo as something that should help the object explain itself.</p>
+- `gear-ratios.md` — why **32 × 8**, four times, gives 256:1
+- `decoding-gears.md` — recovering tooth counts from the STL geometry itself
+- `stacking.md` — why the gears sit in a staircase, not a stack
+- `printing.md` — what changed when the printer, rudely, obeyed physics
 
-<div class="pipeline">
+<p class="big-quote">The repo doesn't just show the object.<br>It teaches you what's going on inside it.</p>
 
-STEP file &nbsp;→&nbsp; Python tooling &nbsp;→&nbsp; renders · exploded views · animations · diagrams · notes
+</div>
+<div>
 
+![w:380](../explainers/assets/gear-ratios-animated.svg)
+
+</div>
 </div>
 
 <!--
-A lot of 3D printing projects end up as a pile of files. You might have an STL. Maybe a screenshot. Maybe a README. Maybe some notes about tolerances or print settings. But it can be hard to understand what the object is, how it works, what changed, and which files matter.
+A GIF is great, but it only shows what the object does. It does not tell you why it is shaped the way it is. Why those tooth counts. Why those ratios. Why the gears are stacked the way they are.
 
-A STEP file is useful, but it is not an explanation. Most people do not want to download a CAD viewer just to understand a tiny conference object.
+So alongside the renders, the repo also writes explainer pages. Short prose with diagrams. Why 32 times 8, four times over, gives 256 to 1. How you can recover the tooth counts from the STL geometry itself, after the fact. Why the gears sit in a staircase instead of a clean stack. And what had to change when the printer, very rudely, obeyed physics.
 
-So I started thinking about the repo as something that should help the object explain itself.
-
-The input is the STEP file. Then Python glues together different tools and generates the supporting material around it. Renders. Exploded views. Animations. Diagrams. Notes about what failed. Notes about what I had to change because the printer, very rudely, obeys physics.
+The renders are the gallery. The explainers are the museum placard next to it.
 -->
 
 ---
 
 # GitHub Actions for physical objects.
 
-Normally CI means tests passing, packages building, docs published.
+The cool part isn't that Python *can* make these. It's that I never run it.
 
-But with a 3D object, the build output can be **visual**.
+Push a change to the STEP file or the gear constants. A workflow regenerates the GIFs, the explainer pages, the diagrams — and **commits them back to main**.
 
-An exploded view. A render. A GIF of a tiny gearbox moving.
+<div class="pipeline">
 
-<p class="big-quote">The repo is not just storing the design.<br>The repo is generating <em>evidence</em> about the design.</p>
+`jmcpheron-card.step` &nbsp;changes&nbsp; →&nbsp; <strong>build-card.yml</strong> &nbsp;→&nbsp; new exploded GIF, spin GIF, parts<br>
+`src/explainers/card.py` &nbsp;changes&nbsp; →&nbsp; <strong>build-explainers.yml</strong> &nbsp;→&nbsp; new pages + SVGs
 
-Screenshots get stale. Documentation gets stale. A repo can quietly start lying about the object it contains.
+</div>
 
-This makes that a little harder.
+<p class="big-quote">A README can quietly start lying about its object.<br>An auto-commit loop makes that a lot harder.</p>
+
+**Remember the clipping gears?** Fork the repo, fix the spin renderer so each gear turns at its real ratio, push, and the workflow will rebuild the GIF for you. **PR welcome.**
 
 <!--
-And that is where GitHub Actions became interesting. Normally, when I think about CI, I think about tests passing, packages building, or docs being published.
+Here is the part I actually like about using GitHub Actions for this. It is not that Python can make renders and exploded views and diagrams. We already saw that. It is that I almost never run any of it.
 
-But with a 3D object, the build output can be visual. It can be an exploded view. It can be a render. It can be an animation. It can be a GIF of a tiny gearbox moving. And that feels weirdly delightful to me.
+When I push a change to the STEP file, a workflow runs in the cloud, regenerates the exploded GIF and the spinning GIF, and commits the new files back to main. When I push a change to the gear constants in card.py, a different workflow rebuilds every explainer page and every SVG, and commits those back too.
 
-Because now the repo is not just storing the design. The repo is generating evidence about the design.
+And here is the open invitation. Remember the spin GIF where the gears clip through each other? That is a real, small, fixable bug in the renderer. Fork the repo, fix it so each gear turns at its own ratio, push it up, and the workflow will rebuild the GIF on its own. I would genuinely love a PR.
 
-Screenshots get stale. Documentation gets stale. Images in a README can quietly stop matching the actual object. That happens in software all the time, and it definitely happens in 3D printing projects. You make a change, export a new file, forget to update the image, and now the repo is lying a little bit.
-
-So this project is partly about making that harder.
+Screenshots get stale. Documentation gets stale. A repo can quietly start lying about the object it contains. An auto-commit loop is my attempt to make that a little harder.
 -->
 
 ---
