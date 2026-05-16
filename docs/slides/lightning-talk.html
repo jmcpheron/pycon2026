@@ -144,7 +144,7 @@ p { font-size: 0.9em; line-height: 1.6; }
 .soft { color: #999; font-size: 0.8em; }
 footer { font-size: 0.65em; color: #6699cc; font-family: monospace; }
 ;" data-marpit-pagination-total="13">
-<h1 id="this-is-where-it-got-complicated">This is where it got complicated.</h1>
+<h1 id="this-is-where-i-was-happy-with-the-design">This is where I was happy with the design.</h1>
 <p><img src="../assets/card/photos/onshape-assembly.png" alt="center" style="width:860px;" /></p>
 <footer>github.com/jmcpheron/pycon2026</footer>
 </section>
@@ -509,11 +509,13 @@ Something I could hand someone that was more interesting than just saying, &quot
 
 It is part business card, part fidget toy, and part tiny mechanical demo.
 
-At first, that was the whole project. Make a cool little object. Print it. Bring it to PyCon. Use it as an excuse to talk to people.</p></div><div class="bespoke-marp-note" data-index="3" tabindex="0"><p>The design started in Onshape. I'm still new enough to Onshape that a lot of this was just me learning how to build parts, assemble them, line things up, and think about whether a design would actually print and move.
+At first, that was the whole project. Make a cool little object. Print it. Bring it to PyCon. Use it as an excuse to talk to people.</p></div><div class="bespoke-marp-note" data-index="3" tabindex="0"><p>The design started in Onshape. Parts, mate connectors, revolute joints so the gears actually spin, even the mesh ratios set up so Onshape knows how they drive each other.
 
-Once I had the card assembled and I was looking at it right here — I exported it as a STEP file.
+When I got to this point — assembly done, gears moving, lid fitting — I was just happy with it as a 3D design. That felt like the project.
 
-And that was the moment I had the thought that probably gets a lot of us into trouble: How can I make this a Python project?</p></div><div class="bespoke-marp-note" data-index="4" tabindex="0"><p>Once I had the card assembled, I exported it as a STEP file.
+And then I had the thought that probably gets a lot of us into trouble: &quot;This is nice, but how do I force Python into this?&quot;
+
+What could I actually do with it if I exported it and dropped it in a repo? How much Python tooling could I throw at a STEP file and get something interesting out?</p></div><div class="bespoke-marp-note" data-index="4" tabindex="0"><p>Once I had the card assembled, I exported it as a STEP file.
 
 That was the moment where the project changed for me. Because now I had a single file that represented the assembled physical object. I could put that file in a GitHub repo. I could version it. I could run tools against it. I could start treating the physical object a little more like a software project.</p></div><div class="bespoke-marp-note" data-index="5" tabindex="0"><p>So the Python part became less about replacing CAD, and more about building tooling around the CAD export. The design still happens in Onshape. But once the STEP file is in the repo, Python can start doing useful things around it.
 
