@@ -6,7 +6,7 @@ The story is in three parts.
 
 ## 1 · Inspect a real STEP file
 
-`pounce-a-pult.step` is an Onshape AP242 export of the *Pounce-a-Pult spiral cat toy* — flat spiral spring on a base plate, redistributed here under its upstream [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) licence. The parametric source lives in a [public Onshape document](https://cad.onshape.com/documents/01739d2a63dc91eaf28c2c62/w/a7c671d651186a5272cc789f/e/fdb2542c5ccec8040d59912a), with the printable bundle published on [MakerWorld](https://makerworld.com/en/models/2138778-pounce-a-pult-spiral-cat-toy#profileId-2316710). The toy's own page (renders, assembly, printing notes, full attribution to the upstream designer) lives at [`docs/pounce-a-pult/`](../docs/pounce-a-pult/README.md). Even before we tessellate anything, Python can read its product structure:
+`pounce-a-pult.step` is an Onshape AP242 export of the *Pounce-a-Pult spiral cat toy* — flat spiral spring on a base plate, another of my designs, published under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The parametric source lives in a [public Onshape document](https://cad.onshape.com/documents/01739d2a63dc91eaf28c2c62/w/a7c671d651186a5272cc789f/e/fdb2542c5ccec8040d59912a), with the printable bundle published on [MakerWorld](https://makerworld.com/en/models/2138778-pounce-a-pult-spiral-cat-toy#profileId-2316710). The toy's own page (renders, assembly, printing notes, license details) lives at [`docs/pounce-a-pult/`](../docs/pounce-a-pult/README.md). Even before we tessellate anything, Python can read its product structure:
 
 ```bash
 uv run cardlab inspect step-demo/pounce-a-pult.step

@@ -26,6 +26,14 @@
 </p>
 
 <p align="center">
+  <img src="docs/assets/card/photos/assembled.jpg" alt="Photograph of an actual 3D-printed card, separated into four pieces on a grey desk. Top-left: the bottom card half with the five blue compound gears nested into their pockets, lid removed so the chain is visible. Top-right: the matching white top card half on its own, showing the four interior windows and the input-gear cutout. Bottom-left: the same top half flipped over so the gears show through its windows, with the small blue input pinion peeking out the right edge. Bottom-right: the card fully closed, front face up, printed with the blue jmcpheron / PyCon2026 logo." width="900" />
+</p>
+
+<p align="center">
+  <sub>And here's the actual print. Two card halves, five blue compound gears, the input pinion poking out the right edge for your thumb — print-in-place from the same <a href="jmcpheron-card.step"><code>jmcpheron-card.step</code></a> the GIFs above are generated from.</sub>
+</p>
+
+<p align="center">
   <img src="docs/explainers/assets/gear-ratios-animated.svg" alt="Flat 2D plan view of the five-gear chain. The leftmost gear (INPUT, thumb-spun) rotates clockwise once every two seconds. Each subsequent gear runs at one-quarter the speed of the previous and spins the opposite direction — '4:1' callouts sit between each adjacent pair. By the rightmost gear (OUTPUT) the rotation is 1/256× the input, visibly almost still." width="900" />
 </p>
 
@@ -80,9 +88,9 @@ It's a quick lens on circular symmetry: why pin counts that divide cleanly into 
 
 This is a fan-made educational study, not affiliated with any specific show or product. Start at [**docs/vault/**](docs/vault/README.md), or jump to [**the 13-pin problem**](docs/vault/thirteen-pin-problem.md) if you just want the punchline.
 
-## A third asset — Pounce-a-Pult (an external CC-BY STEP file)
+## A third design — Pounce-a-Pult, a spiral-spring cat toy
 
-To prove the same pipeline works on someone else's CAD, we point it at an unrelated STEP file: a [Pounce-a-Pult spiral cat toy](docs/pounce-a-pult/README.md), an upstream CC-BY design that lives in a [public Onshape document](https://cad.onshape.com/documents/01739d2a63dc91eaf28c2c62/w/a7c671d651186a5272cc789f/e/fdb2542c5ccec8040d59912a) (parametric source — fork it to remix the geometry) and a [printable MakerWorld bundle](https://makerworld.com/en/models/2138778-pounce-a-pult-spiral-cat-toy#profileId-2316710) (slicer profile + photos). Drop the STEP export at [`step-demo/pounce-a-pult.step`](step-demo/pounce-a-pult.step); `cardlab inspect` reads its AP242 tree, `cardlab render` produces orthographic hero PNGs, and `cardlab explode` decomposes it into six per-part STL/GLB/PNG renders plus an animated exploded GIF — the same five-function chain the gear card uses, no toy-specific code. Per-page write-up at [**docs/pounce-a-pult/**](docs/pounce-a-pult/README.md).
+To show the same pipeline works on more than just the gear card, here's another of my designs run through it: the [Pounce-a-Pult spiral cat toy](docs/pounce-a-pult/README.md). The parametric source lives in a [public Onshape document](https://cad.onshape.com/documents/01739d2a63dc91eaf28c2c62/w/a7c671d651186a5272cc789f/e/fdb2542c5ccec8040d59912a) (fork it to remix the geometry) with a [printable MakerWorld bundle](https://makerworld.com/en/models/2138778-pounce-a-pult-spiral-cat-toy#profileId-2316710) (slicer profile + photos). The STEP export sits at [`step-demo/pounce-a-pult.step`](step-demo/pounce-a-pult.step); `cardlab inspect` reads its AP242 tree, `cardlab render` produces orthographic hero PNGs, and `cardlab explode` decomposes it into six per-part STL/GLB/PNG renders plus an animated exploded GIF — the same five-function chain the gear card uses, no toy-specific code. Per-page write-up at [**docs/pounce-a-pult/**](docs/pounce-a-pult/README.md).
 
 ## How it gets built
 

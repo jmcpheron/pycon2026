@@ -39,18 +39,19 @@ issue or a PR.
 
 - **Adam Savage's mini vault-door build** on [Tested](https://www.tested.com/). The vault-door study under [`docs/vault/`](docs/vault/) is a love-letter to the *geometry* of his mechanism — a fan study, not a clone, not affiliated with Tested.com or Adam Savage. No private plans or assets from the show are used.
 
-## External 3D assets
+## A second 3D-files license — CC BY 4.0 for the Pounce-a-Pult
 
-- **Pounce-a-Pult spiral cat toy** ([`step-demo/pounce-a-pult.step`](step-demo/pounce-a-pult.step) and every render under [`docs/pounce-a-pult/assets/`](docs/pounce-a-pult/assets/)): design by a MakerWorld designer (profile 2316710), shared under [Creative Commons Attribution 4.0 (CC BY)](https://creativecommons.org/licenses/by/4.0/). Two upstream locations:
+- **Pounce-a-Pult spiral cat toy** ([`step-demo/pounce-a-pult.step`](step-demo/pounce-a-pult.step) and every render under [`docs/pounce-a-pult/assets/`](docs/pounce-a-pult/assets/)): another of my designs, published under [Creative Commons Attribution 4.0 (CC BY)](https://creativecommons.org/licenses/by/4.0/) — intentionally more permissive than the rest of this repo's 3D files. Two canonical locations:
   - Parametric CAD source: [public Onshape document](https://cad.onshape.com/documents/01739d2a63dc91eaf28c2c62/w/a7c671d651186a5272cc789f/e/fdb2542c5ccec8040d59912a). This is where the geometry actually *lives* — open it in a browser to inspect, fork it into a free Onshape account to remix.
   - Printable bundle: [MakerWorld model page](https://makerworld.com/en/models/2138778-pounce-a-pult-spiral-cat-toy#profileId-2316710). Slicer profile, photos, assembly tips.
 
-  The STEP file is redistributed here unchanged; our derived renders (PNGs, GIF, GLB, per-part STLs) are derivative works and inherit CC BY 4.0 with the same attribution. This is distinct from the repo's own 3D files (the gear card and vault diagrams), which are CC BY-**SA** 4.0 under [`LICENSE-3D-FILES`](LICENSE-3D-FILES).
+  The committed STEP file and every derived render (PNGs, GIF, GLB, per-part STLs) under `docs/pounce-a-pult/` are CC BY 4.0 with attribution to me. This is distinct from the rest of the repo's 3D files (the gear card and vault diagrams), which are CC BY-**SA** 4.0 under [`LICENSE-3D-FILES`](LICENSE-3D-FILES).
 
 ## How the licenses interact with this repo
 
 * **Our code** under `src/`, `tests/`, and the GitHub workflows is **MIT** ([`LICENSE`](LICENSE)).
-* **Our 3D files** — the committed STEP, and every STL / GLB / PNG / GIF generated under `docs/assets/card/` and `docs/vault/assets/` — are **CC BY-SA 4.0** ([`LICENSE-3D-FILES`](LICENSE-3D-FILES)).
+* **Most of our 3D files** — the committed gear-card STEP, and every STL / GLB / PNG / GIF generated under `docs/assets/card/` and `docs/vault/assets/` — are **CC BY-SA 4.0** ([`LICENSE-3D-FILES`](LICENSE-3D-FILES)).
+* **The Pounce-a-Pult** ([`step-demo/pounce-a-pult.step`](step-demo/pounce-a-pult.step) and everything under `docs/pounce-a-pult/`) is also my design but is published under **CC BY 4.0** — deliberately looser, no share-alike. See the section above.
 * **Dependencies** retain their own licenses. We do not redistribute their source; we import them from PyPI / install them from apt. Anyone reproducing this project pulls them from the same upstream sources.
 * **OCCT** (under `cadquery-ocp`) is LGPL-2.1 with an exception that permits dynamic linking from non-GPL applications. We use it through `build123d`'s Python API only.
 * **OpenSCAD** (GPL-2.0-or-later) is invoked as a separate process via `subprocess.run`. No source linking; the GPL doesn't extend across the subprocess boundary.
