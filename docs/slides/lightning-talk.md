@@ -245,9 +245,9 @@ I have a golden retriever named **Bowie**.
 </div>
 <div>
 
-![w:400](../pounce-a-pult/assets/exploded.gif)
+![w:400](bowie-makerworld.jpg)
 
-<p class="soft" style="text-align:center;">The cat toy. Bowie remains unimpressed.</p>
+<p class="soft" style="text-align:center;">The cat toy on MakerWorld. Bowie remains unimpressed.</p>
 
 </div>
 </div>
