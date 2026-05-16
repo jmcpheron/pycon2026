@@ -3,6 +3,7 @@ marp: true
 theme: default
 class: invert
 paginate: true
+footer: 'github.com/jmcpheron/pycon2026'
 style: |
   section { padding: 40px 60px; }
   h1 { font-size: 1.55em; line-height: 1.2; border-bottom: 2px solid #4a9eff; padding-bottom: 0.2em; margin-bottom: 0.5em; }
@@ -16,6 +17,7 @@ style: |
   .qr-wrap { text-align: center; margin-top: 0.5em; }
   .qr-wrap img { max-height: 340px; }
   .soft { color: #999; font-size: 0.8em; }
+  footer { font-size: 0.65em; color: #6699cc; font-family: monospace; }
 ---
 
 <!-- _class: lead -->
@@ -84,16 +86,18 @@ At first, that was the whole project. Make a cool little object. Print it. Bring
 
 ---
 
-# This is where it got complicated.
+# This is where I was happy with the design.
 
 ![w:860 center](../assets/card/photos/onshape-assembly.png)
 
 <!--
-The design started in Onshape. I'm still new enough to Onshape that a lot of this was just me learning how to build parts, assemble them, line things up, and think about whether a design would actually print and move.
+The design started in Onshape. Parts, mate connectors, revolute joints so the gears actually spin, even the mesh ratios set up so Onshape knows how they drive each other.
 
-Once I had the card assembled and I was looking at it right here — I exported it as a STEP file.
+When I got to this point — assembly done, gears moving, lid fitting — I was just happy with it as a 3D design. That felt like the project.
 
-And that was the moment I had the thought that probably gets a lot of us into trouble: How can I make this a Python project?
+And then I had the thought that probably gets a lot of us into trouble: "This is nice, but how do I force Python into this?"
+
+What could I actually do with it if I exported it and dropped it in a repo? How much Python tooling could I throw at a STEP file and get something interesting out?
 -->
 
 ---
