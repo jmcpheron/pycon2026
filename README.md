@@ -26,6 +26,14 @@
 </p>
 
 <p align="center">
+  <img src="docs/assets/card/photos/assembled.jpg" alt="Photograph of an actual 3D-printed card, separated into four pieces on a grey desk. Top-left: the bottom card half with the five blue compound gears nested into their pockets, lid removed so the chain is visible. Top-right: the matching white top card half on its own, showing the four interior windows and the input-gear cutout. Bottom-left: the same top half flipped over so the gears show through its windows, with the small blue input pinion peeking out the right edge. Bottom-right: the card fully closed, front face up, printed with the blue jmcpheron / PyCon2026 logo." width="900" />
+</p>
+
+<p align="center">
+  <sub>And here's the actual print. Two card halves, five blue compound gears, the input pinion poking out the right edge for your thumb — print-in-place from the same <a href="jmcpheron-card.step"><code>jmcpheron-card.step</code></a> the GIFs above are generated from.</sub>
+</p>
+
+<p align="center">
   <img src="docs/explainers/assets/gear-ratios-animated.svg" alt="Flat 2D plan view of the five-gear chain. The leftmost gear (INPUT, thumb-spun) rotates clockwise once every two seconds. Each subsequent gear runs at one-quarter the speed of the previous and spins the opposite direction — '4:1' callouts sit between each adjacent pair. By the rightmost gear (OUTPUT) the rotation is 1/256× the input, visibly almost still." width="900" />
 </p>
 
