@@ -3,6 +3,7 @@ marp: true
 theme: default
 class: invert
 paginate: true
+footer: 'github.com/jmcpheron/pycon2026'
 style: |
   section { padding: 40px 60px; }
   h1 { font-size: 1.55em; line-height: 1.2; border-bottom: 2px solid #4a9eff; padding-bottom: 0.2em; margin-bottom: 0.5em; }
@@ -16,6 +17,7 @@ style: |
   .qr-wrap { text-align: center; margin-top: 0.5em; }
   .qr-wrap img { max-height: 340px; }
   .soft { color: #999; font-size: 0.8em; }
+  footer { font-size: 0.65em; color: #6699cc; font-family: monospace; }
 ---
 
 <!-- _class: lead -->
