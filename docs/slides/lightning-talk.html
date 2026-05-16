@@ -234,6 +234,7 @@ footer { font-size: 0.65em; color: #6699cc; font-family: monospace; }
 </div>
 <div>
 <p><img src="../assets/card/spin.gif" alt="" style="width:380px;" /></p>
+<p class="soft" style="text-align:center;">Yes, the gears clip through each other. <br />If that bothers you — <em>stay tuned.</em></p>
 </div>
 </div>
 <footer>github.com/jmcpheron/pycon2026</footer>
@@ -319,6 +320,7 @@ footer { font-size: 0.65em; color: #6699cc; font-family: monospace; }
 <code>src/explainers/card.py</code>  changes  →  <strong>build-explainers.yml</strong>  →  new pages + SVGs</p>
 </div>
 <p class="big-quote">A README can quietly start lying about its object.<br />An auto-commit loop makes that a lot harder.</p>
+<p><strong>Remember the clipping gears?</strong> Fork the repo, fix the spin renderer so each gear turns at its real ratio, push, and the workflow will rebuild the GIF for you. <strong>PR welcome.</strong></p>
 <footer>github.com/jmcpheron/pycon2026</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-class="invert" data-paginate="true" data-footer="github.com/jmcpheron/pycon2026" data-theme="default" data-style="section { padding: 40px 60px; }
@@ -529,6 +531,8 @@ What could I actually do with it if I exported it and dropped it in a repo? How 
 
 That was the moment where the project changed for me. Because now I had a single file that represented the assembled physical object. I could put that file in a GitHub repo. I could version it. I could run tools against it. I could start treating the physical object a little more like a software project.</p></div><div class="bespoke-marp-note" data-index="5" tabindex="0"><p>So the Python part became less about replacing CAD, and more about building tooling around the CAD export. The design still happens in Onshape. But once the STEP file is in the repo, Python can start doing useful things around it.
 
+Quick aside on this GIF: yes, the gears are clipping through each other. The render does not know about the mesh ratios, so each gear just spins at the same rate. If that bothers you, hang on — I'll come back to it in a minute.
+
 It can inspect the file. It can help take the assembly apart. It can generate renders. It can make exploded views. It can create animated GIFs that show the mechanism moving.
 
 And it can help keep track of all the little notes around the object: explainers, development journals, tolerance problems, print settings, experiments, and the general story of how the thing changed over time.
@@ -540,6 +544,8 @@ So alongside the renders, the repo also writes explainer pages. Short prose with
 The renders are the gallery. The explainers are the museum placard next to it.</p></div><div class="bespoke-marp-note" data-index="7" tabindex="0"><p>Here is the part I actually like about using GitHub Actions for this. It is not that Python can make renders and exploded views and diagrams. We already saw that. It is that I almost never run any of it.
 
 When I push a change to the STEP file, a workflow runs in the cloud, regenerates the exploded GIF and the spinning GIF, and commits the new files back to main. When I push a change to the gear constants in card.py, a different workflow rebuilds every explainer page and every SVG, and commits those back too.
+
+And here is the open invitation. Remember the spin GIF where the gears clip through each other? That is a real, small, fixable bug in the renderer. Fork the repo, fix it so each gear turns at its own ratio, push it up, and the workflow will rebuild the GIF on its own. I would genuinely love a PR.
 
 Screenshots get stale. Documentation gets stale. A repo can quietly start lying about the object it contains. An auto-commit loop is my attempt to make that a little harder.</p></div><div class="bespoke-marp-note" data-index="8" tabindex="0"><p>Before this card, I had another little Onshape project. For Christmas, my mom asked me to design a 3D printed cat toy. That project is where I really started learning how much I enjoy making separate parts in Onshape and then assembling them into a complete object.
 
