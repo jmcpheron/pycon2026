@@ -52,6 +52,22 @@ PRESSURE_ANGLE_DEG = 20.0
 """Modern AGMA pressure-angle standard. bd_warehouse accepts it for the
 40-tooth and 10-tooth gears at module 0.6 (verified)."""
 
+# --- Per-stage colors ------------------------------------------------------
+# Hot-to-cool gradient along the reduction chain: red input visually screams
+# "fast", violet output reads "barely moving" — reinforces the 256:1 story
+# the cascading rotation rates already tell. Saturated against the Cornfield
+# yellow plate so each gear stays legible mid-spin. RGB in 0..1 for SCAD.
+STAGE_COLORS: tuple[tuple[float, float, float], ...] = (
+    (0.86, 0.20, 0.27),  # crimson  — stage 0, input
+    (0.94, 0.43, 0.12),  # orange   — stage 1
+    (0.12, 0.67, 0.43),  # emerald  — stage 2
+    (0.16, 0.43, 0.78),  # azure    — stage 3
+    (0.55, 0.27, 0.71),  # violet   — stage 4, output
+)
+AXLE_COLOR: tuple[float, float, float] = (0.30, 0.30, 0.32)
+"""Dark steel for the stationary axle posts — uniform, recedes from the
+spinning color cascade."""
+
 # Z stacking — big disc at z=0, hub above, pinion above that. SpurGear is
 # centred about z=0 by default; ``.translate((0,0,z))`` lands it.
 _BIG_THICKNESS = C.GEAR_THICKNESS_MM
@@ -168,15 +184,21 @@ def _frame_scad(
         f'translate([0,0,{_PLATE_CENTER_Z:.4f}]) import("{plate_stl}");'
     )
 
+    ar, ag, ab = AXLE_COLOR
     for k in range(n):
         x = x0 + k * C.CENTER_DISTANCE_MM
         # Axle post — does not rotate.
         lines.append(
+            f'color([{ar:.3f},{ag:.3f},{ab:.3f}]) '
             f'translate([{x:.4f},0,0]) import("{axle_stl}");'
         )
-        # Compound gear — rotates about its own z-axis.
+        # Compound gear — rotates about its own z-axis. Color cycles through
+        # STAGE_COLORS; if N_STAGES ever grows past the palette we wrap by
+        # index rather than crash (the explainer story still holds).
+        r, g, b = STAGE_COLORS[k % len(STAGE_COLORS)]
         theta = _gear_rotation_deg(k, t, input_turns)
         lines.append(
+            f'color([{r:.3f},{g:.3f},{b:.3f}]) '
             f'translate([{x:.4f},0,0]) rotate([0,0,{theta:.4f}]) '
             f'import("{compound_stl}");'
         )
