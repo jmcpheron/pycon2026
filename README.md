@@ -80,15 +80,7 @@ There are six short explainer pages if you want the longer version:
 - [**Terminology**](docs/explainers/terminology.md) — pinion, module, pitch circle, addendum. The 90 seconds of vocabulary the other pages assume.
 - [**Printing considerations**](docs/explainers/printing.md) — orientation, chamfers, why each post is its own part.
 
-## A side study — the rotary vault door
-
-A separate Python-driven design study lives in [`src/vault/`](src/vault/) and [`docs/vault/`](docs/vault/). The gear card is about **reduction** — one input rotation becomes a much slower output rotation. The vault door study is about **coordination** — one input rotation moves many locking pins around a circular door.
-
-It's a quick lens on circular symmetry: why pin counts that divide cleanly into pairs and quadrants (12, 24) read better mechanically than primes (13 leaves one pin orphaned across the diameter), and how a 10° cam rotation translates to ~12 mm of arc travel at a 70 mm pin radius. Same pattern as the explainers: one parameter file ([`vault.py`](src/vault/vault.py)) drives every diagram and markdown page; `uv run vault build` regenerates everything; CI auto-commits the result.
-
-This is a fan-made educational study, not affiliated with any specific show or product. Start at [**docs/vault/**](docs/vault/README.md), or jump to [**the 13-pin problem**](docs/vault/thirteen-pin-problem.md) if you just want the punchline.
-
-## A third design — Pounce-a-Pult, a spiral-spring cat toy
+## A second design — Pounce-a-Pult, a spiral-spring cat toy
 
 To show the same pipeline works on more than just the gear card, here's another of my designs run through it: the [Pounce-a-Pult spiral cat toy](docs/pounce-a-pult/README.md). The parametric source lives in a [public Onshape document](https://cad.onshape.com/documents/01739d2a63dc91eaf28c2c62/w/a7c671d651186a5272cc789f/e/fdb2542c5ccec8040d59912a) (fork it to remix the geometry) with a [printable MakerWorld bundle](https://makerworld.com/en/models/2138778-pounce-a-pult-spiral-cat-toy#profileId-2316710) (slicer profile + photos). The STEP export sits at [`step-demo/pounce-a-pult.step`](step-demo/pounce-a-pult.step); `cardlab inspect` reads its AP242 tree, `cardlab render` produces orthographic hero PNGs, and `cardlab explode` decomposes it into six per-part STL/GLB/PNG renders plus an animated exploded GIF — the same five-function chain the gear card uses, no toy-specific code. Per-page write-up at [**docs/pounce-a-pult/**](docs/pounce-a-pult/README.md).
 
