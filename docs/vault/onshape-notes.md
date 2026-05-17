@@ -154,6 +154,66 @@ Whichever approach you used:
    of a mm — usually because the BCD was typed in by hand instead of
    computed from `(m·N_ring + m·N_spur) / 2`.
 
+## Satellite spur gears (the 12 that drive the racks)
+
+You model **one** spur gear and Circular Pattern it 12× around the
+72 mm BCD in the Assembly tab. Same Spur Gear FeatureScript as the
+ring — only a few fields change.
+
+### Spur Gear FeatureScript settings
+
+| FeatureScript field | Value | Why |
+| --- | --- | --- |
+| Gear input type | Module | Adam's build is metric. |
+| **Module** | `0.5 mm` | Must match the ring AND the rack. Module is the gear-compatibility key. |
+| **Number of teeth** | `24` | [Part 2]; gives a 5:1 ratio against the 120-tooth ring. |
+| Pressure angle | `20°` | Modern AGMA standard. (14.5° only matters for the OpenSCAD-rendered preview where build123d hits numerical limits.) |
+| Helix angle | `0°` | Spur, not helical. |
+| **Internal** | **OFF** | Same as the ring — external teeth. |
+| **Face width / Thickness** | `8 mm` (or `4 mm` for a schematic study) | Match the 8 × 8 mm rack stock so the rack-and-pinion mesh is full-width. |
+| Center hole | ON, diameter `bolt_dia + 0.1 mm` | Shoulder-bolt axle slip-fit. Adam's rule from [Part 2]: gear bore is 0.1 mm larger than the bolt's smooth shoulder OD. Pick the bolt first, then size the bore. |
+| Sketch plane | Top (or the door-cavity inner face) | Doesn't affect geometry — placement happens in the Assembly. |
+
+### Derived numbers (consistency checks after generating)
+
+| Quantity | Value | Formula |
+| --- | --- | --- |
+| Pitch diameter | `12 mm` | `m × N = 0.5 × 24` |
+| Tip (outer) diameter | `13 mm` | `pitch + 2·m` |
+| Root diameter | `10.75 mm` | `pitch − 2·1.25·m` |
+| Centre distance to ring | `36 mm` | `pitch_radius(ring) + pitch_radius(spur) = 30 + 6` |
+| BCD | `72 mm` | `2 × centre_distance` — matches Adam's drawing [Part 2] |
+
+If Onshape's readout doesn't say `tip_diameter = 13 mm` after the
+FeatureScript runs, the module or tooth count is wrong.
+
+### In the Assembly tab
+
+The Spur Gear feature only creates the part. The actual *mechanism*
+comes from four Assembly-level operations:
+
+1. **Revolute Mate** the spur to a sketch point on the **72 mm BCD**.
+   It should spin freely about its own axis.
+2. **Gear Relation** between the ring's revolute and this spur's
+   revolute → Onshape derives the 5:1 ratio from tooth counts
+   (120 / 24) automatically.
+3. **Rack-and-Pinion Relation** between this spur's revolute and the
+   corresponding pin's **Slider Mate**. Onshape uses the spur's pitch
+   radius (6 mm) to convert rotation to linear travel:
+   * One full spur rotation = `2π × 6 ≈ 37.7 mm` of linear pin travel.
+   * Canonical `PIN_TRAVEL_MM = 8 mm` requires `≈ 76°` of spur rotation.
+   * Which back-derives to `≈ 15°` of ring rotation (the 5:1 ratio) —
+     close to the canonical `CAM_ROTATION_DEG = 10°` budget.
+4. **Circular Assembly Pattern** of the (spur + rack + pin)
+   sub-assembly, 12× around the door axis. One click and Onshape
+   mathematically guarantees identical timing across all 12 pins —
+   sidestepping the concentricity rework Adam describes in [Part 4].
+
+> **Sub-assembly tip.** Build "1 spur + 1 rack + 1 pin" as a separate
+> Assembly tab, get the revolute / slider / rack-and-pinion relations
+> right *once*, then insert that sub-assembly into the main door
+> assembly 12 times. Keeps the mating tree clean.
+
 ## Gotchas & lessons learned
 
 _(Add entries here as I run into them.)_
