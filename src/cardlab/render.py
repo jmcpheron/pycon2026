@@ -24,11 +24,12 @@ from cardlab.build import (
 # OpenSCAD's 7-arg --camera form is tx,ty,tz,rotx,roty,rotz,dist. Distance
 # is filled in per-call after we know the imported model's bounding box.
 _PRESET_ROTATIONS: dict[str, tuple[float, float, float]] = {
-    "iso":   (58, 0, 28),
-    "top":   (0,  0, 0),
-    "edge":  (90, 0, 0),
-    "front": (90, 0, 0),
-    "right": (90, 0, 90),
+    "iso":      (58, 0, 28),
+    "low-iso":  (40, 0, 25),   # lower elevation for tall assemblies (cat toy etc.)
+    "top":      (0,  0, 0),
+    "edge":     (90, 0, 0),
+    "front":    (90, 0, 0),
+    "right":    (90, 0, 90),
 }
 PRESETS = _PRESET_ROTATIONS  # exposed so cli.py can validate angle choices
 

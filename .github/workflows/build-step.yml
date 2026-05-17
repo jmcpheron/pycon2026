@@ -85,7 +85,8 @@ jobs:
         run: xvfb-run -a uv run cardlab explode
               --in step-demo/pounce-a-pult.step
               --out docs/pounce-a-pult/assets/
-              --strategy radial
+              --strategy cat-toy
+              --angle low-iso
               --factor 1.0
               --frames 24
 
