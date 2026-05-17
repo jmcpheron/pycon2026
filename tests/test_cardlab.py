@@ -212,10 +212,9 @@ def test_spin_frame_scad_shape() -> None:
     assert scad.count("import(") == 1 + 2 * C.N_STAGES
     # One rotate per compound-gear instance.
     assert scad.count("rotate(") == C.N_STAGES
-    # Each gear and axle gets a color() wrapper — 2·N colored objects per
-    # frame. Plate is intentionally uncolored so the default Cornfield
-    # yellow reads as the printed card body.
-    assert scad.count("color(") == 2 * C.N_STAGES
+    # Plate (white) + each axle + each compound gear all get color() wrappers:
+    # 1 (plate) + N (axles) + N (gears) = 2·N + 1.
+    assert scad.count("color(") == 2 * C.N_STAGES + 1
     # And the per-stage palette must actually have one entry per stage so
     # we don't silently wrap around past the input gear.
     from cardlab.spin import STAGE_COLORS
