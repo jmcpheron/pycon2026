@@ -118,6 +118,14 @@ def _hero_chain_animated(out: Path) -> Path:
                          font_family=S.FONT_FAMILY,
                          fill=S.ACCENT_HILITE, font_weight="bold"))
 
+    _GEAR_COLORS = [
+        "#c45c44",  # terracotta  (input)
+        "#3b82a0",  # slate blue
+        "#5a9c3a",  # forest green
+        "#d4820a",  # amber
+        "#7c5cbf",  # violet      (output)
+    ]
+
     # --- Gears in reverse z-order so the input gear (i=0) sits on top -------
     for i in reversed(range(n)):
         cx = pad + big_r + i * cd
@@ -130,6 +138,8 @@ def _hero_chain_animated(out: Path) -> Path:
             pinion_teeth=card.PINION_TEETH,
             period_s=period,
             clockwise=clockwise,
+            big_color=_GEAR_COLORS[i],
+            pinion_color=_GEAR_COLORS[i],
         )
 
     # --- Speed / role labels (separate pass so text is always on top) --------

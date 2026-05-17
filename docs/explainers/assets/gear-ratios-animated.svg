@@ -3,13 +3,13 @@
      width="256.0" height="168.0" viewBox="0 0 256.0 168.0">
 <defs>
 </defs>
-<rect x="0" y="0" width="256.0" height="168.0" fill="#fafaf9" />
+<rect x="0" y="0" width="256.0" height="168.0" fill="#ffffff" />
 <text x="68.0" y="34.0" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#2563eb" font-weight="bold">4:1</text>
 <text x="108.0" y="34.0" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#2563eb" font-weight="bold">4:1</text>
 <text x="148.0" y="34.0" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#2563eb" font-weight="bold">4:1</text>
 <text x="188.0" y="34.0" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#2563eb" font-weight="bold">4:1</text>
 <g>
-<circle cx="208.0" cy="74.0" r="32.0" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="208.0" cy="74.0" r="32.0" fill="#7c5cbf" stroke="#1f2937" stroke-width="0.6" />
 <path d="M239.4,74.0 L240.6,74.0" stroke="#1f2937" stroke-width="0.6" />
 <path d="M239.01341389468732,78.91204220226325 L240.1986399034015,79.09976356031153" stroke="#1f2937" stroke-width="0.6" />
 <path d="M237.86317461166783,83.70313362337335 L239.004442431222,84.07395401662329" stroke="#1f2937" stroke-width="0.6" />
@@ -50,7 +50,7 @@
 <path d="M235.97760485951474,59.74469830817823 L237.0468126885408,59.199909708490765" stroke="#1f2937" stroke-width="0.6" />
 <path d="M237.86317461166783,64.29686637662664 L239.004442431222,63.92604598337671" stroke="#1f2937" stroke-width="0.6" />
 <path d="M239.01341389468732,69.08795779773675 L240.1986399034015,68.90023643968847" stroke="#1f2937" stroke-width="0.6" />
-<circle cx="208.0" cy="74.0" r="9.0" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="208.0" cy="74.0" r="9.0" fill="#7c5cbf" stroke="#1f2937" stroke-width="0.6" />
 <path d="M216.4,74.0 L217.6,74.0" stroke="#1f2937" stroke-width="0.6" />
 <path d="M214.79574275274956,78.93739611925677 L215.7665631459995,79.64273842200774" stroke="#1f2937" stroke-width="0.6" />
 <path d="M210.59574275274957,81.9888747368793 L210.9665631459995,83.13014255643347" stroke="#1f2937" stroke-width="0.6" />
@@ -62,11 +62,11 @@
 <path d="M210.59574275274954,66.0111252631207 L210.9665631459995,64.86985744356653" stroke="#1f2937" stroke-width="0.6" />
 <path d="M214.79574275274956,69.06260388074323 L215.7665631459995,68.35726157799226" stroke="#1f2937" stroke-width="0.6" />
 <circle cx="208.0" cy="74.0" r="3.0" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
-<circle cx="208.0" cy="74.0" r="1.0" fill="#fafaf9" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="208.0" cy="74.0" r="1.0" fill="#ffffff" stroke="#1f2937" stroke-width="0.6" />
 <animateTransform attributeName="transform" dur="512.0s" from="0 208.0 74.0" to="360 208.0 74.0" type="rotate" repeatCount="indefinite" />
 </g>
 <g>
-<circle cx="168.0" cy="74.0" r="32.0" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="168.0" cy="74.0" r="32.0" fill="#d4820a" stroke="#1f2937" stroke-width="0.6" />
 <path d="M199.4,74.0 L200.6,74.0" stroke="#1f2937" stroke-width="0.6" />
 <path d="M199.01341389468732,78.91204220226325 L200.1986399034015,79.09976356031153" stroke="#1f2937" stroke-width="0.6" />
 <path d="M197.86317461166783,83.70313362337335 L199.004442431222,84.07395401662329" stroke="#1f2937" stroke-width="0.6" />
@@ -107,7 +107,7 @@
 <path d="M195.97760485951474,59.74469830817823 L197.0468126885408,59.199909708490765" stroke="#1f2937" stroke-width="0.6" />
 <path d="M197.86317461166783,64.29686637662664 L199.004442431222,63.92604598337671" stroke="#1f2937" stroke-width="0.6" />
 <path d="M199.01341389468732,69.08795779773675 L200.1986399034015,68.90023643968847" stroke="#1f2937" stroke-width="0.6" />
-<circle cx="168.0" cy="74.0" r="9.0" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="168.0" cy="74.0" r="9.0" fill="#d4820a" stroke="#1f2937" stroke-width="0.6" />
 <path d="M176.4,74.0 L177.6,74.0" stroke="#1f2937" stroke-width="0.6" />
 <path d="M174.79574275274956,78.93739611925677 L175.7665631459995,79.64273842200774" stroke="#1f2937" stroke-width="0.6" />
 <path d="M170.59574275274957,81.9888747368793 L170.9665631459995,83.13014255643347" stroke="#1f2937" stroke-width="0.6" />
@@ -119,11 +119,11 @@
 <path d="M170.59574275274954,66.0111252631207 L170.9665631459995,64.86985744356653" stroke="#1f2937" stroke-width="0.6" />
 <path d="M174.79574275274956,69.06260388074323 L175.7665631459995,68.35726157799226" stroke="#1f2937" stroke-width="0.6" />
 <circle cx="168.0" cy="74.0" r="3.0" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
-<circle cx="168.0" cy="74.0" r="1.0" fill="#fafaf9" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="168.0" cy="74.0" r="1.0" fill="#ffffff" stroke="#1f2937" stroke-width="0.6" />
 <animateTransform attributeName="transform" dur="128.0s" from="0 168.0 74.0" to="-360 168.0 74.0" type="rotate" repeatCount="indefinite" />
 </g>
 <g>
-<circle cx="128.0" cy="74.0" r="32.0" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="128.0" cy="74.0" r="32.0" fill="#5a9c3a" stroke="#1f2937" stroke-width="0.6" />
 <path d="M159.4,74.0 L160.6,74.0" stroke="#1f2937" stroke-width="0.6" />
 <path d="M159.01341389468732,78.91204220226325 L160.1986399034015,79.09976356031153" stroke="#1f2937" stroke-width="0.6" />
 <path d="M157.86317461166783,83.70313362337335 L159.004442431222,84.07395401662329" stroke="#1f2937" stroke-width="0.6" />
@@ -164,7 +164,7 @@
 <path d="M155.97760485951474,59.74469830817823 L157.0468126885408,59.199909708490765" stroke="#1f2937" stroke-width="0.6" />
 <path d="M157.86317461166783,64.29686637662664 L159.004442431222,63.92604598337671" stroke="#1f2937" stroke-width="0.6" />
 <path d="M159.01341389468732,69.08795779773675 L160.1986399034015,68.90023643968847" stroke="#1f2937" stroke-width="0.6" />
-<circle cx="128.0" cy="74.0" r="9.0" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="128.0" cy="74.0" r="9.0" fill="#5a9c3a" stroke="#1f2937" stroke-width="0.6" />
 <path d="M136.4,74.0 L137.6,74.0" stroke="#1f2937" stroke-width="0.6" />
 <path d="M134.79574275274956,78.93739611925677 L135.7665631459995,79.64273842200774" stroke="#1f2937" stroke-width="0.6" />
 <path d="M130.59574275274957,81.9888747368793 L130.9665631459995,83.13014255643347" stroke="#1f2937" stroke-width="0.6" />
@@ -176,11 +176,11 @@
 <path d="M130.59574275274954,66.0111252631207 L130.9665631459995,64.86985744356653" stroke="#1f2937" stroke-width="0.6" />
 <path d="M134.79574275274956,69.06260388074323 L135.7665631459995,68.35726157799226" stroke="#1f2937" stroke-width="0.6" />
 <circle cx="128.0" cy="74.0" r="3.0" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
-<circle cx="128.0" cy="74.0" r="1.0" fill="#fafaf9" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="128.0" cy="74.0" r="1.0" fill="#ffffff" stroke="#1f2937" stroke-width="0.6" />
 <animateTransform attributeName="transform" dur="32.0s" from="0 128.0 74.0" to="360 128.0 74.0" type="rotate" repeatCount="indefinite" />
 </g>
 <g>
-<circle cx="88.0" cy="74.0" r="32.0" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="88.0" cy="74.0" r="32.0" fill="#3b82a0" stroke="#1f2937" stroke-width="0.6" />
 <path d="M119.4,74.0 L120.6,74.0" stroke="#1f2937" stroke-width="0.6" />
 <path d="M119.01341389468732,78.91204220226325 L120.1986399034015,79.09976356031153" stroke="#1f2937" stroke-width="0.6" />
 <path d="M117.86317461166782,83.70313362337335 L119.004442431222,84.07395401662329" stroke="#1f2937" stroke-width="0.6" />
@@ -221,7 +221,7 @@
 <path d="M115.97760485951474,59.74469830817823 L117.0468126885408,59.199909708490765" stroke="#1f2937" stroke-width="0.6" />
 <path d="M117.86317461166782,64.29686637662664 L119.004442431222,63.92604598337671" stroke="#1f2937" stroke-width="0.6" />
 <path d="M119.01341389468732,69.08795779773675 L120.1986399034015,68.90023643968847" stroke="#1f2937" stroke-width="0.6" />
-<circle cx="88.0" cy="74.0" r="9.0" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="88.0" cy="74.0" r="9.0" fill="#3b82a0" stroke="#1f2937" stroke-width="0.6" />
 <path d="M96.4,74.0 L97.6,74.0" stroke="#1f2937" stroke-width="0.6" />
 <path d="M94.79574275274956,78.93739611925677 L95.7665631459995,79.64273842200774" stroke="#1f2937" stroke-width="0.6" />
 <path d="M90.59574275274956,81.9888747368793 L90.9665631459995,83.13014255643347" stroke="#1f2937" stroke-width="0.6" />
@@ -233,11 +233,11 @@
 <path d="M90.59574275274956,66.0111252631207 L90.96656314599949,64.86985744356653" stroke="#1f2937" stroke-width="0.6" />
 <path d="M94.79574275274956,69.06260388074323 L95.7665631459995,68.35726157799226" stroke="#1f2937" stroke-width="0.6" />
 <circle cx="88.0" cy="74.0" r="3.0" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
-<circle cx="88.0" cy="74.0" r="1.0" fill="#fafaf9" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="88.0" cy="74.0" r="1.0" fill="#ffffff" stroke="#1f2937" stroke-width="0.6" />
 <animateTransform attributeName="transform" dur="8.0s" from="0 88.0 74.0" to="-360 88.0 74.0" type="rotate" repeatCount="indefinite" />
 </g>
 <g>
-<circle cx="48.0" cy="74.0" r="32.0" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="48.0" cy="74.0" r="32.0" fill="#c45c44" stroke="#1f2937" stroke-width="0.6" />
 <path d="M79.4,74.0 L80.6,74.0" stroke="#1f2937" stroke-width="0.6" />
 <path d="M79.01341389468732,78.91204220226325 L80.1986399034015,79.09976356031153" stroke="#1f2937" stroke-width="0.6" />
 <path d="M77.86317461166782,83.70313362337335 L79.004442431222,84.07395401662329" stroke="#1f2937" stroke-width="0.6" />
@@ -278,7 +278,7 @@
 <path d="M75.97760485951474,59.74469830817823 L77.0468126885408,59.199909708490765" stroke="#1f2937" stroke-width="0.6" />
 <path d="M77.86317461166782,64.29686637662664 L79.004442431222,63.92604598337671" stroke="#1f2937" stroke-width="0.6" />
 <path d="M79.01341389468732,69.08795779773675 L80.1986399034015,68.90023643968847" stroke="#1f2937" stroke-width="0.6" />
-<circle cx="48.0" cy="74.0" r="9.0" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="48.0" cy="74.0" r="9.0" fill="#c45c44" stroke="#1f2937" stroke-width="0.6" />
 <path d="M56.4,74.0 L57.6,74.0" stroke="#1f2937" stroke-width="0.6" />
 <path d="M54.79574275274956,78.93739611925677 L55.7665631459995,79.64273842200774" stroke="#1f2937" stroke-width="0.6" />
 <path d="M50.59574275274956,81.9888747368793 L50.966563145999494,83.13014255643347" stroke="#1f2937" stroke-width="0.6" />
@@ -290,7 +290,7 @@
 <path d="M50.59574275274956,66.0111252631207 L50.966563145999494,64.86985744356653" stroke="#1f2937" stroke-width="0.6" />
 <path d="M54.79574275274956,69.06260388074323 L55.76656314599949,68.35726157799226" stroke="#1f2937" stroke-width="0.6" />
 <circle cx="48.0" cy="74.0" r="3.0" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
-<circle cx="48.0" cy="74.0" r="1.0" fill="#fafaf9" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="48.0" cy="74.0" r="1.0" fill="#ffffff" stroke="#1f2937" stroke-width="0.6" />
 <animateTransform attributeName="transform" dur="2.0s" from="0 48.0 74.0" to="360 48.0 74.0" type="rotate" repeatCount="indefinite" />
 </g>
 <text x="48.0" y="122.0" font-size="11" text-anchor="middle" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#2563eb" font-weight="bold">1×</text>
