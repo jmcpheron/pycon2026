@@ -158,9 +158,10 @@ def _frame_scad(
 ) -> str:
     """Compose the .scad shim for one frame.
 
-    Layout: the five compound gears sit on a horizontal x-axis,
-    ``C.CENTER_DISTANCE_MM`` apart. We translate the whole chain so its
-    midpoint is at origin — keeps the camera centred for all frames.
+    Layout: the five compound gears sit on a diagonal staircase — each stage
+    is offset ``C.GEAR_THICKNESS_MM`` higher in Z than the previous, matching
+    the physical card's layered assembly. Centers are ``C.CENTER_DISTANCE_MM``
+    apart in X. The whole chain is shifted so its midpoint is at origin.
     """
     n = C.N_STAGES
     chain_span = (n - 1) * C.CENTER_DISTANCE_MM
@@ -176,9 +177,10 @@ def _frame_scad(
     axle_c = scad_color(AXLE_COLOR)
     for k in range(n):
         x = x0 + k * C.CENTER_DISTANCE_MM
+        z = k * C.GEAR_THICKNESS_MM  # each stage steps up by one gear thickness
         # Axle post — does not rotate.
         lines.append(
-            f'{axle_c} translate([{x:.4f},0,0]) import("{axle_stl}");'
+            f'{axle_c} translate([{x:.4f},0,{z:.4f}]) import("{axle_stl}");'
         )
         # Compound gear — rotates about its own z-axis. Color cycles through
         # STAGE_COLORS; if N_STAGES ever grows past the palette we wrap by
@@ -186,7 +188,7 @@ def _frame_scad(
         gear_c = scad_color(STAGE_COLORS[k % len(STAGE_COLORS)])
         theta = _gear_rotation_deg(k, t, input_turns)
         lines.append(
-            f'{gear_c} translate([{x:.4f},0,0]) rotate([0,0,{theta:.4f}]) '
+            f'{gear_c} translate([{x:.4f},0,{z:.4f}]) rotate([0,0,{theta:.4f}]) '
             f'import("{compound_stl}");'
         )
 
