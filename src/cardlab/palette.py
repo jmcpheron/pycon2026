@@ -2,7 +2,7 @@
 
 The cascading reduction story benefits from a consistent visual signature
 across every animation the repo emits — the same crimson-to-violet
-gradient that reads "fast to slow" in ``spin.gif`` makes the chain in
+gradient that reads "fast to slow" in ``spin-iso.gif`` makes the chain in
 ``exploded.gif`` instantly identifiable as the same five-stage train,
 even when the parts are mid-explosion.
 

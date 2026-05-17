@@ -364,7 +364,7 @@ def _assign_part_colors(parts: list[ExplodedPart]) -> dict[str, str]:
     printed-card body color. Everything else is treated as a gear and
     gets ``STAGE_COLORS`` assigned by ascending X centroid, so the chain
     reads left-to-right as crimson → orange → emerald → azure → violet,
-    mirroring ``spin.gif``.
+    mirroring ``spin-iso.gif``.
     """
     gears = sorted(
         (p for p in parts if p.bbox_size[0] <= CARD_PART_X_THRESHOLD_MM),
@@ -440,7 +440,7 @@ def _animate_explode(
         color_by_slug = _assign_part_colors_cat_toy(parts)
     else:
         # Gears get the cascading STAGE_COLORS palette in X-rank order
-        # (matches the rainbow in spin.gif); card halves stay uncolored so
+        # (matches the rainbow in spin-iso.gif); card halves stay uncolored so
         # the default Cornfield yellow keeps reading as the printed card body.
         color_by_slug = _assign_part_colors(parts)
 

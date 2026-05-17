@@ -138,9 +138,9 @@ def assemble_cmd(manifest: Path, out: Path, also_stl: bool, also_png: bool) -> N
 @main.command("spin")
 @click.option("--out", "out_dir", required=True,
               type=click.Path(file_okay=False, path_type=Path),
-              help="Output directory. Receives spin.gif.")
+              help="Output directory. Receives spin-iso.gif and spin-side.gif.")
 @click.option("--frames", default=60, show_default=True, type=int,
-              help="Number of frames in the spin GIF.")
+              help="Number of frames per spin GIF.")
 @click.option("--input-turns", default=4.0, show_default=True, type=float,
               help="How many full revolutions the input gear completes "
                    "per loop. The output rotates 1/256 of this.")
@@ -149,12 +149,13 @@ def spin_cmd(out_dir: Path, frames: int, input_turns: float) -> None:
 
     Builds the gear chain parametrically from ``src/explainers/card.py``
     constants — no STEP file needed. Edit ``MODULE_MM``, ``BIG_TEETH``,
-    ``PINION_TEETH``, or ``N_STAGES`` and the GIF re-renders.
+    ``PINION_TEETH``, or ``N_STAGES`` and both GIFs re-render.
     """
     from cardlab.spin import spin
 
-    gif = spin(out_dir, frames=frames, input_turns=input_turns)
-    click.echo(f"wrote {gif}")
+    iso_gif, side_gif = spin(out_dir, frames=frames, input_turns=input_turns)
+    click.echo(f"wrote {iso_gif}")
+    click.echo(f"wrote {side_gif}")
 
 
 if __name__ == "__main__":

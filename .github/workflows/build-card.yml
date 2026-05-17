@@ -7,9 +7,9 @@ on:
       - 'jmcpheron-card.step'
       - 'jmcpheron-card.meta.toml'
       - 'src/cardlab/**'
-      # spin.gif parameters live in src/explainers/card.py — touch it,
-      # the spinning chain re-renders here (alongside explainer pages
-      # in the parallel build-explainers workflow).
+      # spin-iso.gif / spin-side.gif parameters live in src/explainers/card.py —
+      # touch it, the spinning chain re-renders here (alongside explainer
+      # pages in the parallel build-explainers workflow).
       - 'src/explainers/card.py'
       - 'pyproject.toml'
       - '.github/workflows/build-card.yml'
@@ -90,7 +90,8 @@ jobs:
           ls -la docs/assets/card/ docs/assets/card/parts/
           file docs/assets/card/*.glb docs/assets/card/*.gif
           file docs/assets/card/*.stl docs/assets/card/parts/*.png
-          test -f docs/assets/card/spin.gif
+          test -f docs/assets/card/spin-iso.gif
+          test -f docs/assets/card/spin-side.gif
 
       - name: Upload card artifacts
         uses: actions/upload-artifact@v4
@@ -111,7 +112,8 @@ jobs:
                   docs/assets/card/jmcpheron-card.stl \
                   docs/assets/card/exploded.glb \
                   docs/assets/card/exploded.gif \
-                  docs/assets/card/spin.gif \
+                  docs/assets/card/spin-iso.gif \
+                  docs/assets/card/spin-side.gif \
                   docs/assets/card/manifest.toml \
                   docs/assets/card/inspect.txt \
                   docs/assets/card/parts
