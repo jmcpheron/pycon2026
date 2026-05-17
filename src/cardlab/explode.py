@@ -25,7 +25,7 @@ from typing import Callable
 
 from cardlab._scad import _scad_string
 from cardlab.inspect import load_sidecar
-from cardlab.palette import STAGE_COLORS, scad_color
+from cardlab.palette import CAT_TOY_COLORS, STAGE_COLORS, scad_color
 from cardlab.render import _stl_bbox, render_scad, render_stl
 
 # Width threshold used to distinguish flat card halves from gears. Matches
@@ -135,11 +135,40 @@ def _strategy_xz_spread(parts: list[ExplodedPart], factor: float) -> None:
         p.displacement = (offset * 6.0 * factor, 0.0, offset * 3.0 * factor)
 
 
+def _strategy_cat_toy(parts: list[ExplodedPart], factor: float) -> None:
+    """Explosion strategy for the pounce-a-pult assembly.
+
+    Classifies parts by bbox heuristics derived from the pounce-a-pult geometry:
+    - Base plate (bbox_x > 150 mm): anchors DOWN so it reads as the foundation.
+    - Reference datum plane (bbox_y < 3 mm): follows the spring mechanism UP.
+    - Triangular brackets (bbox_z > 50 and bbox_x < 100): fan ±Y by centroid
+      sign so each bracket lifts away from the side it mounts on.
+    - Spiral arm (bbox_z > 60 and bbox_x > 100): lifts UP to show it seats
+      on top of the brackets.
+    - Cup / feather holder (everything else, all dims < 30): moves UP further,
+      past the spiral, to the position it occupies at the free end.
+    """
+    for p in parts:
+        bx, by, bz = p.bbox_size
+        if bx > 150:
+            p.displacement = (0.0, 0.0, -30.0 * factor)
+        elif by < 3.0:
+            p.displacement = (0.0, 0.0, 45.0 * factor)
+        elif bz > 50 and bx < 100:
+            sign = 1.0 if p.centroid[1] >= 0 else -1.0
+            p.displacement = (0.0, sign * 40.0 * factor, -10.0 * factor)
+        elif bz > 60 and bx > 100:
+            p.displacement = (0.0, 0.0, 45.0 * factor)
+        else:
+            p.displacement = (0.0, 0.0, 50.0 * factor)
+
+
 _DISPLACEMENT_STRATEGIES: dict[str, Callable[[list[ExplodedPart], float], None]] = {
     "radial": _strategy_radial,
     "axial-z": _strategy_axial_z,
     "card-layered": _strategy_card_layered,
     "xz-spread": _strategy_xz_spread,
+    "cat-toy": _strategy_cat_toy,
 }
 STRATEGIES = sorted(_DISPLACEMENT_STRATEGIES)
 
@@ -277,6 +306,7 @@ def explode(
         exploded_gif = _animate_explode(
             parts=parts, frames=frames, size=size, angle=angle,
             frames_dir=frames_dir, out_gif=out_dir / "exploded.gif",
+            strategy=strategy,
         )
 
     # --- 6. manifest --------------------------------------------------------
@@ -346,9 +376,35 @@ def _assign_part_colors(parts: list[ExplodedPart]) -> dict[str, str]:
     return out
 
 
+def _assign_part_colors_cat_toy(parts: list[ExplodedPart]) -> dict[str, str]:
+    """Color scheme for the pounce-a-pult.
+
+    Uses the same bbox heuristics as ``_strategy_cat_toy`` to assign roles:
+    - structural (steel blue): base plate + both triangular brackets
+    - spring (spring green): spiral arm
+    - tip (amber gold): feather-holder cup
+    - datum (neutral gray): Onshape reference datum plane
+    """
+    out: dict[str, str] = {}
+    for p in parts:
+        bx, by, bz = p.bbox_size
+        if bx > 150:
+            key = "structural"
+        elif by < 3.0:
+            key = "datum"
+        elif bz > 50 and bx < 100:
+            key = "structural"
+        elif bz > 60 and bx > 100:
+            key = "spring"
+        else:
+            key = "tip"
+        out[p.slug] = scad_color(CAT_TOY_COLORS[key])
+    return out
+
+
 def _animate_explode(
     parts: list[ExplodedPart], frames: int, size: str, angle: str,
-    frames_dir: Path, out_gif: Path,
+    frames_dir: Path, out_gif: Path, strategy: str = "card-layered",
 ) -> Path:
     """Render N frames where t lerps 0→1, then stitch into a GIF with Pillow.
 
@@ -380,11 +436,13 @@ def _animate_explode(
 
     frame_paths: list[Path] = []
 
-    # Stable per-part color: gears get the cascading STAGE_COLORS palette
-    # in X-rank order (matches the rainbow in spin.gif so both animations
-    # read as the same five-stage chain); card halves stay uncolored so
-    # the default Cornfield yellow keeps reading as the printed card body.
-    color_by_slug = _assign_part_colors(parts)
+    if strategy == "cat-toy":
+        color_by_slug = _assign_part_colors_cat_toy(parts)
+    else:
+        # Gears get the cascading STAGE_COLORS palette in X-rank order
+        # (matches the rainbow in spin.gif); card halves stay uncolored so
+        # the default Cornfield yellow keeps reading as the printed card body.
+        color_by_slug = _assign_part_colors(parts)
 
     # Ease-in-out for a smoother visual rhythm than a pure linear lerp.
     def ease(t: float) -> float:

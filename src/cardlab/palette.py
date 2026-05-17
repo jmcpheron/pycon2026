@@ -24,6 +24,14 @@ AXLE_COLOR: tuple[float, float, float] = (0.30, 0.30, 0.32)
 spinning color cascade."""
 
 
+CAT_TOY_COLORS: dict[str, tuple[float, float, float]] = {
+    "structural": (0.27, 0.38, 0.56),  # steel blue  — base + both brackets
+    "spring":     (0.18, 0.62, 0.40),  # spring green — spiral arm
+    "tip":        (0.82, 0.55, 0.08),  # amber gold   — feather-holder cup
+    "datum":      (0.55, 0.55, 0.58),  # neutral gray — reference datum plane
+}
+
+
 def scad_color(rgb: tuple[float, float, float]) -> str:
     """Format an (r, g, b) tuple as an OpenSCAD ``color([...])`` prefix."""
     r, g, b = rgb
