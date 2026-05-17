@@ -66,6 +66,13 @@ def test_animated_hero_speeds_compound_correctly(tmp_path: Path) -> None:
         f"got {len(transforms)}"
     )
 
+    # Sort by duration so the check is independent of SVG draw order
+    # (gears are drawn in reverse z-order so the input sits on top).
+    transforms = sorted(
+        transforms,
+        key=lambda t: float(re.fullmatch(r"([\d.]+)s", t.attrib["dur"]).group(1)),
+    )
+
     # Durations: BASE_PERIOD_S × RATIO_PER_STAGE**i for i in 0..N-1.
     for i, t in enumerate(transforms):
         dur = t.attrib["dur"]
