@@ -11,15 +11,12 @@ RGB tuples are in 0..1 because that's what OpenSCAD's ``color()`` wants.
 
 from __future__ import annotations
 
-# Hot-to-cool gradient along the reduction chain. Saturated to pop against
-# the default Cornfield yellow plate / card body that both pipelines leave
-# uncolored.
 STAGE_COLORS: tuple[tuple[float, float, float], ...] = (
-    (0.86, 0.20, 0.27),  # crimson  — stage 0, input
-    (0.94, 0.43, 0.12),  # orange   — stage 1
-    (0.12, 0.67, 0.43),  # emerald  — stage 2
-    (0.16, 0.43, 0.78),  # azure    — stage 3
-    (0.55, 0.27, 0.71),  # violet   — stage 4, output
+    (0.05, 0.60, 0.65),  # teal        — stage 0, input
+    (0.85, 0.62, 0.08),  # gold        — stage 1
+    (0.18, 0.37, 0.78),  # cobalt blue — stage 2
+    (0.20, 0.58, 0.25),  # forest      — stage 3
+    (0.75, 0.13, 0.40),  # raspberry   — stage 4, output
 )
 
 AXLE_COLOR: tuple[float, float, float] = (0.30, 0.30, 0.32)

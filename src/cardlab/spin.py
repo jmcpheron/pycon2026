@@ -170,7 +170,7 @@ def _frame_scad(
     # Plate first, centred under the chain. Plate's local z=0 is its
     # centre, so translate by _PLATE_CENTER_Z.
     lines.append(
-        f'translate([0,0,{_PLATE_CENTER_Z:.4f}]) import("{plate_stl}");'
+        f'color([1,1,1]) translate([0,0,{_PLATE_CENTER_Z:.4f}]) import("{plate_stl}");'
     )
 
     axle_c = scad_color(AXLE_COLOR)
