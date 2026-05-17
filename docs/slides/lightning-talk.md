@@ -154,7 +154,7 @@ Not replacing CAD.
 </div>
 <div>
 
-![w:380](../assets/card/spin.gif)
+![w:380](../assets/card/spin-iso.gif)
 
 <p class="soft" style="text-align:center;">Yes, the gears clip through each other. <br>If that bothers you — <em>stay tuned.</em></p>
 

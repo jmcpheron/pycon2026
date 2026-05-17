@@ -20,9 +20,14 @@ Third-party libraries used here (full credits in ACKNOWLEDGMENTS.md):
     rendering, reached via ``cardlab.render.render_scad``.
   * Pillow (MIT-CMU) — PNG → animated GIF stitching.
 
+Two GIFs are emitted side-by-side: ``spin-iso.gif`` (three-quarter
+isometric) and ``spin-side.gif`` (edge view that reveals the layered
+staircase). They render from the same frame composition and only differ
+in camera angle.
+
 Source of truth for every gear number is ``src/explainers/card.py`` —
 the same file every other card-related page derives from. Editing
-``MODULE_MM`` or ``BIG_TEETH`` there re-renders this GIF on the next
+``MODULE_MM`` or ``BIG_TEETH`` there re-renders both GIFs on the next
 ``cardlab spin`` invocation.
 """
 
@@ -36,7 +41,8 @@ from explainers import card as C
 from cardlab.palette import AXLE_COLOR, STAGE_COLORS, scad_color
 
 SLUG = "spin"
-OUT_GIF_NAME = "spin.gif"
+OUT_GIF_NAME_ISO = "spin-iso.gif"
+OUT_GIF_NAME_SIDE = "spin-side.gif"
 
 # Animation knobs.
 DEFAULT_FRAMES = 60
@@ -47,12 +53,13 @@ DEFAULT_INPUT_TURNS = 4.0
 which is the whole 256:1 point."""
 
 FRAME_DURATION_MS = 80
-RENDER_SIZE = "1600x900"
 RENDER_ANGLE = "iso"
 SIDE_RENDER_ANGLE = "edge"
 """Side/staircase view — looks along Y, reveals the Z stacking in the X/Z plane."""
-RENDER_SIZE_PANEL = "800x450"
-"""Each panel's render size; two panels composite side-by-side to 1600×450."""
+RENDER_SIZE = "800x450"
+"""Per-GIF render size. The two views ship as separate files so each one
+fits a normal column width when stacked in the README, rather than being
+composited into a 1600-wide panel."""
 PRESSURE_ANGLE_DEG = 20.0
 """Modern AGMA pressure-angle standard. bd_warehouse accepts it for the
 40-tooth and 10-tooth gears at module 0.6 (verified)."""
@@ -206,7 +213,7 @@ def _render_frames(
     input_turns: float,
     tmpdir: Path,
     angle: str = RENDER_ANGLE,
-    size: str = RENDER_SIZE_PANEL,
+    size: str = RENDER_SIZE,
     frames_subdir: str = "_frames",
 ) -> list[Path]:
     """Render ``frames`` PNGs into ``tmpdir/frames_subdir``."""
@@ -248,32 +255,6 @@ def _render_frames(
     return frame_paths
 
 
-def _composite_frames(
-    left_paths: list[Path],
-    right_paths: list[Path],
-    out_dir: Path,
-) -> list[Path]:
-    """Paste two same-size frame sequences side-by-side into a wider image."""
-    from PIL import Image
-
-    out_dir.mkdir(parents=True, exist_ok=True)
-    combined: list[Path] = []
-    for i, (l, r) in enumerate(zip(left_paths, right_paths)):
-        left = Image.open(l).convert("RGB")
-        right = Image.open(r).convert("RGB")
-        canvas = Image.new(
-            "RGB",
-            (left.width + right.width, max(left.height, right.height)),
-            (255, 255, 255),
-        )
-        canvas.paste(left, (0, 0))
-        canvas.paste(right, (left.width, 0))
-        out = out_dir / f"composite_{i:03d}.png"
-        canvas.save(out)
-        combined.append(out)
-    return combined
-
-
 def _stitch_gif(frame_paths: list[Path], out_gif: Path) -> Path:
     """Stitch PNGs into a GIF — same PIL knobs cardlab.explode uses."""
     from PIL import Image
@@ -302,10 +283,12 @@ def spin(
     *,
     frames: int = DEFAULT_FRAMES,
     input_turns: float = DEFAULT_INPUT_TURNS,
-) -> Path:
-    """Render the spinning-chain animation.
+) -> tuple[Path, Path]:
+    """Render the spinning-chain animation as two separate GIFs.
 
-    Writes ``out_dir/spin.gif`` and returns its path.
+    Writes ``out_dir/spin-iso.gif`` (isometric three-quarter view) and
+    ``out_dir/spin-side.gif`` (edge view that reveals the layered
+    staircase) and returns ``(iso_path, side_path)``.
     """
     if shutil.which("openscad") is None:
         raise RuntimeError(
@@ -314,7 +297,8 @@ def spin(
 
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-    out_gif = out_dir / OUT_GIF_NAME
+    iso_gif = out_dir / OUT_GIF_NAME_ISO
+    side_gif = out_dir / OUT_GIF_NAME_SIDE
 
     from build123d import export_stl
 
@@ -335,22 +319,19 @@ def spin(
             export_stl(part, str(stl_path))
             stl_paths[name] = stl_path
 
-        # 3. Render two camera angles (each at half width).
+        # 3. Render each camera angle and stitch its own GIF — the two
+        # views live as separate files so they can be stacked vertically
+        # in the README rather than rendered as one too-wide panel.
         iso_frames = _render_frames(
             stls=stl_paths, frames=frames, input_turns=input_turns, tmpdir=tmp,
-            angle=RENDER_ANGLE, size=RENDER_SIZE_PANEL, frames_subdir="_frames_iso",
+            angle=RENDER_ANGLE, frames_subdir="_frames_iso",
         )
+        _stitch_gif(iso_frames, iso_gif)
+
         side_frames = _render_frames(
             stls=stl_paths, frames=frames, input_turns=input_turns, tmpdir=tmp,
-            angle=SIDE_RENDER_ANGLE, size=RENDER_SIZE_PANEL, frames_subdir="_frames_side",
+            angle=SIDE_RENDER_ANGLE, frames_subdir="_frames_side",
         )
+        _stitch_gif(side_frames, side_gif)
 
-        # 4. Composite side-by-side (iso left, staircase side-view right).
-        composite_frames = _composite_frames(
-            iso_frames, side_frames, tmp / "_frames_composite",
-        )
-
-        # 5. Stitch.
-        _stitch_gif(composite_frames, out_gif)
-
-    return out_gif
+    return iso_gif, side_gif

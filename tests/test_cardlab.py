@@ -222,7 +222,7 @@ def test_spin_frame_scad_shape() -> None:
 
 
 def test_spin_smoke(tmp_path: Path) -> None:
-    """End-to-end smoke: build a 2-frame spin GIF and confirm it lands.
+    """End-to-end smoke: build a 2-frame spin GIF pair and confirm both land.
 
     Requires OpenSCAD on PATH — skipped otherwise. Mirrors
     ``test_explode_smoke``.
@@ -234,10 +234,12 @@ def test_spin_smoke(tmp_path: Path) -> None:
 
     from cardlab.spin import spin
 
-    gif = spin(tmp_path, frames=2, input_turns=4.0)
-    assert gif.exists()
-    assert gif.name == "spin.gif"
-    assert gif.stat().st_size > 1000
+    iso_gif, side_gif = spin(tmp_path, frames=2, input_turns=4.0)
+    assert iso_gif.exists() and side_gif.exists()
+    assert iso_gif.name == "spin-iso.gif"
+    assert side_gif.name == "spin-side.gif"
+    assert iso_gif.stat().st_size > 1000
+    assert side_gif.stat().st_size > 1000
 
 
 def test_assign_part_colors_card_layered() -> None:
