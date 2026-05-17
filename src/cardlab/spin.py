@@ -49,6 +49,10 @@ which is the whole 256:1 point."""
 FRAME_DURATION_MS = 80
 RENDER_SIZE = "1600x900"
 RENDER_ANGLE = "iso"
+SIDE_RENDER_ANGLE = "edge"
+"""Side/staircase view — looks along Y, reveals the Z stacking in the X/Z plane."""
+RENDER_SIZE_PANEL = "800x450"
+"""Each panel's render size; two panels composite side-by-side to 1600×450."""
 PRESSURE_ANGLE_DEG = 20.0
 """Modern AGMA pressure-angle standard. bd_warehouse accepts it for the
 40-tooth and 10-tooth gears at module 0.6 (verified)."""
@@ -201,14 +205,17 @@ def _render_frames(
     frames: int,
     input_turns: float,
     tmpdir: Path,
+    angle: str = RENDER_ANGLE,
+    size: str = RENDER_SIZE_PANEL,
+    frames_subdir: str = "_frames",
 ) -> list[Path]:
-    """Render ``frames`` PNGs into tmpdir/_frames."""
+    """Render ``frames`` PNGs into ``tmpdir/frames_subdir``."""
     from cardlab.render import render_scad
 
-    frames_dir = tmpdir / "_frames"
+    frames_dir = tmpdir / frames_subdir
     frames_dir.mkdir(parents=True, exist_ok=True)
 
-    # Camera distance — frame the whole chain comfortably in iso view.
+    # Camera distance — frame the whole chain comfortably at any angle.
     chain_span = (C.N_STAGES - 1) * C.CENTER_DISTANCE_MM + C.OUTER_DIA_BIG
     distance = max(chain_span * 2.2, 150.0)
 
@@ -232,13 +239,39 @@ def _render_frames(
             scad_source=scad_source,
             out=frame_png,
             extra_files={p.name: p for p in stls.values()},
-            angle=RENDER_ANGLE,
-            size=RENDER_SIZE,
+            angle=angle,
+            size=size,
             distance=distance,
         )
         frame_paths.append(frame_png)
 
     return frame_paths
+
+
+def _composite_frames(
+    left_paths: list[Path],
+    right_paths: list[Path],
+    out_dir: Path,
+) -> list[Path]:
+    """Paste two same-size frame sequences side-by-side into a wider image."""
+    from PIL import Image
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    combined: list[Path] = []
+    for i, (l, r) in enumerate(zip(left_paths, right_paths)):
+        left = Image.open(l).convert("RGB")
+        right = Image.open(r).convert("RGB")
+        canvas = Image.new(
+            "RGB",
+            (left.width + right.width, max(left.height, right.height)),
+            (255, 255, 255),
+        )
+        canvas.paste(left, (0, 0))
+        canvas.paste(right, (left.width, 0))
+        out = out_dir / f"composite_{i:03d}.png"
+        canvas.save(out)
+        combined.append(out)
+    return combined
 
 
 def _stitch_gif(frame_paths: list[Path], out_gif: Path) -> Path:
@@ -302,15 +335,22 @@ def spin(
             export_stl(part, str(stl_path))
             stl_paths[name] = stl_path
 
-        # 3. Render frames.
-        frame_paths = _render_frames(
-            stls=stl_paths,
-            frames=frames,
-            input_turns=input_turns,
-            tmpdir=tmp,
+        # 3. Render two camera angles (each at half width).
+        iso_frames = _render_frames(
+            stls=stl_paths, frames=frames, input_turns=input_turns, tmpdir=tmp,
+            angle=RENDER_ANGLE, size=RENDER_SIZE_PANEL, frames_subdir="_frames_iso",
+        )
+        side_frames = _render_frames(
+            stls=stl_paths, frames=frames, input_turns=input_turns, tmpdir=tmp,
+            angle=SIDE_RENDER_ANGLE, size=RENDER_SIZE_PANEL, frames_subdir="_frames_side",
         )
 
-        # 4. Stitch.
-        _stitch_gif(frame_paths, out_gif)
+        # 4. Composite side-by-side (iso left, staircase side-view right).
+        composite_frames = _composite_frames(
+            iso_frames, side_frames, tmp / "_frames_composite",
+        )
+
+        # 5. Stitch.
+        _stitch_gif(composite_frames, out_gif)
 
     return out_gif
