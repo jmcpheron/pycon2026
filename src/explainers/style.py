@@ -8,7 +8,7 @@ from __future__ import annotations
 # --- Palette (warm-steel gear aesthetic) ----------------------------------
 INK = "#1f2937"          # primary lines and labels (slate-800)
 INK_MUTED = "#6b7280"    # secondary labels, dimensions (gray-500)
-PAPER = "#fafaf9"        # diagram background (stone-50)
+PAPER = "#ffffff"        # diagram background (white)
 
 GEAR_BIG = "#b8a169"     # warm brass for big gears
 GEAR_PINION = "#d4b876"  # lighter brass for pinions
