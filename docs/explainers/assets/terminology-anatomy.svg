@@ -3,7 +3,7 @@
      width="537.6" height="317.6" viewBox="0 0 537.6 317.6">
 <defs>
 </defs>
-<rect x="0" y="0" width="537.6" height="317.6" fill="#fafaf9" />
+<rect x="0" y="0" width="537.6" height="317.6" fill="#ffffff" />
 <circle cx="208.8" cy="148.8" r="100.8" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />
 <circle cx="208.8" cy="148.8" r="100.8" fill="none" stroke="#6b7280" stroke-width="0.5" stroke-dasharray="3,2" />
 <circle cx="208.8" cy="148.8" r="96.0" fill="none" stroke="#2563eb" stroke-width="1.0" stroke-dasharray="4,3" />
@@ -50,7 +50,7 @@
 <path d="M303.81561836525225,133.7510044631298 L305.0008443739664,133.5632831050815" stroke="#1f2937" stroke-width="0.6" />
 <circle cx="208.8" cy="148.8" r="28.8" fill="#d4b876" stroke="#1f2937" stroke-width="0.6" />
 <circle cx="208.8" cy="148.8" r="12.0" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />
-<circle cx="208.8" cy="148.8" r="8.8" fill="#fafaf9" stroke="#1f2937" stroke-width="0.6" />
+<circle cx="208.8" cy="148.8" r="8.8" fill="#ffffff" stroke="#1f2937" stroke-width="0.6" />
 <path d="M112.00000000000001,144.8 L20,56.000000000000014" stroke="#6b7280" stroke-width="0.5" />
 <circle cx="112.00000000000001" cy="144.8" r="1.4" fill="#1f2937" />
 <text x="20" y="60.000000000000014" font-size="11" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" text-anchor="start">outer (addendum) circle</text>

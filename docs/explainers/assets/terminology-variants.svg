@@ -3,7 +3,7 @@
      width="260" height="220" viewBox="0 0 260 220">
 <defs>
 </defs>
-<rect x="0" y="0" width="260" height="220" fill="#fafaf9" />
+<rect x="0" y="0" width="260" height="220" fill="#ffffff" />
 <text x="40" y="32" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">Two unique parts make a chain of any length</text>
 <path d="M4,160 L256,160" stroke="#d1d5db" stroke-width="0.5" stroke-dasharray="2,2" />
 <text x="2" y="159" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280">L0</text>

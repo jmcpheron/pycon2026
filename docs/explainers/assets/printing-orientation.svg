@@ -3,7 +3,7 @@
      width="435.2" height="163.8" viewBox="0 0 435.2 163.8">
 <defs>
 </defs>
-<rect x="0" y="0" width="435.2" height="163.8" fill="#fafaf9" />
+<rect x="0" y="0" width="435.2" height="163.8" fill="#ffffff" />
 <path d="M32,71.8 L243.2,71.8" stroke="#1f2937" stroke-width="1.5" />
 <text x="36" y="85.8" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280">build plate</text>
 <rect x="62.0" y="65.8" width="151.2" height="6.0" fill="#b8a169" stroke="#1f2937" stroke-width="0.6" />

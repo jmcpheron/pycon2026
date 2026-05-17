@@ -3,7 +3,7 @@
      width="604" height="304" viewBox="0 0 604 304">
 <defs>
 </defs>
-<rect x="0" y="0" width="604" height="304" fill="#fafaf9" />
+<rect x="0" y="0" width="604" height="304" fill="#ffffff" />
 <text x="32" y="24" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">Hub → pinion transition: overhang vs chamfer</text>
 <path d="M82,242 L242,242" stroke="#1f2937" stroke-width="0.6" />
 <rect x="141.0" y="223.8" width="42.0" height="18.2" fill="#8a8a8a" stroke="#1f2937" stroke-width="0.6" />

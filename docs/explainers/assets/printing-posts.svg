@@ -3,7 +3,7 @@
      width="544" height="264" viewBox="0 0 544 264">
 <defs>
 </defs>
-<rect x="0" y="0" width="544" height="264" fill="#fafaf9" />
+<rect x="0" y="0" width="544" height="264" fill="#ffffff" />
 <text x="32" y="24" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">Why the post is its own part</text>
 <path d="M52,202 L212,202" stroke="#1f2937" stroke-width="0.6" />
 <rect x="81.6" y="195.0" width="100.80000000000001" height="7.0" fill="#b8a169" stroke="#dc2626" stroke-width="1.5" />

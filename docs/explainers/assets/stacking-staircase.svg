@@ -3,7 +3,7 @@
      width="268" height="164" viewBox="0 0 268 164">
 <defs>
 </defs>
-<rect x="0" y="0" width="268" height="164" fill="#fafaf9" />
+<rect x="0" y="0" width="268" height="164" fill="#ffffff" />
 <text x="28" y="24" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#1f2937" font-weight="bold">(B) descending staircase — works, but card thickness scales with gear count</text>
 <path d="M4,40 L264,40" stroke="#d1d5db" stroke-width="0.5" stroke-dasharray="2,2" />
 <text x="2" y="39" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280">L0</text>

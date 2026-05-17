@@ -3,7 +3,7 @@
      width="268" height="138" viewBox="0 0 268 138">
 <defs>
 </defs>
-<rect x="0" y="0" width="268" height="138" fill="#fafaf9" />
+<rect x="0" y="0" width="268" height="138" fill="#ffffff" />
 <text x="28" y="24" font-size="14" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#dc2626" font-weight="bold">(A) two levels — adjacent big discs collide on L0</text>
 <path d="M4,92 L264,92" stroke="#d1d5db" stroke-width="0.5" stroke-dasharray="2,2" />
 <text x="2" y="91" font-size="9" font-family="ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace" fill="#6b7280">L0</text>
