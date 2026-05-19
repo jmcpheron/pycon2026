@@ -69,9 +69,21 @@
 </tr>
 </table>
 
-## Hand me one at PyCon US 2026
+> *Curious about the pattern behind this repo? See [SHAREABLE-CAD.md](SHAREABLE-CAD.md) for the synthesis — Onshape as source of truth, GitHub as the workshop, MakerWorld + Printables as the storefronts, and the [Adam Savage vault](docs/vault/) as the current worked example.*
 
-Long Beach, May 14–17. If you found this repo from a 3D-printed card I gave you — hi. The source for the card is [`jmcpheron-card.step`](jmcpheron-card.step) at the root of this repo, exported from a **[public Onshape document](https://cad.onshape.com/documents/786fefdef357fb6860b54650/w/33fb9222a6752311e4f08c8b/e/da99fedbaeebf1422d4cb0d3)** — open it in your browser to spin it around, or fork it into your own free Onshape account to remix the geometry directly. Slice the STEP, print one, hand someone else a copy.
+## Lightning talk · PyCon US 2026
+
+<p align="center">
+  <img src="docs/assets/card/photos/pycon-2026-stage.jpg" alt="View from the lightning-talk podium at PyCon US 2026: a laptop on the podium shows the title slide 'I Made a Gearbox Business Card, Then Made Python Explain It · Jason McPheron · PyCon US 2026 · Lightning Talk'; a gooseneck microphone sits in front of it and a yellow confidence monitor to the right mirrors the slide. Beyond the podium, the main-stage room is filled — hundreds of audience members in red theater seats under a pink-magenta lighting wash, with overhead paper lanterns and PyCon US branding on the side screens." width="900" />
+</p>
+
+<p align="center">
+  <sub>View from the lightning-talk stage at PyCon US 2026 in Long Beach, Friday May 16, 2026.</sub>
+</p>
+
+I gave a five-minute lightning talk at PyCon US 2026, *["I Made a Gearbox Business Card, Then Made Python Explain It"](https://us.pycon.org/2026/schedule/presentation/175/)* — the story behind this repo, condensed to slides and a 3D-printed prop audience members could hold. The same lightning-talk session included Simon Willison's *"The last six months in LLMs in five minutes,"* with the latest update to his [pelican-riding-a-bicycle](https://simonwillison.net/tags/pelican-riding-a-bicycle/) LLM benchmark — a real honour to share a stage with.
+
+A recording should land on the [PyCon US YouTube channel](https://www.youtube.com/@PyConUS) in the weeks after the conference; I'll embed the clip here when it's posted.
 
 ## How it works
 
