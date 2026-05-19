@@ -61,6 +61,8 @@
 </tr>
 </table>
 
+> *Curious about the pattern behind this repo? See [SHAREABLE-CAD.md](SHAREABLE-CAD.md) for the synthesis — Onshape as source of truth, GitHub as the workshop, MakerWorld + Printables as the storefronts, and the [Adam Savage vault](docs/vault/) as the current worked example.*
+
 ## Hand me one at PyCon US 2026
 
 Long Beach, May 14–17. If you found this repo from a 3D-printed card I gave you — hi. The source for the card is [`jmcpheron-card.step`](jmcpheron-card.step) at the root of this repo, exported from a **[public Onshape document](https://cad.onshape.com/documents/786fefdef357fb6860b54650/w/33fb9222a6752311e4f08c8b/e/da99fedbaeebf1422d4cb0d3)** — open it in your browser to spin it around, or fork it into your own free Onshape account to remix the geometry directly. Slice the STEP, print one, hand someone else a copy.
