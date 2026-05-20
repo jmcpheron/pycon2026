@@ -74,11 +74,11 @@
 ## Lightning talk · PyCon US 2026
 
 <p align="center">
-  <img src="docs/assets/card/photos/pycon-2026-stage.jpg" alt="View from the lightning-talk podium at PyCon US 2026: a laptop on the podium shows the title slide 'I Made a Gearbox Business Card, Then Made Python Explain It · Jason McPheron · PyCon US 2026 · Lightning Talk'; a gooseneck microphone sits in front of it and a yellow confidence monitor to the right mirrors the slide. Beyond the podium, the main-stage room is filled — hundreds of audience members in red theater seats under a pink-magenta lighting wash, with overhead paper lanterns and PyCon US branding on the side screens." width="900" />
+  <img src="docs/assets/card/photos/pycon-2026-stage.jpg" alt="View from the lightning-talk podium at PyCon US 2026: a laptop on the podium shows the title slide 'I Made a Gearbox Business Card, Then Made Python Explain It · Jason McPheron · PyCon US 2026 · Lightning Talk'; a gooseneck microphone sits in front of it and a yellow confidence monitor to the right mirrors the slide. Beyond the podium, the main-stage room is filled — hundreds of audience members in red theater seats under a pink-magenta lighting wash, with overhead paper lanterns and PyCon US branding on the side screens." width="600" />
 </p>
 
 <p align="center">
-  <sub>View from the lightning-talk stage at PyCon US 2026 in Long Beach, Friday May 16, 2026.</sub>
+  <sub>View from the lightning-talk stage at PyCon US 2026 in Long Beach, Saturday evening, May 16, 2026.</sub>
 </p>
 
 I gave a five-minute lightning talk at PyCon US 2026, *["I Made a Gearbox Business Card, Then Made Python Explain It"](https://us.pycon.org/2026/schedule/presentation/175/)* — the story behind this repo, condensed to slides and a 3D-printed prop audience members could hold. The same lightning-talk session included Simon Willison's *"The last six months in LLMs in five minutes,"* with the latest update to his [pelican-riding-a-bicycle](https://simonwillison.net/tags/pelican-riding-a-bicycle/) LLM benchmark — a real honour to share a stage with.
